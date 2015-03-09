@@ -13,13 +13,12 @@ rename = require('gulp-rename'),
 tar = require('gulp-tar'),
 through = require('through2');
 
-var DEFAULT_TASK_PREFIX = 'condensation';
+var DEFAULT_TASK_PREFIX = exports.DEFAULT_TASK_PREFIX = 'condensation';
 
-
-var condensation = function(globalGulp,options) {
+var condensation = function(gulp,options) {
   options = options || {};
 
-  var gulp = globalGulp || require('gulp');
+  var gulp = gulp || require('gulp');
   var runSequence = require('run-sequence').use(gulp);
 
   var partials = {};
@@ -184,4 +183,6 @@ var condensation = function(globalGulp,options) {
 
 };
 
-module.exports = condensation;
+module.exports.buildTasks = function(gulp,options) {
+  condensation(gulp,options);
+};

@@ -1,5 +1,5 @@
-var gulp = require('gulp'),
-condensation = require('../')(gulp);
+var gulp = require('gulp');
+require('../').buildTasks(gulp);
 
 var assert = require('assert'),
     _ = require('lodash');
