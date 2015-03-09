@@ -36,6 +36,7 @@
   },
   "homepage": "https://github.com/kmcgrath/condensation",
   "devDependencies": {
+    "istanbul": "^0.3.7",
     "mocha": "^2.2.0"
   }
 }
