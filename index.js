@@ -14,6 +14,9 @@ tar = require('gulp-tar'),
 through = require('through2');
 
 var DEFAULT_TASK_PREFIX = exports.DEFAULT_TASK_PREFIX = 'condensation';
+var PARTICLES_DIR = exports.PARTICLES_DIR = 'particles';
+
+var projectName = require(process.cwd()+'/bower.json').name;
 
 var condensation = function(gulp,options) {
   options = options || {};
@@ -21,6 +24,7 @@ var condensation = function(gulp,options) {
   var gulp = gulp || require('gulp');
   var runSequence = require('run-sequence').use(gulp);
 
+  var dependencyInfo = {};
   var partials = {};
   var templateCompileTasks = [];
   var s3objectsWriteTasks = [];
@@ -48,16 +52,26 @@ var condensation = function(gulp,options) {
     templateData.s3.awsPath = s3.endpoint.href+s3opts.aws.bucket;
 
     gulp.task(taskPrefix + "assets:compile:"+i,[taskPrefix+'partials:load'],function() {
-      var stream = gulp.src(["**/assets/**"],{cwd:"src"})
+      var mergeStreams = buildDepParticleStreams(gulp,'assets',true);
+
+      var stream = merge.apply(mergeStreams).add(gulp.src([PARTICLES_DIR+"/assets/**"]))
       .pipe(gulpif(/\.hbs$/,handlebars(templateData,{partials:partials})))
-      .pipe(gulpif(/\.hbs$/,rename({extname:""})));
+      .pipe(gulpif(/\.hbs$/,rename({extname:""})))
+      .pipe(rename({dirname:projectName+"/assets"}));
 
       return stream.pipe(gulp.dest('./dist/'+i));
     });
 
     // Compile all templates with handlebars
     gulp.task(taskPrefix + "templates:compile:"+i,[taskPrefix+"assets:compile:"+i],function() {
-      var stream = gulp.src(["**/cftemplates/*"],{cwd:"src"})
+      var mergeStreams = buildDepParticleStreams(gulp,'cftemplates',false);
+
+      // source project
+      var spStream = gulp.src([PARTICLES_DIR+"/cftemplates/**"])
+      .pipe(rename({dirname: projectName}));
+      mergeStreams.push(spStream);
+
+      var stream = merge.apply(null,mergeStreams)
       .pipe(handlebars(templateData,{partials:partials}))
       .pipe(jsonlint())
       .pipe(jsonlint.reporter());
@@ -134,7 +148,6 @@ var condensation = function(gulp,options) {
     ], cb);
   });
 
-
   // Register all partials for use with templates
   gulp.task(taskPrefix+"partials:load",function(cb) {
     return gulp.src("**/partials/**",{cwd:"src"})
@@ -183,6 +196,22 @@ var condensation = function(gulp,options) {
 
 };
 
+var buildDepParticleStreams = function(gulp,particle,incParticleInPath) {
+  var streams = [];
+  _.each(config.get('dependencySrc'),function(dir) {
+    var depSrc = gulp.src(["*/"+PARTICLES_DIR+"/"+particle+"/**"],{cwd:dir})
+    .pipe(rename(function(path) {
+      path.dirname = path.dirname.replace(new RegExp("/"+PARTICLES_DIR+"/?"),'/');
+      if (incParticleInPath === false) {
+        path.basename = path.basename.replace(new RegExp(particle),'');
+        path.dirname = path.dirname.replace(new RegExp("/"+particle+"/?"),'/');
+      }
+    }));
+    streams.push(depSrc);
+  });
+  return streams;
+};
+
 module.exports.buildTasks = function(gulp,options) {
-  condensation(gulp,options);
+  condensation.apply(null,[gulp,options]);
 };
