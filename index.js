@@ -54,7 +54,7 @@ var condensation = function(gulp,options) {
     gulp.task(taskPrefix + "assets:compile:"+i,[taskPrefix+'partials:load'],function() {
       var mergeStreams = buildDepParticleStreams(gulp,'assets',true);
 
-      var stream = merge.apply(mergeStreams).add(gulp.src([PARTICLES_DIR+"/assets/**"]))
+      var stream = merge.apply(mergeStreams).add(gulp.src(["assets/**"],{cwd:PARTICLES_DIR}))
       .pipe(gulpif(/\.hbs$/,handlebars(templateData,{partials:partials})))
       .pipe(gulpif(/\.hbs$/,rename({extname:""})))
       .pipe(rename({dirname:projectName+"/assets"}));
@@ -67,7 +67,7 @@ var condensation = function(gulp,options) {
       var mergeStreams = buildDepParticleStreams(gulp,'cftemplates',false);
 
       // source project
-      var spStream = gulp.src([PARTICLES_DIR+"/cftemplates/**"])
+      var spStream = gulp.src(["cftemplates/**"],{cwd:PARTICLES_DIR})
       .pipe(rename({dirname: projectName}));
       mergeStreams.push(spStream);
 
@@ -150,7 +150,9 @@ var condensation = function(gulp,options) {
 
   // Register all partials for use with templates
   gulp.task(taskPrefix+"partials:load",function(cb) {
-    return gulp.src("**/partials/**",{cwd:"src"})
+    var mergeStreams = buildDepParticleStreams(gulp,'partials',true);
+
+    return merge.apply(mergeStreams).add(gulp.src("partials/**",{cwd:PARTICLES_DIR}))
     .pipe(through.obj(function(file, enc, cb) {
       if (file.contents) {
         partials[file.relative.replace(/\.hbs$/,"")] = file.contents.toString();
@@ -161,18 +163,21 @@ var condensation = function(gulp,options) {
 
   // For any directory within an 'assets' directory that
   // ends in _pkg create a gziped tar of its contents
-  gulp.task(taskPrefix+"assets:package",function(cb) {
+  //
+  // TODO Revisit
+  //gulp.task(taskPrefix+"assets:package",function(cb) {
 
-    //The returns here may not be right
-    return gulp.src("**/assets/*_pkg",{cwd:"src"}).on("data",function(dir){
-      if (dir.stat.isDirectory()) {
-        return gulp.src(dir.path+"/*")
-        .pipe(tar(dir.relative+".tar"))
-        .pipe(gzip())
-        .pipe(gulp.dest('./dist/shared'));
-      }
-    });
-  });
+    ////The returns here may not be right
+    //return gulp.src("**/assets/*_pkg",{cwd:"src"}).on("data",function(dir){
+       //if (dir.stat.isDirectory()) {
+         //return gulp.src(dir.path+"/*")
+         //.pipe(tar(dir.relative+".tar"))
+         //.pipe(gzip())
+         //.pipe(gulp.dest('./dist/shared'));
+       //}
+     //});
+   //});
+
 
 
 
@@ -184,7 +189,9 @@ var condensation = function(gulp,options) {
   });
 
   gulp.task(taskPrefix+'build', function(cb) {
-    runSequence(taskPrefix+"partials:load",[].concat(templateCompileTasks),taskPrefix+"assets:package",cb);
+    // TODO Revisit assets:package
+    //runSequence(taskPrefix+"partials:load",[].concat(templateCompileTasks),taskPrefix+"assets:package",cb);
+    runSequence(taskPrefix+"partials:load",[].concat(templateCompileTasks),cb);
   });
 
   gulp.task(taskPrefix+'deploy', deployTasks, function(cb) {
