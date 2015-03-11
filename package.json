@@ -1,7 +1,7 @@
 {
   "name": "condensation",
   "version": "0.0.1",
-  "description": "[![Build Status](https://travis-ci.org/kmcgrath/condensation.svg?branch=develop)](https://travis-ci.org/kmcgrath/condensation) [![Code Climate](https://codeclimate.com/github/kmcgrath/condensation/badges/gpa.svg)](https://codeclimate.com/github/kmcgrath/condensation) [![Coverage Status](https://coveralls.io/repos/kmcgrath/condensation/badge.svg?branch=develop)](https://coveralls.io/r/kmcgrath/condensation?branch=develop) [![Dependency Status](https://david-dm.org/kmcgrath/condensation.svg?branch=develop)](https://david-dm.org/kmcgrath/condensation?branch=develop)",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "cd test/projectA; ../../node_modules/.bin/mocha ../load.js"
@@ -15,7 +15,6 @@
     "async": "^0.9.0",
     "aws-sdk": "^2.0.17",
     "backoff": "^2.4.0",
-    "config": "^1.2.0",
     "del": "^1.1.1",
     "gulp": "^3.8.10",
     "gulp-compile-handlebars": "^0.4.4",

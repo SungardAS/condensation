@@ -2,7 +2,6 @@ var _ = require('lodash'),
 AWS = require('aws-sdk'),
 async = require('async'),
 cfValidate = require('./lib/gulp-cf-validate'),
-config = require('config'),
 del = require('del'),
 gulpif = require('gulp-if'),
 gzip = require('gulp-gzip'),
@@ -18,7 +17,12 @@ var PARTICLES_DIR = exports.PARTICLES_DIR = 'particles';
 
 var projectName = require(process.cwd()+'/bower.json').name;
 
-var condensation = function(gulp,options) {
+var Condensation = function(gulp,options) {
+  this.options = options;
+  this.condense(gulp,options);
+};
+
+Condensation.prototype.condense = function(gulp,options) {
   options = options || {};
 
   var gulp = gulp || require('gulp');
@@ -40,9 +44,7 @@ var condensation = function(gulp,options) {
     taskPrefix = taskPrefix + ':';
   }
 
-  if (config.has('s3')) {
-    s3config = config.get('s3');
-  }
+  s3config = options.s3 || [];
 
   _.each(s3config, function(s3opts,i) {
     var templateData = {};
@@ -178,9 +180,6 @@ var condensation = function(gulp,options) {
      //});
    //});
 
-
-
-
   gulp.task(taskPrefix+'s3:list', function(cb) {
     _.each(s3config, function(s3opts,i) {
       console.log(i + ": " + s3opts.aws.bucket);
@@ -194,9 +193,9 @@ var condensation = function(gulp,options) {
     runSequence(taskPrefix+"partials:load",[].concat(templateCompileTasks),cb);
   });
 
+  // Tasks exists only to launch other tasks
   gulp.task(taskPrefix+'deploy', deployTasks, function(cb) {
     cb();
-    // runSequence(taskPrefix+"build",s3objectsWriteTasks,cb);
   });
 
   gulp.task(taskPrefix+"default",[taskPrefix+"build"]);
@@ -205,7 +204,7 @@ var condensation = function(gulp,options) {
 
 var buildDepParticleStreams = function(gulp,particle,incParticleInPath) {
   var streams = [];
-  _.each(config.get('dependencySrc'),function(dir) {
+  _.each(options.dependencySrc,function(dir) {
     var depSrc = gulp.src(["*/"+PARTICLES_DIR+"/"+particle+"/**"],{cwd:dir})
     .pipe(rename(function(path) {
       path.dirname = path.dirname.replace(new RegExp("/"+PARTICLES_DIR+"/?"),'/');
@@ -220,5 +219,5 @@ var buildDepParticleStreams = function(gulp,particle,incParticleInPath) {
 };
 
 module.exports.buildTasks = function(gulp,options) {
-  condensation.apply(null,[gulp,options]);
+  return new Condensation(gulp,options);
 };
