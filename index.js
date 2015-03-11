@@ -8,6 +8,7 @@ gzip = require('gulp-gzip'),
 handlebars = require('gulp-compile-handlebars'),
 jsonlint = require('gulp-jsonlint'),
 merge = require('merge-stream'),
+path = require('path'),
 rename = require('gulp-rename'),
 tar = require('gulp-tar'),
 through = require('through2');
@@ -15,17 +16,22 @@ through = require('through2');
 var DEFAULT_TASK_PREFIX = exports.DEFAULT_TASK_PREFIX = 'condensation';
 var PARTICLES_DIR = exports.PARTICLES_DIR = 'particles';
 
-var projectName = require(process.cwd()+'/bower.json').name;
-
 var Condensation = function(gulp,options) {
-  this.options = options;
+  this.options = options = options || {};
+  this.gulp = gulp;
+
+  if (!options.projectName) {;
+    try { options.projectName = require(process.cwd()+'/bower.json').name; } catch(e) {};
+  }
+
   this.condense(gulp,options);
 };
 
-Condensation.prototype.condense = function(gulp,options) {
-  options = options || {};
+Condensation.prototype.condense = function() {
+  var self = this;
+  var options = this.options;
 
-  var gulp = gulp || require('gulp');
+  var gulp = this.gulp || require('gulp');
   var runSequence = require('run-sequence').use(gulp);
 
   var dependencyInfo = {};
@@ -54,23 +60,23 @@ Condensation.prototype.condense = function(gulp,options) {
     templateData.s3.awsPath = s3.endpoint.href+s3opts.aws.bucket;
 
     gulp.task(taskPrefix + "assets:compile:"+i,[taskPrefix+'partials:load'],function() {
-      var mergeStreams = buildDepParticleStreams(gulp,'assets',true);
+      var mergeStreams = self._buildDepParticleStreams('assets',true);
 
       var stream = merge.apply(mergeStreams).add(gulp.src(["assets/**"],{cwd:PARTICLES_DIR}))
       .pipe(gulpif(/\.hbs$/,handlebars(templateData,{partials:partials})))
       .pipe(gulpif(/\.hbs$/,rename({extname:""})))
-      .pipe(rename({dirname:projectName+"/assets"}));
+      .pipe(rename({dirname:path.join.apply(null,_.compact([options.projectName,"assets"]))}));
 
       return stream.pipe(gulp.dest('./dist/'+i));
     });
 
     // Compile all templates with handlebars
     gulp.task(taskPrefix + "templates:compile:"+i,[taskPrefix+"assets:compile:"+i],function() {
-      var mergeStreams = buildDepParticleStreams(gulp,'cftemplates',false);
+      var mergeStreams = self._buildDepParticleStreams('cftemplates',false);
 
       // source project
       var spStream = gulp.src(["cftemplates/**"],{cwd:PARTICLES_DIR})
-      .pipe(rename({dirname: projectName}));
+      .pipe(rename({dirname: options.projectName}));
       mergeStreams.push(spStream);
 
       var stream = merge.apply(null,mergeStreams)
@@ -152,7 +158,7 @@ Condensation.prototype.condense = function(gulp,options) {
 
   // Register all partials for use with templates
   gulp.task(taskPrefix+"partials:load",function(cb) {
-    var mergeStreams = buildDepParticleStreams(gulp,'partials',true);
+    var mergeStreams = self._buildDepParticleStreams('partials',true);
 
     return merge.apply(mergeStreams).add(gulp.src("partials/**",{cwd:PARTICLES_DIR}))
     .pipe(through.obj(function(file, enc, cb) {
@@ -202,9 +208,11 @@ Condensation.prototype.condense = function(gulp,options) {
 
 };
 
-var buildDepParticleStreams = function(gulp,particle,incParticleInPath) {
+Condensation.prototype._buildDepParticleStreams = function(particle,incParticleInPath) {
+  var gulp = this.gulp;
+
   var streams = [];
-  _.each(options.dependencySrc,function(dir) {
+  _.each(this.options.dependencySrc,function(dir) {
     var depSrc = gulp.src(["*/"+PARTICLES_DIR+"/"+particle+"/**"],{cwd:dir})
     .pipe(rename(function(path) {
       path.dirname = path.dirname.replace(new RegExp("/"+PARTICLES_DIR+"/?"),'/');

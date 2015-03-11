@@ -1,8 +1,8 @@
-var gulp = require('gulp');
-require('../').buildTasks(gulp);
+var _ = require('lodash'),
+assert = require('assert'),
+gulp = require('gulp');
 
-var assert = require('assert'),
-    _ = require('lodash');
+require('../').buildTasks(gulp);
 
 describe('load', function(){
   it('should populate gulp tasks with correct prefix', function(done){
