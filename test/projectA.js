@@ -1,26 +1,8 @@
 var _ = require('lodash'),
 clone = require('clone'),
 assert = require('assert'),
-gulp = clone(require('gulp'));
+fs = require('fs');
 
-require('../').buildTasks(
-  gulp,{
-  s3: [
-    {
-    aws: {
-      region: 'us-east-1',
-      bucket: '',
-    },
-    validate: false,
-    create: false
-  }
-  ],
-  projectName: 'projectA',
-  root: 'test/projectA',
-  taskPrefix: '',
-  dist: 'test/dist/pA',
-}
-);
 
 var tasks = [
   'assets:compile:0',
@@ -38,6 +20,31 @@ var tasks = [
 ];
 
 describe('projectA', function(){
+  var gulp;
+
+  beforeEach(function() {
+    gulp = clone(require('gulp'));
+    require('../').buildTasks(
+      gulp,
+      {
+        s3: [
+          {
+            aws: {
+              region: 'us-east-1',
+              bucket: '',
+            },
+            validate: false,
+            create: false
+          }
+        ],
+        projectName: 'projectA',
+        root: 'test/projectA',
+        taskPrefix: '',
+        dist: 'test/dist/pA',
+      }
+    );
+  });
+
   tasks.forEach(function(task) {
     it('should have a task named \''+task+'\'', function(done){
       assert(_.findIndex(_.keys(gulp.tasks),task));
@@ -48,5 +55,19 @@ describe('projectA', function(){
   it('should build the project', function(done){
     gulp.start('build');
     gulp.on('stop',function(){done();});
+  });
+
+  it('should clean the project', function(done){
+    gulp.start('clean');
+    gulp.on('stop',function(){
+      fs.lstat('test/dist/pA', function(err, stats) {
+        if (!err && stats.isDirectory()) {
+          done("Clean Failed. Directory exists");
+        }
+        else {
+          done();
+        }
+      });
+    });
   });
 });
