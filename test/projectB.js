@@ -17,7 +17,7 @@ require('../').buildTasks(
   }
   ],
   projectName: 'projectB',
-  particlesDir: 'test/projectB/particles',
+  root: 'test/projectB',
   taskPrefix: '',
   dist: 'test/dist/pB',
   dependencySrc: [
