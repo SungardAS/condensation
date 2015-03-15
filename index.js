@@ -158,7 +158,7 @@ Condensation.prototype.condense = function() {
   // Remove all files from 'dist'
   gulp.task(taskPrefix+'clean', function (cb) {
     del([
-      path.join(options.dist)
+      options.dist
     ], cb);
   });
 

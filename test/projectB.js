@@ -40,6 +40,9 @@ describe('projectB', function(){
         root: 'test/projectB',
         taskPrefix: '',
         dist: 'test/dist/pB',
+        dependencySrc: [
+          'test/projectB/fake_bower_components'
+        ]
       }
     );
   });
@@ -71,7 +74,7 @@ describe('projectB', function(){
   it('should clean the project', function(done){
     gulp.start('clean');
     gulp.on('stop',function(){
-      fs.lstat('test/dist/pA', function(err, stats) {
+      fs.lstat('test/dist/pB', function(err, stats) {
         if (!err && stats.isDirectory()) {
           done("Clean Failed. Directory exists");
         }
