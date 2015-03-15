@@ -1,4 +1,5 @@
 # condensation
+
 [![Build Status](https://travis-ci.org/kmcgrath/condensation.svg?branch=develop)](https://travis-ci.org/kmcgrath/condensation)
 [![Code Climate](https://codeclimate.com/github/kmcgrath/condensation/badges/gpa.svg)](https://codeclimate.com/github/kmcgrath/condensation)
 [![Coverage Status](https://coveralls.io/repos/kmcgrath/condensation/badge.svg?branch=develop)](https://coveralls.io/r/kmcgrath/condensation?branch=develop)
@@ -9,10 +10,9 @@ A CloudFormation Templating System
 
 ## Summary
 
-Condensations is a [gulp](http://gulpjs.com) task generator that
-will compile and deploy [Handlebars.js](http://http://handlebarsjs.com/)
-templates with static assets as a packaged CloudFormation
-distribution.
+Condensation is a [gulp](http://gulpjs.com) task generator that
+will compile, package and upload [Handlebars.js](http://http://handlebarsjs.com/)
+templates with static assets for use with AWS CloudFormation.
 
 ## Why?
 
@@ -28,7 +28,7 @@ over and over again.
 identical attributes and structure for different applications and
 services.
 * To bootstrap instances it is nice to have scripts and configuration
-  files deployed in a known location and versioned with the template
+  files deployed in a known location and verisoned with the template
 they are associated with.
 
 Condensation's goal is to make deploying and reusing CloudFormation
@@ -52,6 +52,7 @@ Deployed as:
     https://s3-us-west-1.amazonaws.com/MYBUCKETv1/infra_core/subnet.template
 
 And then as:
+
     https://s3-us-west-1.amazonaws.com/MYBUCKETv2/infra_core/vpc.template
     https://s3-us-east-1.amazonaws.com/MYEASTBUCKETv2/infra_core/subnet.template
 
@@ -64,24 +65,24 @@ alongside templates.
 
 ## Use
 
-Create a project
+### Create a project
 
     > npm init
 
-Install [gulp](http://gulpjs.com/)
+#### Install [gulp](http://gulpjs.com/)
 
     > npm install -g gulp
     > npm install gulp --save
 
-Install [bower](http://bower.io)
+#### Install [bower](http://bower.io)
 
     > npm install -g bower
 
-Install condensation
+#### Install condensation
 
     > npm install condensation --save
 
-Add condensation to gulpfile.js
+#### Add condensation to gulpfile.js
 
     var gulp = require('gulp');
 
@@ -107,7 +108,41 @@ Add condensation to gulpfile.js
     // CloudFormation templates
     require('condensation').buildTasks(gulp,config);
 
+### Project Structure
 
+    particles
+     |
+     -- assets
+     |
+     -- cftemplates
+     |
+     -- partials
+
+Condensation will look for `assets`, `cftemplates` and `partials` under
+the `particles` directory.
+
+#### assets
+
+Files to be uploaded to S3 that are used to supplement CloudFormation
+templates.  Files can include boostrap scripts, packaged install files
+or configuration files.
+
+Any file with a `.hbs` extension will be
+compiled with handlebars and saved to S3 without the `.hbs` extension.
+
+#### cftemplates
+
+CloudFormation templates that will be uploaded to S3.
+
+Any file with a `.hbs` extension will be compiled with
+handlebars and saved to S3 without the `.hbs` extension.
+
+#### partials
+
+Contents of files here will be loaded as partials that can be used in
+`assets` and `cftemplates`.
+
+These files will not be packaged or uploaded to S3.
 
 ### Tasks
 
@@ -128,7 +163,7 @@ for deployment to s3. Templates and assets are written to the configured
 #### s3:list
 Will list all the configured s3 bukets and their corresponding ID.
 
-    > gulp s3:list
+    > gulp condensation:s3:list
     [10:21:47] Using gulpfile ~/condensation-example/gulpfile.js
     [10:21:47] Starting 's3:list'...
     0: a.bucket.in.us-east-1
@@ -145,7 +180,7 @@ variables: `AWS_SECRET_ACCESS_KEY` and `AWS_ACCESS_KEY_ID`
 
 This will upload templates to all cofigured S3 buckets.
 
-#### deploy:<ID>
+#### condensation:deploy:<ID>
 Deploy tempates to a specific S3 bucket.
 
 
@@ -172,9 +207,10 @@ is ignored by git and is applied after `config/default.js`.  See
           create: true
         },
       ],
-      // The prefix to add to all generated gulp tasks (default:
-'condensation')
-      taskPrefix: '', 
+      // The prefix to add to all generated gulp tasks (default: 'condensation')
+      // An empty string will remove the prefix
+      //     - condensation:deploy will become deploy
+      taskPrefix: '',
 
       // Location of local condensation files
       src: './',
@@ -185,6 +221,11 @@ is ignored by git and is applied after `config/default.js`.  See
       ],
       dist: 'dist',
     };
+
+## Bower
+
+Bower is used for dependency management to facilitate the sharing and
+reuse of assets, cftemplates and partials of other projects.
 
 
 ## TODO
