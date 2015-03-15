@@ -67,7 +67,7 @@ Condensation.prototype.condense = function() {
     gulp.task(taskPrefix + "assets:compile:"+i,[taskPrefix+'partials:load'],function() {
       var mergeStreams = self._buildDepParticleStreams('assets',true);
 
-      var stream = merge.apply(mergeStreams).add(gulp.src(["/assets/**"],{cwd:self.options.particlesDir}))
+      var stream = merge.apply(mergeStreams).add(gulp.src(["assets/**"],{cwd:options.particlesDir}))
       .pipe(gulpif(/\.hbs$/,handlebars(templateData,{partials:partials})))
       .pipe(gulpif(/\.hbs$/,rename({extname:""})))
       .pipe(rename({dirname:path.join.apply(null,_.compact([options.projectName,"assets"]))}));
