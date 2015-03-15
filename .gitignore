@@ -1,0 +1,4 @@
+node_modules
+npm*
+test/projectA/npm*
+test/dist
