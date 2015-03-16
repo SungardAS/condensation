@@ -26,7 +26,6 @@
     "gulp-util": "^3.0.1",
     "lodash": "^3.4.0",
     "merge-stream": "^0.1.6",
-    "run-sequence": "^1.0.1",
     "through2": "^0.6.3"
   },
   "license": "ISC",
