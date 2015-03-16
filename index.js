@@ -25,8 +25,8 @@ var Condensation = function(gulp,options) {
   options.particlesDir = path.join(options.root,PARTICLES_DIR);
   options.dependencySrc = options.dependencySrc || [];
 
-  if (!options.projectName) {;
-    try { options.projectName = require(process.cwd()+'/bower.json').name; } catch(e) {};
+  if (!options.projectName) {
+    try { options.projectName = require(process.cwd()+'/bower.json').name; } catch(e) {}
   }
 
   this.condense();
@@ -39,7 +39,6 @@ Condensation.prototype.condense = function() {
   var gulp = this.gulp || require('gulp');
   var runSequence = require('run-sequence').use(gulp);
 
-  var dependencyInfo = {};
   var partials = {};
   var templateCompileTasks = [];
   var s3objectsWriteTasks = [];
@@ -104,7 +103,7 @@ Condensation.prototype.condense = function() {
       s3.headBucket({
         Bucket: s3opts.aws.bucket
       },function(err,data){
-        if (err && err.code == 'NotFound' && s3opts.create) {
+        if (err && err.code === 'NotFound' && s3opts.create) {
           s3.createBucket({
             Bucket: s3opts.aws.bucket
           },cb);
@@ -133,7 +132,10 @@ Condensation.prototype.condense = function() {
               Key: newFilename,
               Body: file.contents
             },function(err,data) {
-              if (err) console.log(err);
+              if (err) {
+                // TODO throw error
+                console.warn(err);
+              }
             });
           }
         });
@@ -215,7 +217,6 @@ Condensation.prototype.condense = function() {
 };
 
 Condensation.prototype._buildDepParticleStreams = function(particle,incParticleInPath) {
-  var self = this;
   var gulp = this.gulp;
 
   var streams = [];
