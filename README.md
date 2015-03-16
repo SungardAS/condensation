@@ -1,17 +1,17 @@
 # condensation
 
+A CloudFormation Templating System
+
 [![Build Status](https://travis-ci.org/kmcgrath/condensation.svg?branch=develop)](https://travis-ci.org/kmcgrath/condensation)
 [![Code Climate](https://codeclimate.com/github/kmcgrath/condensation/badges/gpa.svg)](https://codeclimate.com/github/kmcgrath/condensation)
 [![Coverage Status](https://coveralls.io/repos/kmcgrath/condensation/badge.svg?branch=develop)](https://coveralls.io/r/kmcgrath/condensation?branch=develop)
 [![Dependency Status](https://david-dm.org/kmcgrath/condensation.svg?branch=develop)](https://david-dm.org/kmcgrath/condensation?branch=develop)
 
 
-A CloudFormation Templating System
-
 ## Summary
 
-Condensation is a [gulp](http://gulpjs.com) task generator that
-will compile, package and upload [Handlebars.js](http://http://handlebarsjs.com/)
+Condensation is a [gulp](http://gulpjs.com) task generator that helps
+compile, package and upload [Handlebars.js](http://http://handlebarsjs.com/)
 templates with static assets for use with AWS CloudFormation.
 
 ## Why?
@@ -165,10 +165,10 @@ Will list all the configured s3 bukets and their corresponding ID.
 
     > gulp condensation:s3:list
     [10:21:47] Using gulpfile ~/condensation-example/gulpfile.js
-    [10:21:47] Starting 's3:list'...
+    [10:21:47] Starting 'condensation:s3:list'...
     0: a.bucket.in.us-east-1
     1: a.bucket.in.us-west-2
-    [10:21:47] Finished 's3:list' after 153 μs
+    [10:21:47] Finished 'condensation:s3:list' after 153 μs
 
 The IDs can be used to deploy to a single bucket instead of all buckets.
 
@@ -212,8 +212,8 @@ is ignored by git and is applied after `config/default.js`.  See
       //     - condensation:deploy will become deploy
       taskPrefix: '',
 
-      // Location of local condensation files
-      src: './',
+      // Directory that contains the `particles` directory.
+      root: './',
 
       // Location of dependency packages
       dependencySrc: [
