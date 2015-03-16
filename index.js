@@ -20,9 +20,8 @@ var PARTICLES_DIR = exports.PARTICLES_DIR = 'particles';
 var DEFAULT_ROOT = exports.DEFAULT_ROOT = './';
 
 var Condensation = function(gulp,options) {
-  this.options = options = options || {};
   this.gulp = gulp;
-  options = _.merge({
+  this.options = options = _.merge({
     dist: 'dist',
     root: DEFAULT_ROOT,
     dependencySrc: [],
@@ -44,10 +43,9 @@ Condensation.prototype.condense = function() {
   var options = this.options;
 
   var gulp = this.gulp || require('gulp');
-  var runSequence = require('run-sequence').use(gulp);
 
   var partials = {};
-  var templateCompileTasks = [];
+  var buildTasks = [];
   var s3objectsWriteTasks = [];
   var deployTasks = [];
 
@@ -72,7 +70,7 @@ Condensation.prototype.condense = function() {
     });
 
     // Compile all templates with handlebars
-    gulp.task(self.genTaskName('templates','compile',i),[self.genTaskName('assets','compile',i)],function() {
+    gulp.task(self.genTaskName('templates','compile',i),[self.genTaskName('partials','load')],function() {
       var mergeStreams = self._buildDepParticleStreams('cftemplates',false);
 
       // source project
@@ -92,7 +90,10 @@ Condensation.prototype.condense = function() {
 
       return stream.pipe(gulp.dest(path.join(options.dist,i.toString())));
     });
-    templateCompileTasks.push(self.genTaskName('templates','compile',i));
+
+    // set build tasks
+    gulp.task(self.genTaskName('build',i), [self.genTaskName('assets','compile',i),self.genTaskName('templates','compile',i)]);
+    buildTasks.push(self.genTaskName('build',i));
 
 
     // Ensure the bucket(s) defined in the config exist
@@ -115,9 +116,15 @@ Condensation.prototype.condense = function() {
 
 
     // Write objects to s3
-    gulp.task(self.genTaskName('s3','objects','write',i),[self.genTaskName('s3','bucket','ensure',i)],function() {
+    gulp.task(
+      self.genTaskName('s3','objects','write',i),
+      [
+        self.genTaskName('s3','bucket','ensure',i),
+        self.genTaskName('build',i)
+      ],
+      function() {
       var streams = [];
-      _.each([path.join(options.dist,i),path.join(options.dist,'shared')],function(srcDir) {
+      _.each([path.join(options.dist,i.toString()),path.join(options.dist,'shared')],function(srcDir) {
         var stream = gulp.src("**",{cwd:srcDir}).on("data",function(file) {
           if (file.stat.isFile()) {
             var newFilename = file.relative;
@@ -140,19 +147,11 @@ Condensation.prototype.condense = function() {
       });
       return merge.apply(null,streams);
     });
-    s3objectsWriteTasks.push(self.genTaskName('s3','objects','write',i));
 
-    gulp.task(self.genTaskName('build',i), function(cb) {
-      runSequence(self.genTaskName('partials','load'),self.genTaskName('templates','compile',i),cb);
-    });
-
-  });
-
-  _.each(s3objectsWriteTasks,function(wt,i) {
-    gulp.task(self.genTaskName('deploy',i),[self.genTaskName('build',i),wt]);
+    gulp.task(self.genTaskName('deploy',i),[self.genTaskName('s3','objects','write',i)]);
     deployTasks.push(self.genTaskName('deploy',i));
-  });
 
+  });
 
   // Remove all files from 'dist'
   gulp.task(self.genTaskName('clean'), function (cb) {
@@ -198,17 +197,10 @@ Condensation.prototype.condense = function() {
     cb();
   });
 
-  gulp.task(self.genTaskName('build'), function(cb) {
-    // TODO Revisit assets:package
-    //runSequence(self.genTaskName(+"partials:load",[].concat(templateCompileTasks),self.genTaskName(+"assets:package",cb);
-    runSequence(self.genTaskName('partials','load'),[].concat(templateCompileTasks),cb);
-  });
 
-  // Tasks exists only to launch other tasks
-  gulp.task(self.genTaskName('deploy'), deployTasks, function(cb) {
-    cb();
-  });
-
+  // Tasks to launch other tasks
+  gulp.task(self.genTaskName('build'),buildTasks);
+  gulp.task(self.genTaskName('deploy'), deployTasks);
   gulp.task(self.genTaskName('default'),[self.genTaskName('build')]);
 
 };
