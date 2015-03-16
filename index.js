@@ -46,7 +46,6 @@ Condensation.prototype.condense = function() {
 
   var partials = {};
   var buildTasks = [];
-  var s3objectsWriteTasks = [];
   var deployTasks = [];
 
   var s3config = options.s3 || [];
