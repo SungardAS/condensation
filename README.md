@@ -28,7 +28,7 @@ partials and variable replacement.
   regions with one command.
 * References other templates within the same package with
   [AWS::CloudFormation::Stack](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html)
-and {{s3.awsPath}}
+and `{{s3.awsPath}}`
 * Upload scripts, configuration files and other assets alongside
   CloudFormation templates.
 
@@ -48,7 +48,7 @@ scripts can be difficult manage.
   services.  Condensation allows that definition to become a independent
   stack that can be referenced by other templates that are part of the
   package.
-* To bootstrap instances it is nice to have scripts and configuration
+* To bootstrap instances it is beneficial to have scripts and configuration
   files deployed in a known location and verisoned with the template
   they are associated with.
 * To use `AWS::CloudFormation::Authentication` to download assets from
@@ -62,9 +62,10 @@ The first use case replaced `{{s3.awsPath}}` within a `AWS::CloudFormation::Stac
 `TemplateURL` value.  This allowed for self referencing
 urls for a package.
 
-Many small stacks (templates) could be deployed to a bucket
-where each stack could reference themselves.  That pattern was then
-repeated for development, production and multi-region buckets.
+Now stacks (templates) can be deployed to a bucket
+where each stack can reference one another.  That pattern can
+repeated using difference confgurations for the same templates
+to support development, production and multi-region buckets.
 
 Example:
 
