@@ -70,11 +70,11 @@ Condensation.prototype.condense = function() {
 
     // Compile all templates with handlebars
     gulp.task(self.genTaskName('templates','compile',i),[self.genTaskName('partials','load')],function() {
-      var mergeStreams = self._buildDepParticleStreams('cftemplates',false);
+      var mergeStreams = self._buildDepParticleStreams('cftemplates',true);
 
       // source project
       var spStream = gulp.src(["cftemplates/**"],{cwd:options.particlesDir})
-      .pipe(rename({dirname: options.projectName}));
+      .pipe(rename({dirname: path.join(options.projectName,'cftemplates')}));
       mergeStreams.push(spStream);
 
       var stream = merge.apply(null,mergeStreams)
