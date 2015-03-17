@@ -1,18 +1,15 @@
 var _ = require('lodash'),
 AWS = require('aws-sdk'),
-async = require('async'),
 cfValidate = require('./lib/gulp-cf-validate'),
 cutil = require('./lib/util'),
 del = require('del'),
 gulpif = require('gulp-if'),
 gutil = require('gulp-util'),
-gzip = require('gulp-gzip'),
 handlebars = require('gulp-compile-handlebars'),
 jsonlint = require('gulp-jsonlint'),
 merge = require('merge-stream'),
 path = require('path'),
 rename = require('gulp-rename'),
-tar = require('gulp-tar'),
 through = require('through2');
 
 var DEFAULT_TASK_PREFIX = exports.DEFAULT_TASK_PREFIX = 'condensation';
@@ -171,23 +168,6 @@ Condensation.prototype.condense = function() {
       cb(null,file);
     }));
   });
-
-  // For any directory within an 'assets' directory that
-  // ends in _pkg create a gziped tar of its contents
-  //
-  // TODO Revisit
-  //gulp.task(self.genTaskName(+"assets:package",function(cb) {
-
-    ////The returns here may not be right
-    //return gulp.src("**/assets/*_pkg",{cwd:"src"}).on("data",function(dir){
-       //if (dir.stat.isDirectory()) {
-         //return gulp.src(dir.path+"/*")
-         //.pipe(tar(dir.relative+".tar"))
-         //.pipe(gzip())
-         //.pipe(gulp.dest('./dist/shared'));
-       //}
-     //});
-   //});
 
   gulp.task(self.genTaskName('s3','list'), function(cb) {
     _.each(s3config, function(s3opts,i) {
