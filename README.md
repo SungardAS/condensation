@@ -192,7 +192,7 @@ for deployment to s3. Templates and assets are written to the configured
     > gulp condensation:default
 
 
-#### s3:list
+#### condensation:s3:list
 Will list all the configured s3 bukets and their corresponding ID.
 
     > gulp condensation:s3:list
@@ -232,8 +232,8 @@ is ignored by git and is applied after `config/default.js`.  See
             bucket: 'my.bucket.in.us-east-1',
           },
 
-          // Run CloudFormation validation before deploying this bucket
-          validate: false,
+          // Run CloudFormation validation during the build task for this bucket
+          validate: true,
 
           // Create this bucket if it does not already exist
           create: true
@@ -245,12 +245,15 @@ is ignored by git and is applied after `config/default.js`.  See
       taskPrefix: '',
 
       // Directory that contains the `particles` directory.
+      // Used for test scripts, should not be changed if sharing templates
       root: './',
 
       // Location of dependency packages
       dependencySrc: [
         'bower_components'
       ],
+
+      // Where the build task will put the distribution
       dist: 'dist',
     };
 
