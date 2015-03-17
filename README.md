@@ -136,6 +136,12 @@ bucket.
 
     my-project
     |
+    -- bower.json
+    |
+    -- guplfile.js
+    |
+    -- README.md
+    |
     --particles
       |
       --assets
@@ -143,10 +149,6 @@ bucket.
       -- cftemplates
       |
       -- partials
-      |
-      -- bower.json
-      |
-      -- guplfile.js
 
 Condensation will look for `assets`, `cftemplates` and `partials` under
 the `particles` directory.
