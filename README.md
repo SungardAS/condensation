@@ -1,6 +1,6 @@
 # condensation
 
-A CloudFormation Templating System
+Package CloudFormation templates and assets
 
 [![NPM](https://nodei.co/npm/condensation.png)](https://nodei.co/npm/condensation/)
 
@@ -13,34 +13,58 @@ A CloudFormation Templating System
 ## Summary
 
 Condensation is a [gulp](http://gulpjs.com) task generator that helps
-compile, package and upload [Handlebars.js](http://http://handlebarsjs.com/)
-templates with static assets for use with AWS CloudFormation.
+compile, package and upload [AWS CloudFormation](http://aws.amazon.com/cloudformation/)
+templates and supporting assets.
+
+Any file with the extension `.hbs` will be compiled with
+[Handlebars.js](http://http://handlebarsjs.com/) to support
+partials and variable replacement.
+
+## Features
+
+* Write reusable CloudFormation snippits that can be included as
+  partials
+* Package and upload templates and assets to multiple buckets across
+  regions with one command.
+* References other templates within the same package with
+  [AWS::CloudFormation::Stack](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html)
+and {{s3.awsPath}}
+* Upload scripts, configuration files and other assets alongside
+  CloudFormation templates.
 
 ## Why?
 
 CloudFormation templates are great for creating, updating and deleting
 AWS resources.  Reusing parts of templates, referencing other
 templates with `AWS::CloudFormation::Stack` and deploying cloud-init
-scripts can be difficult.
+scripts can be difficult manage.
 
-* It is often the case that the same AMIs are used in
-[Mappings](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/mappings-section-structure.html)
-over and over again.
-* It is common to set up a VPC with nearly
-identical attributes and structure for different applications and
-services.
+* Often sections such as AMI [mappings](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/mappings-section-structure.html)
+  are re-used by many templates.  Handlebars partials provide a way to
+  write the mapping once and reuse without copying from template to
+  template.
+* It is common to set up resources, such as a VPC, with nearly
+  identical attributes and structure for different applications and
+  services.  Condensation allows that definition to become a independent
+  stack that can be referenced by other templates that are part of the
+  package.
 * To bootstrap instances it is nice to have scripts and configuration
   files deployed in a known location and verisoned with the template
-they are associated with.
+  they are associated with.
+* To use `AWS::CloudFormation::Authentication` to download assets from
+  S3 buckets all resources must be in the same region.  Condensation
+  makes it easy to deploy the same templates and assets to multiple
+  regions and ensure the referencing URLs are correct.
+* With the help of bower, condensation makes it possible to share partials,
+  templates and assets with other projects.
 
-Condensation's goal is to make deploying and reusing CloudFormation
-definitions easy.
+The first use case replaced `{{s3.awsPath}}` within a `AWS::CloudFormation::Stack`
+`TemplateURL` value.  This allowed for self referencing
+urls for a package.
 
-The first use case replaced `{{s3.awsPath}}` for a `AWS::CloudFormation::Stack`
-`TemplateURL` key.  This allowed for self referencing
-urls for a deploy.  Many small stacks could be deployed to a bucket
-where each stack could reference the other.  That pattern could then be
-repeated for multiple development and production buckets.
+Many small stacks (templates) could be deployed to a bucket
+where each stack could reference themselves.  That pattern was then
+repeated for development, production and multi-region buckets.
 
 Example:
 
@@ -58,11 +82,8 @@ And then as:
     https://s3-us-west-1.amazonaws.com/MYBUCKETv2/infra_core/vpc.template
     https://s3-us-east-1.amazonaws.com/MYEASTBUCKETv2/infra_core/subnet.template
 
-The URL will always reference other templates deployed within the same
+With the help of Handlebars the URL will always reference the template deployed within the same
 bucket.
-
-Options have now been added to use partials and deploy assets (scripts, configurations)
-alongside templates.
 
 
 ## Use
@@ -112,13 +133,19 @@ alongside templates.
 
 ### Project Structure
 
-    particles
-     |
-     -- assets
-     |
-     -- cftemplates
-     |
-     -- partials
+    my-project
+    |
+    --particles
+      |
+      --assets
+      |
+      -- cftemplates
+      |
+      -- partials
+      |
+      -- bower.json
+      |
+      -- guplfile.js
 
 Condensation will look for `assets`, `cftemplates` and `partials` under
 the `particles` directory.
