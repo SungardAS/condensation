@@ -4,10 +4,10 @@ Package CloudFormation templates and assets
 
 [![NPM](https://nodei.co/npm/condensation.png)](https://nodei.co/npm/condensation/)
 
-[![Build Status](https://travis-ci.org/kmcgrath/condensation.svg?branch=master)](https://travis-ci.org/kmcgrath/condensation?branch=master)
-[![Code Climate](https://codeclimate.com/github/kmcgrath/condensation/badges/gpa.svg?branch=master)](https://codeclimate.com/github/kmcgrath/condensation?branch=master)
-[![Coverage Status](https://coveralls.io/repos/kmcgrath/condensation/badge.svg?branch=master)](https://coveralls.io/r/kmcgrath/condensation?branch=master)
-[![Dependency Status](https://david-dm.org/kmcgrath/condensation.svg?branch=master)](https://david-dm.org/kmcgrath/condensation?branch=master)
+[![Build Status](https://travis-ci.org/kmcgrath/condensation.svg?branch=develop)](https://travis-ci.org/kmcgrath/condensation?branch=develop)
+[![Code Climate](https://codeclimate.com/github/kmcgrath/condensation/badges/gpa.svg?branch=develop)](https://codeclimate.com/github/kmcgrath/condensation?branch=develop)
+[![Coverage Status](https://coveralls.io/repos/kmcgrath/condensation/badge.svg?branch=develop)](https://coveralls.io/r/kmcgrath/condensation?branch=develop)
+[![Dependency Status](https://david-dm.org/kmcgrath/condensation.svg?branch=develop)](https://david-dm.org/kmcgrath/condensation?branch=develop)
 
 
 ## Summary
