@@ -37,7 +37,7 @@ and `{{s3.awsPath}}`
 CloudFormation templates are great for creating, updating and deleting
 AWS resources.  Reusing parts of templates, referencing other
 templates with `AWS::CloudFormation::Stack` and deploying cloud-init
-scripts can be difficult manage.
+scripts can be difficult to manage.
 
 * Often sections such as AMI [mappings](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/mappings-section-structure.html)
   are re-used by many templates.  Handlebars partials provide a way to
