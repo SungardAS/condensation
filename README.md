@@ -4,10 +4,10 @@ Package CloudFormation templates and assets
 
 [![NPM](https://nodei.co/npm/condensation.png)](https://nodei.co/npm/condensation/)
 
-[![Build Status](https://travis-ci.org/kmcgrath/condensation.svg?branch=master)](https://travis-ci.org/kmcgrath/condensation?branch=master)
-[![Code Climate](https://codeclimate.com/github/kmcgrath/condensation/badges/gpa.svg?branch=master)](https://codeclimate.com/github/kmcgrath/condensation?branch=master)
-[![Coverage Status](https://coveralls.io/repos/kmcgrath/condensation/badge.svg?branch=master)](https://coveralls.io/r/kmcgrath/condensation?branch=master)
-[![Dependency Status](https://david-dm.org/kmcgrath/condensation.svg?branch=master)](https://david-dm.org/kmcgrath/condensation?branch=master)
+[![Build Status](https://travis-ci.org/kmcgrath/condensation.svg?branch=develop)](https://travis-ci.org/kmcgrath/condensation?branch=develop)
+[![Code Climate](https://codeclimate.com/github/kmcgrath/condensation/badges/gpa.svg?branch=develop)](https://codeclimate.com/github/kmcgrath/condensation?branch=develop)
+[![Coverage Status](https://coveralls.io/repos/kmcgrath/condensation/badge.svg?branch=develop)](https://coveralls.io/r/kmcgrath/condensation?branch=develop)
+[![Dependency Status](https://david-dm.org/kmcgrath/condensation.svg?branch=develop)](https://david-dm.org/kmcgrath/condensation?branch=develop)
 
 
 ## Summary
@@ -41,17 +41,17 @@ scripts can be difficult to manage.
 
 * Often sections such as AMI [mappings](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/mappings-section-structure.html)
   are re-used by many templates.  Handlebars partials provide a way to
-  write the mapping once and reuse without copying from template to
+  write the mapping once and reuse it without copying from template to
   template.
 * It is common to set up resources, such as a VPC, with nearly
   identical attributes and structure for different applications and
   services.  Condensation allows that definition to become a independent
   stack that can be referenced by other templates that are part of the
-  package.
+  same package.
 * To bootstrap instances it is beneficial to have scripts and configuration
   files deployed in a known location and verisoned with the template
   they are associated with.
-* To use `AWS::CloudFormation::Authentication` to download assets from
+* When using `AWS::CloudFormation::Authentication` to download assets from
   S3 buckets all resources must be in the same region.  Condensation
   makes it easy to deploy the same templates and assets to multiple
   regions and ensure the referencing URLs are correct.
@@ -88,6 +88,10 @@ bucket.
 
 
 ## Use
+
+Take a look at
+[condensation-examples](https://github.com/kmcgrath/condensation-examples)
+for a quick start.
 
 ### Create a project
 
