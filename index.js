@@ -57,7 +57,7 @@ Condensation.prototype.condense = function() {
     gulp.task(self.genTaskName('assets','compile',i),[self.genTaskName('partials','load')],function() {
       var mergeStreams = self._buildDepParticleStreams('assets',true);
 
-      var stream = merge.apply(mergeStreams).add(gulp.src(["assets/**"],{cwd:options.particlesDir}))
+      var stream = merge.apply(null,mergeStreams).add(gulp.src(["assets/**"],{cwd:options.particlesDir}))
       .pipe(gulpif(/\.hbs$/,handlebars(templateData,{partials:partials})))
       .pipe(gulpif(/\.hbs$/,rename({extname:""})))
       .pipe(rename({dirname:path.join.apply(null,_.compact([options.projectName,"assets"]))}));
@@ -160,8 +160,9 @@ Condensation.prototype.condense = function() {
   gulp.task(self.genTaskName('partials','load'),function(cb) {
     var mergeStreams = self._buildDepParticleStreams('partials',true);
 
-    return merge.apply(mergeStreams).add(gulp.src("partials/**",{cwd:self.options.particlesDir}))
+    return merge.apply(null,mergeStreams).add(gulp.src("partials/**",{cwd:self.options.particlesDir}))
     .pipe(through.obj(function(file, enc, cb) {
+      //console.log(file);
       if (file.contents) {
         partials[file.relative.replace(/\.hbs$/,"")] = file.contents.toString();
       }
