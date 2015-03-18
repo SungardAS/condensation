@@ -42,6 +42,7 @@ Condensation.prototype.condense = function() {
   var gulp = this.gulp || require('gulp');
 
   var partials = {};
+  var helpers = {};
   var buildTasks = [];
   var deployTasks = [];
 
@@ -158,11 +159,10 @@ Condensation.prototype.condense = function() {
 
   // Register all partials for use with templates
   gulp.task(self.genTaskName('partials','load'),function(cb) {
-    var mergeStreams = self._buildDepParticleStreams('partials',true);
+    var mergeStreams = self._buildDepParticleStreams('partials',false);
 
     return merge.apply(null,mergeStreams).add(gulp.src("partials/**",{cwd:self.options.particlesDir}))
     .pipe(through.obj(function(file, enc, cb) {
-      //console.log(file);
       if (file.contents) {
         partials[file.relative.replace(/\.hbs$/,"")] = file.contents.toString();
       }
