@@ -10,6 +10,7 @@ jsonlint = require('gulp-jsonlint'),
 merge = require('merge-stream'),
 path = require('path'),
 rename = require('gulp-rename'),
+saveOrigPath = require('./lib/gulp-save-path'),
 through = require('through2');
 
 var DEFAULT_TASK_PREFIX = exports.DEFAULT_TASK_PREFIX = 'condensation';
@@ -43,6 +44,7 @@ Condensation.prototype.condense = function() {
 
   var partials = {};
   var helpers = {};
+  var helpers = {};
   var buildTasks = [];
   var deployTasks = [];
 
@@ -55,11 +57,11 @@ Condensation.prototype.condense = function() {
     templateData.s3 = s3opts.aws;
     templateData.s3.awsPath = s3.endpoint.href+s3opts.aws.bucket;
 
-    gulp.task(self.genTaskName('assets','compile',i),[self.genTaskName('partials','load')],function() {
+    gulp.task(self.genTaskName('assets','compile',i),[self.genTaskName('partials','load'),self.genTaskName('helpers','load')],function() {
       var mergeStreams = self._buildDepParticleStreams('assets',true);
 
       var stream = merge.apply(null,mergeStreams).add(gulp.src(["assets/**"],{cwd:options.particlesDir}))
-      .pipe(gulpif(/\.hbs$/,handlebars(templateData,{partials:partials})))
+      .pipe(gulpif(/\.hbs$/,handlebars(templateData,{partials:partials,helpers:helpers})))
       .pipe(gulpif(/\.hbs$/,rename({extname:""})))
       .pipe(rename({dirname:path.join.apply(null,_.compact([options.projectName,"assets"]))}));
 
@@ -67,7 +69,7 @@ Condensation.prototype.condense = function() {
     });
 
     // Compile all templates with handlebars
-    gulp.task(self.genTaskName('templates','compile',i),[self.genTaskName('partials','load')],function() {
+    gulp.task(self.genTaskName('templates','compile',i),[self.genTaskName('partials','load'),self.genTaskName('helpers','load')],function() {
       var mergeStreams = self._buildDepParticleStreams('cftemplates',true);
 
       // source project
@@ -76,7 +78,7 @@ Condensation.prototype.condense = function() {
       mergeStreams.push(spStream);
 
       var stream = merge.apply(null,mergeStreams)
-      .pipe(gulpif(/\.hbs$/,handlebars(templateData,{partials:partials})))
+      .pipe(gulpif(/\.hbs$/,handlebars(templateData,{partials:partials,helpers:helpers})))
       .pipe(gulpif(/\.hbs$/,rename({extname:""})))
       .pipe(jsonlint())
       .pipe(jsonlint.reporter());
@@ -170,6 +172,24 @@ Condensation.prototype.condense = function() {
     }));
   });
 
+  // Register all helpers
+  // TODO try to set read:false for all streams?
+  gulp.task(self.genTaskName('helpers','load'),function(cb) {
+    var mergeStreams = self._buildDepParticleStreams('helpers',false,false);
+
+    var localStream = gulp.src(path.join("helpers","**"),{cwd:self.options.particlesDir})
+    .pipe(saveOrigPath())
+    .pipe(rename({dirname: options.projectName}));
+
+    return merge.apply(null,mergeStreams).add(localStream)
+    .pipe(through.obj(function(file, enc, cb) {
+      if (path.extname(file._origPath) == '.js') {
+        helpers[file.relative.replace('/','-').replace(/\.js$/,'')] = require(file._origPath);
+      }
+      cb(null,file);
+    }));
+  });
+
   gulp.task(self.genTaskName('s3','list'), function(cb) {
     _.each(s3config, function(s3opts,i) {
       gutil.log(i + ": " + s3opts.aws.bucket);
@@ -185,15 +205,18 @@ Condensation.prototype.condense = function() {
 
 };
 
-Condensation.prototype._buildDepParticleStreams = function(particle,incParticleInPath) {
+Condensation.prototype._buildDepParticleStreams = function(particle,incParticleInPath,incProjectInPath) {
   var gulp = this.gulp;
 
   var streams = [];
   _.each(this.options.dependencySrc,function(dir) {
     var depSrc = gulp.src([path.join("*",'particles',particle,"**")],{cwd:dir})
+    .pipe(saveOrigPath())
     .pipe(rename(function(path) {
-      path.dirname = path.dirname.replace(new RegExp("/"+PARTICLES_DIR+"/?"),'/');
-      if (incParticleInPath === false) {
+      if (!incProjectInPath) {
+        path.dirname = path.dirname.replace(new RegExp("/"+PARTICLES_DIR+"/?"),'/');
+      }
+      if (!incParticleInPath) {
         path.basename = path.basename.replace(new RegExp(particle),'');
         path.dirname = path.dirname.replace(new RegExp("/"+particle+"/?"),'/');
       }
