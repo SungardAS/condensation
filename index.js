@@ -12,6 +12,7 @@ path = require('path'),
 rename = require('gulp-rename'),
 through = require('through2');
 
+var DEFAULT_S3_PREFIX = exports.DEFAULT_S3_PREFIX = '';
 var DEFAULT_TASK_PREFIX = exports.DEFAULT_TASK_PREFIX = 'condensation';
 var PARTICLES_DIR = exports.PARTICLES_DIR = 'particles';
 var DEFAULT_ROOT = exports.DEFAULT_ROOT = './';
@@ -51,6 +52,12 @@ Condensation.prototype.condense = function() {
   _.each(s3config, function(s3opts,i) {
     var templateData = {};
     var s3 = new AWS.S3({region: s3opts.aws.region});
+    var genDistPath = cutil.genDistPathFunc({
+      id: i.toString(),
+      s3prefix: s3opts.prefix,
+      root: options.dist
+    });
+
 
     templateData.s3 = s3opts.aws;
     templateData.s3.awsPath = s3.endpoint.href+s3opts.aws.bucket;
@@ -63,7 +70,10 @@ Condensation.prototype.condense = function() {
       .pipe(gulpif(/\.hbs$/,rename({extname:""})))
       .pipe(rename({dirname:path.join.apply(null,_.compact([options.projectName,"assets"]))}));
 
-      return stream.pipe(gulp.dest(path.join(options.dist,i.toString())));
+      return stream.pipe(
+        gulp.dest(genDistPath())
+      );
+
     });
 
     // Compile all templates with handlebars
@@ -85,7 +95,9 @@ Condensation.prototype.condense = function() {
         stream = stream.pipe(cfValidate({region: s3opts.aws.region}));
       }
 
-      return stream.pipe(gulp.dest(path.join(options.dist,i.toString())));
+      return stream.pipe(
+        gulp.dest(genDistPath())
+       );
     });
 
     // set build tasks
