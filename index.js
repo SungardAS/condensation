@@ -28,7 +28,7 @@ var Condensation = function(gulp,options) {
   options.particlesDir = path.join(options.root,PARTICLES_DIR);
 
   if (!options.projectName) {
-    try { options.projectName = require(process.cwd()+'/bower.json').name; } catch(e) {}
+    try { options.projectName = require(process.cwd()+'/package.json').name; } catch(e) {}
   }
 
   this.genTaskName = cutil.genTaskNameFunc({prefix:options.taskPrefix});
@@ -43,7 +43,6 @@ Condensation.prototype.condense = function() {
   var gulp = this.gulp || require('gulp');
 
   var partials = {};
-  var helpers = {};
   var helpers = {};
   var buildTasks = [];
   var deployTasks = [];
