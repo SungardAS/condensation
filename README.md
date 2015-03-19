@@ -241,6 +241,9 @@ is ignored by git and is applied after `config/default.js`.  See
 
           // Create this bucket if it does not already exist
           create: true
+
+          // Prefix all objects (allows for multiple deploymets to the same bucket
+          prefix: ''
         },
       ],
       // The prefix to add to all generated gulp tasks (default: 'condensation')
