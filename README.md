@@ -4,10 +4,10 @@ Package CloudFormation templates and assets
 
 [![NPM](https://nodei.co/npm/condensation.png)](https://nodei.co/npm/condensation/)
 
-[![Build Status](https://travis-ci.org/sungardas/condensation.svg?branch=master)](https://travis-ci.org/sungardas/condensation?branch=master)
-[![Code Climate](https://codeclimate.com/github/sungardas/condensation/badges/gpa.svg?branch=master)](https://codeclimate.com/github/sungardas/condensation?branch=master)
-[![Coverage Status](https://coveralls.io/repos/sungardas/condensation/badge.svg?branch=master)](https://coveralls.io/r/sungardas/condensation?branch=master)
-[![Dependency Status](https://david-dm.org/sungardas/condensation.svg?branch=master)](https://david-dm.org/sungardas/condensation?branch=master)
+[![Build Status](https://travis-ci.org/SungardAS/condensation.svg?branch=master)](https://travis-ci.org/SungardAS/condensation?branch=master)
+[![Code Climate](https://codeclimate.com/github/SungardAS/condensation/badges/gpa.svg?branch=master)](https://codeclimate.com/github/SungardAS/condensation?branch=master)
+[![Coverage Status](https://coveralls.io/repos/SungardAS/condensation/badge.svg?branch=master)](https://coveralls.io/r/SungardAS/condensation?branch=master)
+[![Dependency Status](https://david-dm.org/SungardAS/condensation.svg?branch=master)](https://david-dm.org/SungardAS/condensation?branch=master)
 
 
 ## Summary
@@ -90,7 +90,7 @@ bucket.
 ## Use
 
 Take a look at
-[condensation-examples](https://github.com/sungardas/condensation-examples)
+[condensation-examples](https://github.com/SungardAS/condensation-examples)
 for a quick start.
 
 ### Create a project
