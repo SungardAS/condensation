@@ -20,6 +20,7 @@ var DEFAULT_ROOT = exports.DEFAULT_ROOT = './';
 var Condensation = function(gulp,options) {
   this.gulp = gulp;
   this.options = options = _.merge({
+    s3: [],
     dist: 'dist',
     root: DEFAULT_ROOT,
     dependencySrc: [],
@@ -46,10 +47,15 @@ Condensation.prototype.condense = function() {
   var helpers = {};
   var buildTasks = [];
   var deployTasks = [];
+  var labelTasks = {};
 
   var s3config = options.s3 || [];
 
   _.each(s3config, function(s3opts,i) {
+    s3opts = _.merge({
+      labels: []
+    },s3opts);
+
     var templateData = {};
     var s3 = new AWS.S3({region: s3opts.aws.region});
     var genDistPath = cutil.genDistPathFunc({
@@ -160,6 +166,15 @@ Condensation.prototype.condense = function() {
     gulp.task(self.genTaskName('deploy',i),[self.genTaskName('s3','objects','write',i)]);
     deployTasks.push(self.genTaskName('deploy',i));
 
+    _.each(s3opts.labels,function(label) {
+      labelTasks[label] = labelTasks[label] || {
+        buildTasks: [],
+        deployTasks: []
+      };
+      labelTasks[label].buildTasks.push(self.genTaskName('build',i));
+      labelTasks[label].deployTasks.push(self.genTaskName('deploy',i));
+    });
+
   });
 
   // Remove all files from 'dist'
@@ -194,6 +209,10 @@ Condensation.prototype.condense = function() {
   gulp.task(self.genTaskName('build'),buildTasks);
   gulp.task(self.genTaskName('deploy'), deployTasks);
   gulp.task(self.genTaskName('default'),[self.genTaskName('build')]);
+  _.each(_.pairs(labelTasks),function(kv) {
+    gulp.task(self.genTaskName('build',kv[0]),kv[1].buildTasks);
+    gulp.task(self.genTaskName('deploy',kv[0]),kv[1].deployTasks);
+  });
 
 };
 
