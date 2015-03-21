@@ -47,13 +47,14 @@ describe('projectA', function(){
 
   tasks.forEach(function(task) {
     it('should have a task named \''+task+'\'', function(done){
-      assert(_.findIndex(_.keys(gulp.tasks),task));
+      assert(_.indexOf(_.keys(gulp.tasks),task)>=0);
       done();
     });
   });
 
   it('should build the project', function(done){
     gulp.start('build');
+    // TODO assert
     gulp.on('stop',function(){done();});
   });
 
@@ -61,12 +62,8 @@ describe('projectA', function(){
     gulp.start('clean');
     gulp.on('stop',function(){
       fs.lstat('test/dist/pA', function(err, stats) {
-        if (!err && stats.isDirectory()) {
-          done("Clean Failed. Directory exists");
-        }
-        else {
-          done();
-        }
+        assert(err);
+        done();
       });
     });
   });

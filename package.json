@@ -1,6 +1,6 @@
 {
   "name": "condensation",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kmcgrath/condensation.git"
+    "url": "https://github.com/sungardas/condensation.git"
   },
   "author": "",
   "dependencies": {
@@ -31,9 +31,9 @@
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kmcgrath/condensation/issues"
+    "url": "https://github.com/sungardas/condensation/issues"
   },
-  "homepage": "https://github.com/kmcgrath/condensation",
+  "homepage": "https://github.com/sungardas/condensation",
   "devDependencies": {
     "clone": "^1.0.1",
     "coveralls": "^2.11.2",
