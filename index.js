@@ -3,11 +3,14 @@ AWS = require('aws-sdk'),
 cfValidate = require('./lib/gulp-cf-validate'),
 cutil = require('./lib/util'),
 del = require('del'),
+es = require('event-stream'),
+cache = require('gulp-cached'),
 gulpif = require('gulp-if'),
 gutil = require('gulp-util'),
-handlebars = require('gulp-compile-handlebars'),
+handlebars = require('handlebars').create(),
 jsonlint = require('gulp-jsonlint'),
 merge = require('merge-stream'),
+ParticleLoader = require('./lib/particle-loader'),
 path = require('path'),
 rename = require('gulp-rename'),
 saveOrigPath = require('./lib/gulp-save-path'),
@@ -33,6 +36,9 @@ var Condensation = function(gulp,options) {
     try { options.projectName = require(process.cwd()+'/package.json').name; } catch(e) {}
   }
 
+  this.particleLoader = new ParticleLoader({
+    root: options.root
+  });
   this.genTaskName = cutil.genTaskNameFunc({prefix:options.taskPrefix});
   this.condense();
 };
@@ -45,12 +51,34 @@ Condensation.prototype.condense = function() {
   var gulp = this.gulp || require('gulp');
 
   var partials = {};
-  var helpers = {};
+  var helpers = {
+    assetS3Url: require('./lib/helpers/assetS3Url')({
+      particleLoader: this.particleLoader,
+      handlebars: handlebars
+    }),
+    templateS3Url: require('./lib/helpers/templateS3Url')({
+      particleLoader: this.particleLoader,
+      handlebars: handlebars
+    }),
+    partial: require('./lib/helpers/partial')({
+      particleLoader: this.particleLoader,
+      handlebars: handlebars
+    }),
+    requireAssets: require('./lib/helpers/requireAssets')({
+      particleLoader: this.particleLoader,
+      handlebars: handlebars
+    }),
+    helper: require('./lib/helpers/helper')({
+      particleLoader: this.particleLoader,
+      handlebars: handlebars
+    })
+  };
   var buildTasks = [];
   var deployTasks = [];
   var labelTasks = {};
 
   var s3config = options.s3 || [];
+
 
   _.each(s3config, function(s3opts,i) {
     s3opts = _.merge({
@@ -69,31 +97,19 @@ Condensation.prototype.condense = function() {
     templateData.s3 = s3opts.aws;
     templateData.s3.awsPath = s3.endpoint.href+s3opts.aws.bucket;
 
-    gulp.task(self.genTaskName('assets','compile',i),[self.genTaskName('partials','load'),self.genTaskName('helpers','load')],function() {
-      var mergeStreams = self._buildDepParticleStreams('assets',true);
 
-      var stream = merge.apply(null,mergeStreams).add(gulp.src(["assets/**"],{cwd:options.particlesDir}))
-      .pipe(gulpif(/\.hbs$/,handlebars(templateData,{partials:partials,helpers:helpers})))
-      .pipe(gulpif(/\.hbs$/,rename({extname:""})))
-      .pipe(rename({dirname:path.join.apply(null,_.compact([options.projectName,"assets"]))}));
-
-      return stream.pipe(
-        gulp.dest(genDistPath())
-      );
-
-    });
 
     // Compile all templates with handlebars
-    gulp.task(self.genTaskName('templates','compile',i),[self.genTaskName('partials','load'),self.genTaskName('helpers','load')],function() {
-      var mergeStreams = self._buildDepParticleStreams('cftemplates',true);
+    gulp.task(self.genTaskName('templates','compile',i),function() {
 
       // source project
-      var spStream = gulp.src(["cftemplates/**"],{cwd:options.particlesDir})
-      .pipe(rename({dirname: path.join(options.projectName,'cftemplates')}));
-      mergeStreams.push(spStream);
-
-      var stream = merge.apply(null,mergeStreams)
-      .pipe(gulpif(/\.hbs$/,handlebars(templateData,{partials:partials,helpers:helpers})))
+      var stream = gulp.src(["cftemplates/**"],{cwd:options.particlesDir})
+      //.pipe(rename({dirname: path.join(options.projectName,'cftemplates')}))
+      .pipe(gulpif(/\.hbs$/,through.obj(function(file,enc,cb) {
+        var fn = handlebars.compile(file.contents.toString());
+        file.contents = new Buffer(fn(templateData));
+        cb(null,file);
+      })))
       .pipe(gulpif(/\.hbs$/,rename({extname:""})))
       .pipe(jsonlint())
       .pipe(jsonlint.reporter());
@@ -106,6 +122,54 @@ Condensation.prototype.condense = function() {
         gulp.dest(genDistPath())
        );
     });
+
+    gulp.task(self.genTaskName('deps','compile',i),[self.genTaskName('templates','compile',i)],function() {
+      var templatePaths = _.pluck(_.values(self.particleLoader.registry.template),'path');
+      var assetPaths = _.pluck(_.values(self.particleLoader.registry.asset),'path');
+
+
+      var globs = _.invoke(_.flatten([templatePaths,assetPaths]), function() {
+        return this+"?(.hbs)";
+      });
+
+      var stream = es.readable(function(count,cb) {
+        var readable = this;
+
+        var totalCount = 0;
+        var lastTotalCount = 0;
+
+        var runStreams = function(globs) {
+          var s = gulp.src(globs,{base:options.root})
+          .pipe(cache('particle'))
+          .pipe(gulpif(/\.hbs$/,through.obj(function(file,enc,cb) {
+            var fn = handlebars.compile(file.contents.toString());
+            file.contents = new Buffer(fn(templateData));
+            readable.emit('data',file);
+            totalCount = totalCount + 1;
+            cb(null,file);
+          })));
+          s.on('data',function(){});
+          s.on('end',function() {
+            var unProcessed = self.particleLoader.getUnprocessed();
+            if (unProcessed.length && (totalCount == lastTotalCount)) {
+              lastTotalCount = totalCount;
+              runStreams(self.particleLoader.getUnprocessed());
+            }
+            else {
+              readable.emit('end');
+            }
+          });
+        };
+
+        runStreams(self.particleLoader.getUnprocessed());
+        cb();
+      });
+
+
+      return stream.pipe(gulpif(/\.hbs$/,rename({extname:""})))
+      .pipe(gulp.dest(genDistPath()));
+    });
+
 
     // set build tasks
     gulp.task(self.genTaskName('build',i), [self.genTaskName('assets','compile',i),self.genTaskName('templates','compile',i)]);
