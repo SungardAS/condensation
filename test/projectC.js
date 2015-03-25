@@ -15,7 +15,7 @@ describe('projectC', function(){
           {
             aws: {
               region: 'us-east-1',
-              bucket: '',
+              bucket: 'my-test-bucket',
             },
             labels: ['east'],
             validate: false,

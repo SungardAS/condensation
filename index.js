@@ -97,49 +97,17 @@ Condensation.prototype.condense = function() {
     templateData.s3 = s3opts.aws;
     templateData.s3.awsPath = s3.endpoint.href+s3opts.aws.bucket;
 
+    gulp.task(self.genTaskName('deps','compile',i),function() {
 
 
-    // Compile all templates with handlebars
-    gulp.task(self.genTaskName('templates','compile',i),function() {
-
-      // source project
-      var stream = gulp.src(["cftemplates/**"],{cwd:options.particlesDir})
-      //.pipe(rename({dirname: path.join(options.projectName,'cftemplates')}))
-      .pipe(gulpif(/\.hbs$/,through.obj(function(file,enc,cb) {
-        var fn = handlebars.compile(file.contents.toString());
-        file.contents = new Buffer(fn(templateData));
-        cb(null,file);
-      })))
-      .pipe(gulpif(/\.hbs$/,rename({extname:""})))
-      .pipe(jsonlint())
-      .pipe(jsonlint.reporter());
-
-      if (s3opts.validate) {
-        stream = stream.pipe(cfValidate({region: s3opts.aws.region}));
-      }
-
-      return stream.pipe(
-        gulp.dest(genDistPath())
-       );
-    });
-
-    gulp.task(self.genTaskName('deps','compile',i),[self.genTaskName('templates','compile',i)],function() {
-      var templatePaths = _.pluck(_.values(self.particleLoader.registry.template),'path');
-      var assetPaths = _.pluck(_.values(self.particleLoader.registry.asset),'path');
-
-
-      var globs = _.invoke(_.flatten([templatePaths,assetPaths]), function() {
-        return this+"?(.hbs)";
-      });
-
-      var stream = es.readable(function(count,cb) {
+      var stream = es.readable(function(esCount,cb) {
         var readable = this;
 
         var totalCount = 0;
         var lastTotalCount = 0;
 
-        var runStreams = function(globs) {
-          var s = gulp.src(globs,{base:options.root})
+        var runStreams = function(globs,options) {
+          var s = gulp.src(globs,options)
           .pipe(cache('particle'))
           .pipe(gulpif(/\.hbs$/,through.obj(function(file,enc,cb) {
             var fn = handlebars.compile(file.contents.toString());
@@ -150,24 +118,40 @@ Condensation.prototype.condense = function() {
           })));
           s.on('data',function(){});
           s.on('end',function() {
-            var unProcessed = self.particleLoader.getUnprocessed();
-            if (unProcessed.length && (totalCount == lastTotalCount)) {
-              lastTotalCount = totalCount;
-              runStreams(self.particleLoader.getUnprocessed());
+            if (lastTotalCount == totalCount) {
+              readable.emit('end');
+              cb();
             }
             else {
-              readable.emit('end');
+
+              var paths = _.invoke(
+                self.particleLoader.processablePaths(),
+                function() {
+                  return this+"?(.hbs)";
+                }
+              );
+
+              lastTotalCount = totalCount;
+              runStreams(paths,{base:options.root});
             }
           });
         };
 
-        runStreams(self.particleLoader.getUnprocessed());
-        cb();
+        runStreams(["*/**"],{cwd:self.options.particlesDir});
       });
 
 
-      return stream.pipe(gulpif(/\.hbs$/,rename({extname:""})))
-      .pipe(gulp.dest(genDistPath()));
+      stream.pipe(gulpif(/\.hbs$/,rename({extname:""})))
+      .pipe(
+        gulpif(
+          /cftemplates\//,
+          jsonlint().pipe(jsonlint.reporter())
+          .pipe(gulpif(s3opts.validate,cfValidate({region: s3opts.aws.region})))
+        )
+      )
+      .pipe(gulp.dest(genDistPath()))
+
+      return stream;
     });
 
 
