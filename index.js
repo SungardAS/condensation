@@ -82,6 +82,7 @@ Condensation.prototype.condense = function() {
 
   _.each(s3config, function(s3opts,i) {
     s3opts = _.merge({
+      prefix: '',
       labels: []
     },s3opts);
 
@@ -95,7 +96,7 @@ Condensation.prototype.condense = function() {
 
 
     templateData.s3 = s3opts.aws;
-    templateData.s3.awsPath = s3.endpoint.href+s3opts.aws.bucket;
+    templateData.s3.awsPath = s3.endpoint.href+path.join(s3opts.aws.bucket,s3opts.prefix);
 
     gulp.task(self.genTaskName('deps','compile',i),function() {
 
@@ -132,7 +133,7 @@ Condensation.prototype.condense = function() {
               );
 
               lastTotalCount = totalCount;
-              runStreams(paths,{base:options.root});
+              runStreams(paths,{base:self.options.root});
             }
           });
         };
@@ -241,24 +242,6 @@ Condensation.prototype.condense = function() {
     .pipe(through.obj(function(file, enc, cb) {
       if (file.contents) {
         partials[file.relative.replace(/\.hbs$/,"")] = file.contents.toString();
-      }
-      cb(null,file);
-    }));
-  });
-
-  // Register all helpers
-  // TODO try to set read:false for all streams?
-  gulp.task(self.genTaskName('helpers','load'),function(cb) {
-    var mergeStreams = self._buildDepParticleStreams('helpers',false,false);
-
-    var localStream = gulp.src(path.join("helpers","**"),{cwd:self.options.particlesDir})
-    .pipe(saveOrigPath())
-    .pipe(rename({dirname: options.projectName}));
-
-    return merge.apply(null,mergeStreams).add(localStream)
-    .pipe(through.obj(function(file, enc, cb) {
-      if (path.extname(file._origPath) == '.js') {
-        helpers[file.relative.replace('/','-').replace(/\.js$/,'')] = require(file._origPath);
       }
       cb(null,file);
     }));
