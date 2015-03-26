@@ -34,7 +34,7 @@ describe('projectC', function(){
   });
 
   it('should build the project', function(done){
-    gulp.start ('deps:compile:0');
+    gulp.start ('build');
     // TODO assert
     gulp.on('stop',function(){done();});
   });

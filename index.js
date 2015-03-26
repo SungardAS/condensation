@@ -7,13 +7,16 @@ es = require('event-stream'),
 cache = require('gulp-cached'),
 gulpif = require('gulp-if'),
 gutil = require('gulp-util'),
-handlebars = require('handlebars').create(),
+Handlebars = require('handlebars'),
 jsonlint = require('gulp-jsonlint'),
 merge = require('merge-stream'),
 ParticleLoader = require('./lib/particle-loader'),
 path = require('path'),
 rename = require('gulp-rename'),
+
+// TODO Replace with gulp-data
 saveOrigPath = require('./lib/gulp-save-path'),
+
 through = require('through2');
 
 var DEFAULT_S3_PREFIX = exports.DEFAULT_S3_PREFIX = '';
@@ -23,23 +26,24 @@ var DEFAULT_ROOT = exports.DEFAULT_ROOT = './';
 
 var Condensation = function(gulp,options) {
   this.gulp = gulp;
-  this.options = options = _.merge({
+  this.handlebars = Handlebars.create();
+  this.options = _.merge({
     s3: [],
     dist: 'dist',
     root: DEFAULT_ROOT,
     dependencySrc: [],
     taskPrefix: DEFAULT_TASK_PREFIX
   },options);
-  options.particlesDir = path.join(options.root,PARTICLES_DIR);
+  this.options.particlesDir = path.join(this.options.root,PARTICLES_DIR);
 
-  if (!options.projectName) {
-    try { options.projectName = require(process.cwd()+'/package.json').name; } catch(e) {}
+  if (!this.options.projectName) {
+    try { this.options.projectName = require(process.cwd()+'/package.json').name; } catch(e) {}
   }
 
   this.particleLoader = new ParticleLoader({
-    root: options.root
+    root: this.options.root
   });
-  this.genTaskName = cutil.genTaskNameFunc({prefix:options.taskPrefix});
+  this.genTaskName = cutil.genTaskNameFunc({prefix:this.options.taskPrefix});
   this.condense();
 };
 
@@ -51,28 +55,11 @@ Condensation.prototype.condense = function() {
   var gulp = this.gulp || require('gulp');
 
   var partials = {};
-  var helpers = {
-    assetS3Url: require('./lib/helpers/assetS3Url')({
+  var helpers = require('./lib/template-helpers')({
       particleLoader: this.particleLoader,
-      handlebars: handlebars
-    }),
-    templateS3Url: require('./lib/helpers/templateS3Url')({
-      particleLoader: this.particleLoader,
-      handlebars: handlebars
-    }),
-    partial: require('./lib/helpers/partial')({
-      particleLoader: this.particleLoader,
-      handlebars: handlebars
-    }),
-    requireAssets: require('./lib/helpers/requireAssets')({
-      particleLoader: this.particleLoader,
-      handlebars: handlebars
-    }),
-    helper: require('./lib/helpers/helper')({
-      particleLoader: this.particleLoader,
-      handlebars: handlebars
-    })
-  };
+      handlebars: this.handlebars
+    });
+
   var buildTasks = [];
   var deployTasks = [];
   var labelTasks = {};
@@ -98,7 +85,7 @@ Condensation.prototype.condense = function() {
     templateData.s3 = s3opts.aws;
     templateData.s3.awsPath = s3.endpoint.href+path.join(s3opts.aws.bucket,s3opts.prefix);
 
-    gulp.task(self.genTaskName('deps','compile',i),function() {
+    gulp.task(self.genTaskName('build',i),function() {
 
 
       var stream = es.readable(function(esCount,cb) {
@@ -111,7 +98,7 @@ Condensation.prototype.condense = function() {
           var s = gulp.src(globs,options)
           .pipe(cache('particle'))
           .pipe(gulpif(/\.hbs$/,through.obj(function(file,enc,cb) {
-            var fn = handlebars.compile(file.contents.toString());
+            var fn = self.handlebars.compile(file.contents.toString());
             file.contents = new Buffer(fn(templateData));
             readable.emit('data',file);
             totalCount = totalCount + 1;
@@ -155,9 +142,6 @@ Condensation.prototype.condense = function() {
       return stream;
     });
 
-
-    // set build tasks
-    gulp.task(self.genTaskName('build',i), [self.genTaskName('assets','compile',i),self.genTaskName('templates','compile',i)]);
     buildTasks.push(self.genTaskName('build',i));
 
 

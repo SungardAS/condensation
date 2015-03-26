@@ -4,7 +4,6 @@ assert = require('assert'),
 fs = require('fs');
 
 var tasks = [
-  'assets:compile:0',
   'build',
   'build:0',
   'build:east',
@@ -16,8 +15,7 @@ var tasks = [
   'partials:load',
   's3:bucket:ensure:0',
   's3:list',
-  's3:objects:write:0',
-  'templates:compile:0'
+  's3:objects:write:0'
 ];
 
 describe('projectB', function(){
@@ -61,15 +59,6 @@ describe('projectB', function(){
     gulp.start ('build');
     // TODO assert
     gulp.on('stop',function(){done();});
-  });
-
-  it('should build projectA as a dependency', function(done){
-    // Is it a directory?
-    fs.lstat('test/dist/pB/0/projectA', function(err, stats) {
-      assert(!err);
-      assert(stats.isDirectory());
-      done();
-    });
   });
 
   it('should clean the project', function(done){

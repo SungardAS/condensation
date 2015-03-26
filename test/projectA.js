@@ -5,18 +5,15 @@ fs = require('fs');
 
 
 var tasks = [
-  'assets:compile:0',
   'build',
   'build:0',
   'clean',
   'default',
   'deploy',
   'deploy:0',
-  'partials:load',
   's3:bucket:ensure:0',
   's3:list',
-  's3:objects:write:0',
-  'templates:compile:0'
+  's3:objects:write:0'
 ];
 
 describe('projectA', function(){
