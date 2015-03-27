@@ -14,9 +14,6 @@ ParticleLoader = require('./lib/particle-loader'),
 path = require('path'),
 rename = require('gulp-rename'),
 
-// TODO Replace with gulp-data
-saveOrigPath = require('./lib/gulp-save-path'),
-
 through = require('through2');
 
 var DEFAULT_S3_PREFIX = exports.DEFAULT_S3_PREFIX = '';
@@ -34,6 +31,7 @@ var Condensation = function(gulp,options) {
     dependencySrc: [],
     taskPrefix: DEFAULT_TASK_PREFIX
   },options);
+  this.options.projectFullPath = path.join(process.cwd(),this.options.root);
   this.options.particlesDir = path.join(this.options.root,PARTICLES_DIR);
 
   if (!this.options.projectName) {
@@ -149,14 +147,14 @@ Condensation.prototype.condense = function() {
     gulp.task(self.genTaskName('s3','bucket','ensure',i),function(cb) {
       s3.headBucket({
         Bucket: s3opts.aws.bucket
-      },function(err,data){
+      },function(err,response){
         if (err && err.code === 'NotFound' && s3opts.create) {
           s3.createBucket({
             Bucket: s3opts.aws.bucket
           },cb);
         }
         else {
-          cb(null,data);
+          cb(null,response);
           //TODO Removed for cross account access.  Need to revisit s3 bucket permissions and correct fallback
           // cb(err,data);
         }
@@ -184,7 +182,7 @@ Condensation.prototype.condense = function() {
               //ACL: "private",
               Key: newFilename,
               Body: file.contents
-            },function(err,data) {
+            },function(err,response) {
               if (err) {
                 // TODO throw error
                 console.warn(err);
@@ -256,7 +254,6 @@ Condensation.prototype._buildDepParticleStreams = function(particle,incParticleI
   var streams = [];
   _.each(this.options.dependencySrc,function(dir) {
     var depSrc = gulp.src([path.join("*",'particles',particle,"**")],{cwd:dir})
-    .pipe(saveOrigPath())
     .pipe(rename(function(path) {
       if (!incProjectInPath) {
         path.dirname = path.dirname.replace(new RegExp("/"+PARTICLES_DIR+"/?"),'/');

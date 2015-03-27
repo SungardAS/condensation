@@ -55,8 +55,6 @@ scripts can be difficult to manage.
   S3 buckets all resources must be in the same region.  Condensation
   makes it easy to deploy the same templates and assets to multiple
   regions and ensure the referencing URLs are correct.
-* With the help of bower, condensation makes it possible to share partials,
-  templates and assets with other projects.
 
 The first use case replaced `{{s3.awsPath}}` within a `AWS::CloudFormation::Stack`
 `TemplateURL` value.  This allowed for self referencing
@@ -102,10 +100,6 @@ for a quick start.
     > npm install -g gulp
     > npm install gulp --save
 
-#### Install [bower](http://bower.io)
-
-    > npm install -g bower
-
 #### Install condensation
 
     > npm install condensation --save
@@ -126,10 +120,7 @@ for a quick start.
         }
       ],
       src: './',
-      dependencySrc: [
-        'bower_components'
-      ],
-      dist: 'dist',
+      dist: 'dist'
     };
 
     // Will add necessary gulp tasks to build, compile and validate
@@ -139,8 +130,6 @@ for a quick start.
 ### Project Structure
 
     my-project
-    |
-    -- bower.json
     |
     -- guplfile.js
     |
@@ -255,25 +244,7 @@ is ignored by git and is applied after `config/default.js`.  See
       // Used for test scripts, should not be changed if sharing templates
       root: './',
 
-      // Location of dependency packages
-      dependencySrc: [
-        'bower_components'
-      ],
-
       // Where the build task will put the distribution
-      dist: 'dist',
+      dist: 'dist'
     };
 
-## Bower
-
-Bower is used for dependency management to facilitate the sharing and
-reuse of assets, cftemplates and partials of other projects.
-
-
-## TODO
-* Add labels to S3 configuration.
-  * Allow deploy for labels
-* Optons Delete previous S3 objects and/or bucket
-* Replace console.log with native gulp info and warnings
-* Fix ensure bucket to work with cross account access.
-  * add option to ignore errors here?
