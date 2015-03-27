@@ -26,11 +26,12 @@ partials and variable replacement.
   partials
 * Package and upload templates and assets to multiple buckets across
   regions with one command.
-* References other templates within the same package with
+* References other templates within a distribution with
   [AWS::CloudFormation::Stack](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html)
 and `{{s3.awsPath}}`
 * Upload scripts, configuration files and other assets alongside
   CloudFormation templates.
+* Use particles from other condensation compatible projects.
 
 ## Why?
 
@@ -115,15 +116,14 @@ for a quick start.
             region: 'us-east-1',
             bucket: 'MY-FAVORITE-BUCKET',
           },
-          validate: false,
+          validate: true,
           create: true
         }
       ],
-      src: './',
       dist: 'dist'
     };
 
-    // Will add necessary gulp tasks to build, compile and validate
+    // Add necessary gulp tasks to build, compile and validate
     // CloudFormation templates
     require('condensation').buildTasks(gulp,config);
 
@@ -146,6 +146,11 @@ for a quick start.
 Condensation will look for `assets`, `cftemplates` and `partials` under
 the `particles` directory.
 
+#### Lazy Loading
+
+Particles will only be included in the distribution if they are
+referenced in a template.
+
 #### assets
 
 Files to be uploaded to S3 that are used to supplement CloudFormation
@@ -155,6 +160,20 @@ or configuration files.
 Any file with a `.hbs` extension will be
 compiled with handlebars and saved to S3 without the `.hbs` extension.
 
+Asset URLs can be built with the `assetS3Url` helper:
+
+    {{{assetS3Url 'path/to/asset'}}}
+
+    {{{assetS3Url 'module' 'path/to/asset'}}}
+
+To include assets that may not be directly referenced from a template
+use the `requireAssets` helper.  It will ensure a glob of assets are
+included in the distribution.
+
+    {{{requireAssets '/**'}}
+
+    {{{requireAssets 'module' '/**'}}}
+
 #### cftemplates
 
 CloudFormation templates that will be uploaded to S3.
@@ -162,12 +181,24 @@ CloudFormation templates that will be uploaded to S3.
 Any file with a `.hbs` extension will be compiled with
 handlebars and saved to S3 without the `.hbs` extension.
 
+Template URLs can be built with the `assetS3Url` helper:
+
+    {{{templateS3Url '/path/to/asset'}}}
+
+    {{{templateS3Url 'module' 'path/to/asset'}}}
+
 #### partials
 
 Contents of files here will be loaded as partials that can be used in
 `assets` and `cftemplates`.
 
 These files will not be packaged or uploaded to S3.
+
+Partils can be loaded with the `partial` helper:
+
+    {{{partial '/path/to/asset'}}}
+
+    {{{partial 'module' 'path/to/asset'}}}
 
 ### Tasks
 
@@ -197,7 +228,7 @@ Will list all the configured s3 bukets and their corresponding ID.
 
 The IDs can be used to deploy to a single bucket instead of all buckets.
 
-#### deploy
+#### condensation:deploy
 For the `deploy` task to run AWS credentials must be set as environment
 variables: `AWS_SECRET_ACCESS_KEY` and `AWS_ACCESS_KEY_ID`
 
@@ -210,10 +241,6 @@ Deploy tempates to a specific S3 bucket.
 
 
 ## Config Options
-
-Add any local configuration overrides to `config/local.js`. This file
-is ignored by git and is applied after `config/default.js`.  See
-`config/default.js` for options.
 
     var config = {
       // Array of S3 buckets to deploy to
