@@ -1,1 +1,1 @@
-{{{partial 'projectA' 'fake_map.partial'}}}
+{{{partial 'module:projectA' 'fake_map.partial'}}}

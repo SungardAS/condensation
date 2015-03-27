@@ -96,7 +96,7 @@ Condensation.prototype.condense = function() {
           .pipe(cache('particle'))
           .pipe(gulpif(/\.hbs$/,through.obj(function(file,enc,cb) {
             var fn = self.handlebars.compile(file.contents.toString());
-            file.contents = new Buffer(fn(templateData));
+            file.contents = new Buffer(fn(_.merge(templateData,{_file: file})));
             readable.emit('data',file);
             totalCount = totalCount + 1;
             cb(null,file);

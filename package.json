@@ -27,7 +27,8 @@
     "handlebars": "^3.0.0",
     "lodash": "^3.4.0",
     "merge-stream": "^0.1.6",
-    "through2": "^0.6.3"
+    "through2": "^0.6.3",
+    "vinyl": "^0.4.6"
   },
   "license": "ISC",
   "bugs": {
