@@ -1,6 +1,6 @@
 # condensation
 
-Package CloudFormation templates and assets
+Package, reuse and share CloudFormation projects
 
 [![NPM](https://nodei.co/npm/condensation.png)](https://nodei.co/npm/condensation/)
 
@@ -18,7 +18,7 @@ templates and supporting assets.
 
 Any file with the extension `.hbs` will be compiled with
 [Handlebars.js](http://http://handlebarsjs.com/) to support
-partials and variable replacement.
+partials, helpers and variable replacement.
 
 ## Features
 

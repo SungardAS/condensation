@@ -103,7 +103,7 @@ Condensation.prototype.condense = function() {
           })));
           s.on('data',function(){});
           s.on('end',function() {
-            if (lastTotalCount == totalCount) {
+            if (lastTotalCount === totalCount) {
               readable.emit('end');
               cb();
             }
@@ -134,7 +134,7 @@ Condensation.prototype.condense = function() {
           .pipe(gulpif(s3opts.validate,cfValidate({region: s3opts.aws.region})))
         )
       )
-      .pipe(gulp.dest(genDistPath()))
+      .pipe(gulp.dest(genDistPath()));
 
       return stream;
     });
@@ -184,7 +184,7 @@ Condensation.prototype.condense = function() {
             },function(err,response) {
               if (err) {
                 // TODO throw error
-                console.warn(err);
+                console.warn(err,response);
               }
             });
           }
@@ -233,26 +233,6 @@ Condensation.prototype.condense = function() {
     gulp.task(self.genTaskName('deploy',kv[0]),kv[1].deployTasks);
   });
 
-};
-
-Condensation.prototype._buildDepParticleStreams = function(particle,incParticleInPath,incProjectInPath) {
-  var gulp = this.gulp;
-
-  var streams = [];
-  _.each(this.options.dependencySrc,function(dir) {
-    var depSrc = gulp.src([path.join("*",'particles',particle,"**")],{cwd:dir})
-    .pipe(rename(function(path) {
-      if (!incProjectInPath) {
-        path.dirname = path.dirname.replace(new RegExp("/"+PARTICLES_DIR+"/?"),'/');
-      }
-      if (!incParticleInPath) {
-        path.basename = path.basename.replace(new RegExp(particle),'');
-        path.dirname = path.dirname.replace(new RegExp("/"+particle+"/?"),'/');
-      }
-    }));
-    streams.push(depSrc);
-  });
-  return streams;
 };
 
 module.exports.buildTasks = function(gulp,options) {
