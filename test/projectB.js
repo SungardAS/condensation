@@ -12,7 +12,6 @@ var tasks = [
   'deploy',
   'deploy:0',
   'deploy:east',
-  'partials:load',
   's3:bucket:ensure:0',
   's3:list',
   's3:objects:write:0'

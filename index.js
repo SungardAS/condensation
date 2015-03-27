@@ -52,7 +52,6 @@ Condensation.prototype.condense = function() {
 
   var gulp = this.gulp || require('gulp');
 
-  var partials = {};
   var helpers = require('./lib/template-helpers')({
       particleLoader: this.particleLoader,
       handlebars: this.handlebars
@@ -216,18 +215,6 @@ Condensation.prototype.condense = function() {
     ], cb);
   });
 
-  // Register all partials for use with templates
-  gulp.task(self.genTaskName('partials','load'),function(cb) {
-    var mergeStreams = self._buildDepParticleStreams('partials',false);
-
-    return merge.apply(null,mergeStreams).add(gulp.src("partials/**",{cwd:self.options.particlesDir}))
-    .pipe(through.obj(function(file, enc, cb) {
-      if (file.contents) {
-        partials[file.relative.replace(/\.hbs$/,"")] = file.contents.toString();
-      }
-      cb(null,file);
-    }));
-  });
 
   gulp.task(self.genTaskName('s3','list'), function(cb) {
     _.each(s3config, function(s3opts,i) {
