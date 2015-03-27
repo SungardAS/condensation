@@ -2,7 +2,7 @@ var _ = require('lodash'),
 AWS = require('aws-sdk'),
 cfValidate = require('./lib/gulp-cf-validate'),
 cutil = require('./lib/util'),
-del = require('del'),
+rimraf = require('rimraf'),
 es = require('event-stream'),
 cache = require('gulp-cached'),
 gulpif = require('gulp-if'),
@@ -97,10 +97,13 @@ Condensation.prototype.condense = function() {
           .pipe(gulpif(/\.hbs$/,through.obj(function(file,enc,cb) {
             var fn = self.handlebars.compile(file.contents.toString());
             file.contents = new Buffer(fn(_.merge(templateData,{_file: file})));
-            readable.emit('data',file);
-            totalCount = totalCount + 1;
             cb(null,file);
-          })));
+          })))
+          .pipe(through.obj(function(file,enc,cb) {
+            totalCount = totalCount + 1;
+            readable.emit('data',file);
+            cb(null,file);
+          }));
           s.on('data',function(){});
           s.on('end',function() {
             if (lastTotalCount === totalCount) {
@@ -108,7 +111,6 @@ Condensation.prototype.condense = function() {
               cb();
             }
             else {
-
               var paths = _.invoke(
                 self.particleLoader.processablePaths(),
                 function() {
@@ -126,7 +128,7 @@ Condensation.prototype.condense = function() {
       });
 
 
-      stream.pipe(gulpif(/\.hbs$/,rename({extname:""})))
+      return stream.pipe(gulpif(/\.hbs$/,rename({extname:""})))
       .pipe(
         gulpif(
           /cftemplates\//,
@@ -136,7 +138,6 @@ Condensation.prototype.condense = function() {
       )
       .pipe(gulp.dest(genDistPath()));
 
-      return stream;
     });
 
     buildTasks.push(self.genTaskName('build',i));
@@ -210,9 +211,7 @@ Condensation.prototype.condense = function() {
 
   // Remove all files from 'dist'
   gulp.task(self.genTaskName('clean'), function (cb) {
-    del([
-      options.dist
-    ], cb);
+    rimraf(options.dist, cb);
   });
 
 

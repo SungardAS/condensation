@@ -52,7 +52,7 @@ describe('projectA', function(){
   it('should build the project', function(done){
     gulp.start('build');
     // TODO assert
-    gulp.on('stop',function(){done();});
+    gulp.on('stop',function(){console.log("asdf"); done();});
   });
 
   it('should clean the project', function(done){
