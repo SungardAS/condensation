@@ -124,7 +124,7 @@ Condensation.prototype.condense = function() {
           });
         };
 
-        runStreams(["*/**"],{cwd:self.options.particlesDir});
+        runStreams(["particles/cftemplates/**"],{cwd:self.options.root,base:self.options.root});
       });
 
 

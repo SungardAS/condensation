@@ -1,32 +1,36 @@
-{{{requireAssets '*'}}}
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Create a Instance with it's own VPC",
+  "Description": "Create a VPC",
   "Parameters": {
     "VpcCidr": {
       "Description": "The VPC Network Range",
       "Type": "String",
       "MinLength": "9",
       "MaxLength": "18",
-      "Default": "10.0.0.0/16",
+      "Default": "0.0.0.0/0",
       "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
       "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x."
     },
-    {{{partial 'module:projectA' 'parameter-name-tag'}}}
+    {{{partial 'parameter-name-tag'}}}
   },
   "Resources": {
-    "Vpc": {
-      "Type": "AWS::CloudFormation::Stack",
+    "vpc": {
+      "Type": "AWS::EC2::VPC",
       "Properties": {
-        "Parameters": {
-          "VpcCidr": {
-            "Ref": "VpcCidr"
-          },
-          "NameTag": {
-            "Ref": "NameTag"
-          }
+        "CidrBlock": {
+          "Ref": "VpcCidr"
         },
-        "TemplateURL": "{{{templateS3Url 'module:projectA' 'vpc.template'}}}"
+        "InstanceTenancy": "default",
+        "EnableDnsSupport": "true",
+        "EnableDnsHostnames": "true",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Ref": "NameTag"
+            }
+          }
+        ]
       }
     }
   },
