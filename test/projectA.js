@@ -5,18 +5,15 @@ fs = require('fs');
 
 
 var tasks = [
-  'assets:compile:0',
   'build',
   'build:0',
   'clean',
   'default',
   'deploy',
   'deploy:0',
-  'partials:load',
   's3:bucket:ensure:0',
   's3:list',
-  's3:objects:write:0',
-  'templates:compile:0'
+  's3:objects:write:0'
 ];
 
 describe('projectA', function(){
@@ -55,7 +52,7 @@ describe('projectA', function(){
   it('should build the project', function(done){
     gulp.start('build');
     // TODO assert
-    gulp.on('stop',function(){done();});
+    gulp.on('stop',function(){console.log("asdf"); done();});
   });
 
   it('should clean the project', function(done){
