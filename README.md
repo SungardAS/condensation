@@ -57,40 +57,30 @@ scripts can be difficult to manage.
   makes it easy to deploy the same templates and assets to multiple
   regions and ensure the referencing URLs are correct.
 
-The first use case replaced `{{s3.awsPath}}` within a `AWS::CloudFormation::Stack`
-`TemplateURL` value.  This allowed for self referencing
-urls for a package.
-
-Now stacks (templates) can be deployed to a bucket
-where each stack can reference one another.  That pattern can
+Stacks (templates) can be deployed to a bucket
+where each stack is able to reference one another.  That pattern can
 repeated using difference confgurations for the same templates
 to support development, production and multi-region buckets.
 
 Example:
 
-    "TemplateURL": "{{s3.awsPath}}/infra_core/vpc.template"
+    "TemplateURL": "{{{templateS3Url 'vpc.template' }}}"
     ...
-    "TemplateURL": "{{s3.awsPath}}/infra_core/subnet.template"
+    "TemplateURL": "{{{templateS3Url 'subnet.template' }}}"
 
-Deployed as:
+Will become:
 
-    https://s3-us-west-1.amazonaws.com/MYBUCKETv1/infra_core/vpc.template
-    https://s3-us-west-1.amazonaws.com/MYBUCKETv1/infra_core/subnet.template
+    "TemplateURL": "https://s3-us-west-1.amazonaws.com/MYBUCKETv1/infra_core/vpc.template"
+    ...
+    "TemplateURL": "https://s3-us-west-1.amazonaws.com/MYBUCKETv1/infra_core/subnet.template"
 
-And then as:
-
-    https://s3-us-west-1.amazonaws.com/MYBUCKETv2/infra_core/vpc.template
-    https://s3-us-east-1.amazonaws.com/MYEASTBUCKETv2/infra_core/subnet.template
-
-With the help of Handlebars the URL will always reference the template deployed within the same
+With the help of Handlebars the URL will always reference a template deployed within the same
 bucket.
 
 
 ## Use
 
-Take a look at
-[condensation-examples](https://github.com/SungardAS/condensation-examples)
-for a quick start.
+Quick Start Examples: [condensation-examples](https://github.com/SungardAS/condensation-examples)
 
 ### Create a project
 
@@ -141,15 +131,25 @@ for a quick start.
       |
       -- cftemplates
       |
+      -- helpers
+      |
       -- partials
 
-Condensation will look for `assets`, `cftemplates` and `partials` under
-the `particles` directory.
+Condensation loads particles through core helper methods.
+The core helper methods are able to load particles from the local project
+as well as any condensation compatible project added as a npm
+dependency.
+
+All helpers follow the same pattern:
+
+    {{{<CORE-HELPER> [module:<MODULE>] <PATH_TO_PARTICLE> [OPTIONS...]}}}
+
 
 #### Lazy Loading
 
 Particles will only be included in the distribution if they are
-referenced in a template.
+referenced in a `hbs` file.
+
 
 #### assets
 
@@ -162,17 +162,23 @@ compiled with handlebars and saved to S3 without the `.hbs` extension.
 
 Asset URLs can be built with the `assetS3Url` helper:
 
-    {{{assetS3Url 'path/to/asset'}}}
+    {{{assetS3Url 'my-asset'}}}
 
-    {{{assetS3Url 'module' 'path/to/asset'}}}
+    {{{assetS3Url 'module:<MODULE>' 'module-asset'}}}
 
-To include assets that may not be directly referenced from a template
+Example Output:
+
+    "https://s3-us-west-1.amazonaws.com/BUCKET/assets/my-asset"
+
+    "https://s3-us-west-1.amazonaws.com/BUCKET/node_modules/MODULE/particles/assets/module-asset"
+
+To include assets that are not directly referenced from a template
 use the `requireAssets` helper.  It will ensure a glob of assets are
 included in the distribution.
 
     {{{requireAssets '/**'}}
 
-    {{{requireAssets 'module' '/**'}}}
+    {{{requireAssets 'module:<MODULE>' '/**'}}}
 
 #### cftemplates
 
@@ -183,9 +189,15 @@ handlebars and saved to S3 without the `.hbs` extension.
 
 Template URLs can be built with the `assetS3Url` helper:
 
-    {{{templateS3Url '/path/to/asset'}}}
+    {{{templateS3Url 'my.template'}}}
 
-    {{{templateS3Url 'module' 'path/to/asset'}}}
+    {{{templateS3Url 'module:<MODULE>' 'module.template'}}}
+
+Example Output:
+
+    "https://s3-us-west-1.amazonaws.com/BUCKET/cftemplates/my.template"
+
+    "https://s3-us-west-1.amazonaws.com/BUCKET/node_modules/MODULE/particles/cftemplates/module.template"
 
 #### partials
 
@@ -196,9 +208,20 @@ These files will not be packaged or uploaded to S3.
 
 Partils can be loaded with the `partial` helper:
 
-    {{{partial '/path/to/asset'}}}
+    {{{partial 'my-partial'}}}
 
-    {{{partial 'module' 'path/to/asset'}}}
+    {{{partial 'module' 'module-partial'}}}
+
+#### helpers
+
+Node modules that export a function that is built as a
+Handlebars [block helper](http://handlebarsjs.com/block_helpers.html).
+
+Helpers are called with the `helper` helper:
+
+    {{{helper 'my-helper'}}}
+
+    {{{helper 'module:<MODULE>' 'module-helper'}}}
 
 ### Tasks
 
@@ -217,7 +240,7 @@ for deployment to s3. Templates and assets are written to the configured
 
 
 #### condensation:s3:list
-Will list all the configured s3 bukets and their corresponding ID.
+Will list all the configured s3 bukets and module corresponding ID.
 
     > gulp condensation:s3:list
     [10:21:47] Using gulpfile ~/condensation-example/gulpfile.js
@@ -236,9 +259,11 @@ variables: `AWS_SECRET_ACCESS_KEY` and `AWS_ACCESS_KEY_ID`
 
 This will upload templates to all cofigured S3 buckets.
 
-#### condensation:deploy:<ID>
+#### condensation:deploy:ID
 Deploy tempates to a specific S3 bucket.
 
+#### condensation:deploy:LABEL
+Deploy tempates to all S3 buckets that contain the label, LABEL.
 
 ## Config Options
 
@@ -259,7 +284,9 @@ Deploy tempates to a specific S3 bucket.
           create: true
 
           // Prefix all objects (allows for multiple deploymets to the same bucket
-          prefix: ''
+          prefix: '',
+
+          labels: ['east']
         },
       ],
       // The prefix to add to all generated gulp tasks (default: 'condensation')
