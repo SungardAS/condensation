@@ -19,8 +19,11 @@ var tasks = [
 ];
 
 var distributionFiles = [
-  'particles/cftemplates/vpc.template'
+  'particles/cftemplates/vpc.template',
+  'particles/cftemplates/subnet.template',
+  'particles/cftemplates/infra.template'
 ];
+
 
 describe('projectA', function(){
   var gulp;
