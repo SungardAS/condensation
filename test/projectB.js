@@ -62,12 +62,14 @@ describe('projectB', function(){
 
   it('should build the project', function(done){
     gulp.start('build');
+    gulp.on('err',assert.fail);
     gulp.on('stop',function(){
       async.each(
         distributionFiles,
         function(file,cb) {
-          fs.lstat(path.join('test/dist/pB/0',file), function(err, stats) {
-            cb(err);
+          fs.lstat(path.join('test/dist/pB/0',file), function(err,stat) {
+            assert(!err);
+            cb();
           });
         },
         done

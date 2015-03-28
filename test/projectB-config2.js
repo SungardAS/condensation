@@ -15,7 +15,7 @@ var config = {
       prefix: 'testing-path'
     }
   ],
-  projectName: 'projectB',
+  projectName: 'projectB-config2',
   root: 'test/projectB',
   taskPrefix: '',
   dist: 'test/dist/pB-2'
