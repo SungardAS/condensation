@@ -1,6 +1,8 @@
 var _ = require('lodash'),
+async = require('async'),
 clone = require('clone'),
 assert = require('assert'),
+path = require('path'),
 fs = require('fs');
 
 var tasks = [
@@ -15,6 +17,13 @@ var tasks = [
   's3:bucket:ensure:0',
   's3:list',
   's3:objects:write:0'
+];
+
+var distributionFiles = [
+  'particles/cftemplates/instance.template',
+  'particles/assets/bootstrap.sh',
+  'particles/assets/download.sh',
+  'node_modules/projectA/particles/cftemplates/vpc.template'
 ];
 
 describe('projectB', function(){
@@ -39,10 +48,7 @@ describe('projectB', function(){
         projectName: 'projectB',
         root: 'test/projectB',
         taskPrefix: '',
-        dist: 'test/dist/pB',
-        dependencySrc: [
-          'test/projectB/fake_bower_components'
-        ],
+        dist: 'test/dist/pB'
       }
     );
   });
@@ -55,9 +61,20 @@ describe('projectB', function(){
   });
 
   it('should build the project', function(done){
-    gulp.start ('build');
-    // TODO assert
-    gulp.on('stop',function(){done();});
+    gulp.start('build');
+    gulp.on('err',assert.fail);
+    gulp.on('stop',function(){
+      async.each(
+        distributionFiles,
+        function(file,cb) {
+          fs.lstat(path.join('test/dist/pB/0',file), function(err,stat) {
+            assert(!err);
+            cb();
+          });
+        },
+        done
+      );
+    });
   });
 
   it('should clean the project', function(done){

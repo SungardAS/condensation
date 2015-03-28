@@ -1,6 +1,8 @@
 var _ = require('lodash'),
+async = require('async'),
 clone = require('clone'),
 assert = require('assert'),
+path = require('path'),
 fs = require('fs');
 
 
@@ -15,6 +17,13 @@ var tasks = [
   's3:list',
   's3:objects:write:0'
 ];
+
+var distributionFiles = [
+  'particles/cftemplates/vpc.template',
+  'particles/cftemplates/subnet.template',
+  'particles/cftemplates/infra.template'
+];
+
 
 describe('projectA', function(){
   var gulp;
@@ -51,8 +60,17 @@ describe('projectA', function(){
 
   it('should build the project', function(done){
     gulp.start('build');
-    // TODO assert
-    gulp.on('stop',function(){console.log("asdf"); done();});
+    gulp.on('stop',function(){
+      async.each(
+        distributionFiles,
+        function(file,cb) {
+          fs.lstat(path.join('test/dist/pA/0',file), function(err, stats) {
+            cb(err);
+          });
+        },
+        done
+      );
+    });
   });
 
   it('should clean the project', function(done){

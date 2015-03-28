@@ -28,7 +28,7 @@ partials, helpers and variable replacement.
   regions with one command.
 * References other templates within a distribution with
   [AWS::CloudFormation::Stack](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html)
-and `{{s3.awsPath}}`
+and the `templateS3Url` helper
 * Upload scripts, configuration files and other assets alongside
   CloudFormation templates.
 * Use particles from other condensation compatible projects.
@@ -147,8 +147,8 @@ All helpers follow the same pattern:
 
 #### Lazy Loading
 
-Particles will only be included in the distribution if they are
-referenced in a `hbs` file.
+Particles will only be included in the final distribution if they are
+referenced from a `hbs` file.
 
 
 #### assets

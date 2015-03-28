@@ -93,7 +93,7 @@ Condensation.prototype.condense = function() {
 
         var runStreams = function(globs,options) {
           var s = gulp.src(globs,options)
-          .pipe(cache('particle'))
+          .pipe(cache(self.options.projectName))
           .pipe(gulpif(/\.hbs$/,through.obj(function(file,enc,cb) {
             var fn = self.handlebars.compile(file.contents.toString());
             file.contents = new Buffer(fn(_.merge(templateData,{_file: file})));
@@ -124,11 +124,12 @@ Condensation.prototype.condense = function() {
           });
         };
 
-        runStreams(["*/**"],{cwd:self.options.particlesDir});
+        runStreams(["particles/cftemplates/**"],{cwd:self.options.root,base:self.options.root});
       });
 
 
-      return stream.pipe(gulpif(/\.hbs$/,rename({extname:""})))
+      stream = stream
+      .pipe(gulpif(/\.hbs$/,rename({extname:""})))
       .pipe(
         gulpif(
           /cftemplates\//,
@@ -137,6 +138,8 @@ Condensation.prototype.condense = function() {
         )
       )
       .pipe(gulp.dest(genDistPath()));
+
+      return stream;
 
     });
 

@@ -15,13 +15,10 @@ var config = {
       prefix: 'testing-path'
     }
   ],
-  projectName: 'projectB',
+  projectName: 'projectB-config2',
   root: 'test/projectB',
   taskPrefix: '',
-  dist: 'test/dist/pB-2',
-  dependencySrc: [
-    'test/projectB/fake_bower_components'
-  ]
+  dist: 'test/dist/pB-2'
 };
 
 describe('projectB-config2', function(){
