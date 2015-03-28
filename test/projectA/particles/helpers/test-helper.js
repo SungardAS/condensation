@@ -1,3 +1,3 @@
 module.exports = function() {
-  return "tester works in region " + this.s3.region
+  return "This test text was generated for region " + this.s3.region
 }
