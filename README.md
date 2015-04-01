@@ -86,6 +86,13 @@ Quick Start Examples: [condensation-examples](https://github.com/SungardAS/conde
 
     > npm init
 
+### Recommended .gitignore
+
+    condensation_errors
+    config/local.js
+    dist
+    node_modules
+
 #### Install [gulp](http://gulpjs.com/)
 
     > npm install -g gulp
