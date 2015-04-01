@@ -1,6 +1,6 @@
 {
   "name": "condensation",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,7 @@
     "backoff": "^2.4.0",
     "del": "^1.1.1",
     "event-stream": "^3.3.0",
+    "fs-extra": "^0.18.0",
     "gulp": "^3.8.10",
     "gulp-cached": "^1.0.4",
     "gulp-gzip": "^1.0.0",

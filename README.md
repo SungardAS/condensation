@@ -89,7 +89,6 @@ Quick Start Examples: [condensation-examples](https://github.com/SungardAS/conde
 #### Install [gulp](http://gulpjs.com/)
 
     > npm install -g gulp
-    > npm install gulp --save
 
 #### Install condensation
 
@@ -301,4 +300,10 @@ Deploy tempates to all S3 buckets that contain the label, LABEL.
       // Where the build task will put the distribution
       dist: 'dist'
     };
+
+## Errors
+
+Errors due to badly formed JSON or failed CF validations will stop the
+process and the offendng files will be dumped to `condensation_error`
+
 
