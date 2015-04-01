@@ -4,10 +4,10 @@ Package, reuse and share particles for CloudFormation projects
 
 [![NPM](https://nodei.co/npm/condensation.png)](https://nodei.co/npm/condensation/)
 
-[![Build Status](https://travis-ci.org/SungardAS/condensation.svg?branch=develop)](https://travis-ci.org/SungardAS/condensation?branch=develop)
-[![Code Climate](https://codeclimate.com/github/SungardAS/condensation/badges/gpa.svg?branch=develop)](https://codeclimate.com/github/SungardAS/condensation?branch=develop)
-[![Coverage Status](https://coveralls.io/repos/SungardAS/condensation/badge.svg?branch=develop)](https://coveralls.io/r/SungardAS/condensation?branch=develop)
-[![Dependency Status](https://david-dm.org/SungardAS/condensation.svg?branch=develop)](https://david-dm.org/SungardAS/condensation?branch=develop)
+[![Build Status](https://travis-ci.org/SungardAS/condensation.svg?branch=master)](https://travis-ci.org/SungardAS/condensation?branch=master)
+[![Code Climate](https://codeclimate.com/github/SungardAS/condensation/badges/gpa.svg?branch=master)](https://codeclimate.com/github/SungardAS/condensation?branch=master)
+[![Coverage Status](https://coveralls.io/repos/SungardAS/condensation/badge.svg?branch=master)](https://coveralls.io/r/SungardAS/condensation?branch=master)
+[![Dependency Status](https://david-dm.org/SungardAS/condensation.svg?branch=master)](https://david-dm.org/SungardAS/condensation?branch=master)
 
 
 ## Summary
@@ -89,7 +89,6 @@ Quick Start Examples: [condensation-examples](https://github.com/SungardAS/conde
 #### Install [gulp](http://gulpjs.com/)
 
     > npm install -g gulp
-    > npm install gulp --save
 
 #### Install condensation
 
@@ -301,4 +300,10 @@ Deploy tempates to all S3 buckets that contain the label, LABEL.
       // Where the build task will put the distribution
       dist: 'dist'
     };
+
+## Errors
+
+Errors due to badly formed JSON or failed CF validations will stop the
+process and the offendng files will be dumped to `condensation_error`
+
 
