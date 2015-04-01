@@ -82,7 +82,7 @@ Condensation.prototype.condense = function() {
     templateData.s3 = s3opts.aws;
     templateData.s3.awsPath = s3.endpoint.href+path.join(s3opts.aws.bucket,s3opts.prefix);
 
-    gulp.task(self.genTaskName('build',i),function() {
+    gulp.task(self.genTaskName('build',i),['clean:errors'],function() {
 
 
       var stream = es.readable(function(esCount,cb) {
@@ -217,6 +217,10 @@ Condensation.prototype.condense = function() {
     rimraf(options.dist, cb);
   });
 
+  // Remove errors directory
+  gulp.task(self.genTaskName('clean:errors'), function (cb) {
+    rimraf('condensation_errors', cb);
+  });
 
   gulp.task(self.genTaskName('s3','list'), function(cb) {
     _.each(s3config, function(s3opts,i) {
