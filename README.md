@@ -68,11 +68,11 @@ Example:
     ...
     "TemplateURL": "{{{templateS3Url 'subnet.template' }}}"
 
-Will become:
+Output:
 
-    "TemplateURL": "https://s3-us-west-1.amazonaws.com/MYBUCKETv1/infra_core/vpc.template"
+    "TemplateURL": "https://s3-us-west-1.amazonaws.com/<BUCKET>/cftemplates/vpc.template"
     ...
-    "TemplateURL": "https://s3-us-west-1.amazonaws.com/MYBUCKETv1/infra_core/subnet.template"
+    "TemplateURL": "https://s3-us-west-1.amazonaws.com/<BUCKET>/cftemplates/subnet.template"
 
 With the help of Handlebars the URL will always reference a template deployed within the same
 bucket.
@@ -148,7 +148,7 @@ dependency.
 
 All helpers follow the same pattern:
 
-    {{{<CORE-HELPER> [module:<MODULE>] <PATH_TO_PARTICLE> [OPTIONS...]}}}
+    {{{<CONDENSATION-HELPER> [module:<MODULE>] '<PATH_TO_PARTICLE>' [OPTIONS...]}}}
 
 
 #### Lazy Loading
