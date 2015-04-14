@@ -82,7 +82,7 @@ Condensation.prototype.condense = function() {
     templateData.s3 = s3opts.aws;
     templateData.s3.awsPath = s3.endpoint.href+path.join(s3opts.aws.bucket,s3opts.prefix);
 
-    gulp.task(self.genTaskName('build',i),['clean:errors'],function() {
+    gulp.task(self.genTaskName('build',i),[self.genTaskName('clean:errors')],function() {
 
 
       var stream = es.readable(function(esCount,cb) {
