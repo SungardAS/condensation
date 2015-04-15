@@ -35,7 +35,7 @@ var Condensation = function(gulp,options) {
   this.options.particlesDir = path.join(this.options.root,PARTICLES_DIR);
 
   if (!this.options.projectName) {
-    try { this.options.projectName = require(process.cwd()+'/package.json').name; } catch(e) {}
+    try { this.options.projectName = require(path.join(process.cwd(),'package.json')).name; } catch(e) {}
   }
 
   this.particleLoader = new ParticleLoader({
@@ -132,7 +132,7 @@ Condensation.prototype.condense = function() {
       .pipe(gulpif(/\.hbs$/,rename({extname:""})))
       .pipe(
         gulpif(
-          /cftemplates\//,
+          /cftemplates[\/\\]/,
           jsonlint().pipe(jsonlint.reporter())
           .pipe(gulpif(s3opts.validate,cfValidate({region: s3opts.aws.region})))
         )
