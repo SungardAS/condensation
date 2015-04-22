@@ -39,9 +39,9 @@
         "TemplateURL": "{{{templateS3Url 'module:projectA' 'vpc.template'}}}"
       }
     },
-    "CfnUser" : {
-      "Type" : "AWS::IAM::User",
-      "Properties" : {
+    "CfnUser": {
+      "Type": "AWS::IAM::User",
+      "Properties": {
         "Path": "/",
         "Policies": [{
           "PolicyName": "root",
@@ -59,7 +59,7 @@
             "Resource"   : { "Fn::Join" : ["", ["arn:aws:s3:::{{s3.bucket}}", "/*"]]}
           }]}
         }]
-      },
+      }
     },
     "CfnKeys" : {
       "Type" : "AWS::IAM::AccessKey",
@@ -73,11 +73,11 @@
     },
 
     "WaitCondition" : {
-      "Type" : "AWS::CloudFormation::WaitCondition",
-      "DependsOn" : "Client",
-      "Properties" : {
-        "Handle"  : { "Ref" : "WaitHandle" },
-        "Timeout" : "6000"
+      "Type": "AWS::CloudFormation::WaitCondition",
+      "DependsOn": "Client",
+      "Properties": {
+        "Handle": { "Ref": "WaitHandle" },
+        "Timeout": "6000"
       }
     },
 
@@ -136,7 +136,7 @@
           { "DeviceName" : "/dev/xvda", "Ebs" : { "VolumeSize" : "8", "VolumeType": "gp2" } },
           { "DeviceName" : "/dev/xvdf", "Ebs" : { "VolumeSize" : "51", "VolumeType": "gp2" } }
         ],
-        "UserData"       : { "Fn::Base64": { "Fn::Join": ["", [
+        "UserData": { "Fn::Base64": { "Fn::Join": ["", [
           "#!/bin/bash -ex\n",
 
           "# Helper function\n",
@@ -156,10 +156,10 @@
           "# All is well so signal success\n",
           "/opt/aws/bin/cfn-signal -e 0 -d \"`cut -f2 -d= /etc/iscsi/initiatorname.iscsi`\" ",
           "         --region ", { "Ref" : "AWS::Region" }, " \"",
-          { "Ref" : "WaitHandle" }, "\" \n",
+          { "Ref": "WaitHandle" }, "\" \n",
 
           "#EOF"
-            ]]}}
+        ]] } }
       }
     }
   },

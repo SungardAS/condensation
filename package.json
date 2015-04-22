@@ -1,6 +1,6 @@
 {
   "name": "condensation",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,17 +10,22 @@
     "type": "git",
     "url": "https://github.com/sungardas/condensation.git"
   },
-  "author": "",
+  "author": {
+    "name": "Kevin McGrath",
+    "email": "kevin.mcgrath@sungardas.com"
+  },
   "dependencies": {
     "aws-sdk": "^2.0.17",
     "backoff": "^2.4.0",
     "del": "^1.1.1",
     "event-stream": "^3.3.0",
     "fs-extra": "^0.18.0",
+    "gray-matter": "^2.0.0",
     "gulp": "^3.8.10",
     "gulp-cached": "^1.0.4",
     "gulp-gzip": "^1.0.0",
     "gulp-if": "^1.2.5",
+    "gulp-json-format": "^1.0.0",
     "gulp-jsonlint": "^1.0.1",
     "gulp-rename": "^1.2.0",
     "gulp-tar": "^1.2.0",
