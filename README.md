@@ -308,6 +308,12 @@ Deploy tempates to all S3 buckets that contain the label, LABEL.
       dist: 'dist'
     };
 
+## Front Matter
+
+All `cftemplates` and `partials` are first processed with
+[gray-matter](https://github.com/jonschlinkert/gray-matter) to load any
+default data definitions.
+
 ## Errors
 
 Errors due to badly formed JSON or failed CF validations will stop the

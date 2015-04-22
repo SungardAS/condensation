@@ -9,6 +9,8 @@ gulpif = require('gulp-if'),
 gutil = require('gulp-util'),
 Handlebars = require('handlebars'),
 jsonlint = require('gulp-jsonlint'),
+jsonFormat = require('gulp-json-format'),
+matter = require('gray-matter'),
 merge = require('merge-stream'),
 ParticleLoader = require('./lib/particle-loader'),
 path = require('path'),
@@ -95,8 +97,9 @@ Condensation.prototype.condense = function() {
           var s = gulp.src(globs,options)
           .pipe(cache(self.options.projectName))
           .pipe(gulpif(/\.hbs$/,through.obj(function(file,enc,cb) {
-            var fn = self.handlebars.compile(file.contents.toString());
-            file.contents = new Buffer(fn(_.merge(templateData,{_file: file})));
+            var m = matter(file.contents.toString());
+            var fn = self.handlebars.compile(m.content);
+            file.contents = new Buffer(fn(_.merge(_.merge(m.data,templateData),{_file: file})));
             cb(null,file);
           })))
           .pipe(through.obj(function(file,enc,cb) {
@@ -135,6 +138,7 @@ Condensation.prototype.condense = function() {
           /cftemplates[\/\\]/,
           jsonlint().pipe(jsonlint.reporter())
           .pipe(gulpif(s3opts.validate,cfValidate({region: s3opts.aws.region})))
+          .pipe(jsonFormat(2))
         )
       )
       .pipe(gulp.dest(genDistPath()));
