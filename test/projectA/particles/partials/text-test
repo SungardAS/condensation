@@ -1,1 +1,4 @@
-Text from project A
+---
+text: Text from project A
+---
+{{text}}
