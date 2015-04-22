@@ -31,6 +31,7 @@
     "gulp-tar": "^1.2.0",
     "gulp-util": "^3.0.1",
     "handlebars": "^3.0.0",
+    "lazypipe": "^0.2.3",
     "lodash": "^3.4.0",
     "merge-stream": "^0.1.6",
     "rimraf": "^2.3.2",

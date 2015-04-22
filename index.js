@@ -10,6 +10,7 @@ gutil = require('gulp-util'),
 Handlebars = require('handlebars'),
 jsonlint = require('gulp-jsonlint'),
 jsonFormat = require('gulp-json-format'),
+lazypipe = require('lazypipe'),
 matter = require('gray-matter'),
 merge = require('merge-stream'),
 ParticleLoader = require('./lib/particle-loader'),
@@ -131,16 +132,22 @@ Condensation.prototype.condense = function() {
       });
 
 
+      var templateChannel = lazypipe()
+      .pipe(jsonlint)
+      .pipe(jsonlint.reporter)
+      .pipe(function() {
+        return jsonFormat(2);
+      })
+      .pipe(function() {
+        return gulpif(
+          s3opts.validate,
+          cfValidate({region: s3opts.aws.region})
+        )
+      });
+
       stream = stream
       .pipe(gulpif(/\.hbs$/,rename({extname:""})))
-      .pipe(
-        gulpif(
-          /cftemplates[\/\\]/,
-          jsonlint().pipe(jsonlint.reporter())
-          .pipe(gulpif(s3opts.validate,cfValidate({region: s3opts.aws.region})))
-          .pipe(jsonFormat(2))
-        )
-      )
+      .pipe(gulpif(/cftemplates[\/\\]/,templateChannel()))
       .pipe(gulp.dest(genDistPath()));
 
       return stream;
