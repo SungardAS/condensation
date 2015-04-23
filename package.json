@@ -20,6 +20,7 @@
     "del": "^1.1.1",
     "event-stream": "^3.3.0",
     "fs-extra": "^0.18.0",
+    "glob": "^5.0.5",
     "gray-matter": "^2.0.0",
     "gulp": "^3.8.10",
     "gulp-cached": "^1.0.4",
