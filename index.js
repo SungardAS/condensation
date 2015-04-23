@@ -96,7 +96,7 @@ Condensation.prototype.condense = function() {
 
         var runStreams = function(globs,options) {
           var s = gulp.src(globs,options)
-          .pipe(cache(self.options.projectName))
+          .pipe(cache(self.options.projectName+i))
           .pipe(gulpif(/\.hbs$/,through.obj(function(file,enc,cb) {
             var m = matter(file.contents.toString());
             var fn = self.handlebars.compile(m.content);
