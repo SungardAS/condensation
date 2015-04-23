@@ -172,6 +172,8 @@ Asset URLs can be built with the `assetS3Url` helper:
 
     {{{assetS3Url 'module:<MODULE>' 'module-asset'}}}
 
+The particle path should match the name of the asset without the `.hbs` extension, if it exists.
+
 Example Output:
 
     "https://s3-us-west-1.amazonaws.com/BUCKET/assets/my-asset"
@@ -199,6 +201,8 @@ Template URLs can be built with the `assetS3Url` helper:
 
     {{{templateS3Url 'module:<MODULE>' 'module.template'}}}
 
+The particle path should match the name of the template without the `.hbs` extension, if it exists.
+
 Example Output:
 
     "https://s3-us-west-1.amazonaws.com/BUCKET/cftemplates/my.template"
@@ -212,11 +216,17 @@ Contents of files here will be loaded as partials that can be used in
 
 These files will not be packaged or uploaded to S3.
 
-Partils can be loaded with the `partial` helper:
+Partials can be loaded with the `partial` helper:
 
     {{{partial 'my-partial'}}}
 
-    {{{partial 'module' 'module-partial'}}}
+    {{{partial 'module:<MODULE>' 'module-partial'}}}
+
+The particle path only needs to match the base name of the partial.
+
+A path of `some_partial` would match `some_partial.json` or `some_partial.json.hbs`.
+
+If the desired partial is not being loaded ensure precedence is given to an exact match.
 
 #### helpers
 
@@ -228,6 +238,8 @@ Helpers are called with the `helper` helper:
     {{{helper 'my-helper'}}}
 
     {{{helper 'module:<MODULE>' 'module-helper'}}}
+
+The particle path should match the name of the helper without the `.js` extension.
 
 ### Tasks
 
