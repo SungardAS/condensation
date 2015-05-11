@@ -22,16 +22,15 @@ partials, helpers and variable replacement.
 
 ## Features
 
-* Write reusable CloudFormation snippits that can be included as
-  partials
-* Package and upload templates and assets to multiple buckets across
+* Write reusable CloudFormation snippits (particles) that can be included as
+  in other condensation projets
+* Package templates and assets that can be uploaded to multiple buckets across
   regions with one command.
-* References other templates within a distribution with
+* Reference another template within the distribution with
   [AWS::CloudFormation::Stack](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html)
 and the `templateS3Url` helper
 * Upload scripts, configuration files and other assets alongside
   CloudFormation templates.
-* Use particles from other condensation compatible projects.
 
 ## Why?
 
@@ -41,26 +40,23 @@ templates with `AWS::CloudFormation::Stack` and deploying cloud-init
 scripts can be difficult to manage.
 
 * Often sections such as AMI [mappings](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/mappings-section-structure.html)
-  are re-used by many templates.  Handlebars partials provide a way to
-  write the mapping once and reuse it without copying from template to
-  template.
+  are re-used by many templates.  Particles provide a way to
+  write the mapping once and reuse it in other templates by reference.
 * It is common to set up resources, such as a VPC, with nearly
   identical attributes and structure for different applications and
   services.  Condensation allows that definition to become a independent
   stack that can be referenced by other templates that are part of the
-  same package.
+  same distribution package.
 * To bootstrap instances it is beneficial to have scripts and configuration
-  files deployed in a known location and verisoned with the template
+  files deployed alongside and verisoned with the template
   they are associated with.
 * When using `AWS::CloudFormation::Authentication` to download assets from
   S3 buckets all resources must be in the same region.  Condensation
   makes it easy to deploy the same templates and assets to multiple
   regions and ensure the referencing URLs are correct.
 
-Stacks (templates) can be deployed to a bucket
-where each stack is able to reference one another.  That pattern can
-repeated using difference confgurations for the same templates
-to support development, production and multi-region buckets.
+All templates in a distribution can reference one another based on the
+bucket they are deployed to.
 
 Example:
 
@@ -74,7 +70,7 @@ Output:
     ...
     "TemplateURL": "https://s3-us-west-1.amazonaws.com/<BUCKET>/cftemplates/subnet.template"
 
-With the help of Handlebars the URL will always reference a template deployed within the same
+The  Handlebars helper will ensure that the URL will always reference a template deployed within the same
 bucket.
 
 
@@ -133,16 +129,30 @@ Quick Start Examples: [condensation-examples](https://github.com/SungardAS/conde
     |
     --particles
       |
-      --assets
+      -- assets
+      |
+      -- conditions
       |
       -- cftemplates
       |
       -- helpers
       |
+      -- mappings
+      |
+      -- metadata
+      |
+      -- outputs
+      |
+      -- parameters
+      |
+      -- resources
+      |
+      -- sets
+      |
       -- partials
 
-Condensation loads particles through core helper methods.
-The core helper methods are able to load particles from the local project
+Condensation loads particles through core helper methods that
+are able to load particles from the local project
 as well as any condensation compatible project added as a npm
 dependency.
 
@@ -150,11 +160,48 @@ All helpers follow the same pattern:
 
     {{{<CONDENSATION-HELPER> [module:<MODULE>] '<PATH_TO_PARTICLE>' [OPTIONS...]}}}
 
+When including the particles from another project *MODULE* is the name
+of the npm dependency.
+
 
 #### Lazy Loading
 
 Particles will only be included in the final distribution if they are
 referenced from a `hbs` file.
+
+### layout support
+
+**New in 0.3.0**
+
+Instead of including particles within a traditional CloudFormation
+tempalte the introduction of a layout supports capturing helper output
+and adding it to the correct section.  Helpers within a layout do not
+have to to be in any specific order.
+
+    ---
+    things:
+    -
+      name: subnet1
+      cidr: "10.0.0.0/24"
+    -
+      name subnet2
+      cidr: "10.0.1.0/24"
+    ---
+
+    {{#layout templateDescription="condensation rocks!"}}
+      {{{parameter 'my_parameter' logicalId="MyParameter"}}}
+      {{{condition 'my_condition' logicalId="MyCondition"}}}
+
+      [[! helpers can occur in any order, allowing you to group related
+section parts together }}
+
+      {{#each things}}
+        {{{parameter 'repeate_me' logicalId="RepeateMe" logicalIdSuffix=@index}}}
+        {{{condition 'repeate_me' logicalId="RepeateMeCond" logicalIdSuffix=@index}}}
+        {{{resource 'repeate_me' logicalId="RepeateMeResource" logicalIdSuffix=@index}}}
+        {{{output 'repeate_me' logicalId="RepeateMeOutput" logicalIdSuffix=@index}}}
+      {{/each}}
+    {{/layout}}
 
 
 #### assets
@@ -164,7 +211,8 @@ templates.  Files can include boostrap scripts, packaged install files
 or configuration files.
 
 Any file with a `.hbs` extension will be
-compiled with handlebars and saved to S3 without the `.hbs` extension.
+compiled with handlebars and saved to S3.  The `.hbs` extension will be
+removed from the filename.
 
 Asset URLs can be built with the `assetS3Url` helper:
 
@@ -172,7 +220,7 @@ Asset URLs can be built with the `assetS3Url` helper:
 
     {{{assetS3Url 'module:<MODULE>' 'module-asset'}}}
 
-The particle path should match the name of the asset without the `.hbs` extension, if it exists.
+The particle path will match the name of the asset without the `.hbs` extension, if it exists.
 
 Example Output:
 
@@ -187,6 +235,25 @@ included in the distribution.
     {{{requireAssets '/**'}}
 
     {{{requireAssets 'module:<MODULE>' '/**'}}}
+
+`requireAssets` will not produce output, only ensure that the glob is
+uploaded to S3.
+
+#### conditions
+
+Contents of files will be loaded as conditions that can be used in
+in a trandtional template or a `layout` (**recommended**))
+
+Directory: `conditions`
+Helper: `condition`
+
+    {{{condition 'my-condition' logicalId="MyCond"}}}
+
+    {{{condition 'module:<MODULE>' 'condition-name' logicalId="TheirCond"}}}
+
+The particle path can match the base name of the file or the base name
+plus any extensions.
+
 
 #### cftemplates
 
@@ -209,6 +276,79 @@ Example Output:
 
     "https://s3-us-west-1.amazonaws.com/BUCKET/node_modules/MODULE/particles/cftemplates/module.template"
 
+#### helpers
+
+Node modules that export a function that is built as a
+Handlebars [block helper](http://handlebarsjs.com/block_helpers.html).
+
+Helpers are called with the `helper` helper:
+
+    {{{helper 'my-helper'}}}
+
+    {{{helper 'module:<MODULE>' 'module-helper'}}}
+
+The particle path should match the name of the helper without the `.js` extension.
+
+#### mappings
+
+Contents of files will be loaded as mappings that can be used in
+in a trandtional template or a `layout` (**recommended**))
+
+Directory: `mappings`
+Helper: `mapping`
+
+    {{{mapping 'my-mapping' logicalId="MyMapping"}}}
+
+    {{{mapping 'module:<MODULE>' 'mapping-name' logicalId="TheirMapping"}}}
+
+The particle path can match the base name of the file or the base name
+plus any extensions.
+
+#### metadata
+
+Contents of files will be loaded as metadatas that can be used in
+in a trandtional template or a `layout` (**recommended**))
+
+Directory: `metadatas`
+Helper: `metadata`
+
+    {{{metadata 'my-metadata' logicalId="MyMetadata"}}}
+
+    {{{metadata 'module:<MODULE>' 'metadata-name' logicalId="TheirMetadata"}}}
+
+The particle path can match the base name of the file or the base name
+plus any extensions.
+
+#### outputs
+
+Contents of files will be loaded as outputs that can be used in
+in a trandtional template or a `layout` (**recommended**))
+
+Directory: `outputs`
+Helper: `output`
+
+    {{{output 'my-osutput' logicalId="MyOutput"}}}
+
+    {{{output 'module:<MODULE>' 'output-name' logicalId="TheirOutput"}}}
+
+The particle path can match the base name of the file or the base name
+plus any extensions.
+
+#### parameters
+
+Contents of files will be loaded as parameters that can be used in
+in a trandtional template or a `layout` (**recommended**))
+
+Directory: `parameters`
+Helper: `parameter`
+
+    {{{parameter 'my-osutput' logicalId="MyParameter"}}}
+
+    {{{parameter 'module:<MODULE>' 'parameter-name' logicalId="TheirParameter"}}}
+
+The particle path can match the base name of the file or the base name
+plus any extensions.
+
 #### partials
 
 Contents of files here will be loaded as partials that can be used in
@@ -228,18 +368,38 @@ A path of `some_partial` would match `some_partial.json` or `some_partial.json.h
 
 If the desired partial is not being loaded ensure precedence is given to an exact match.
 
-#### helpers
+#### resources
 
-Node modules that export a function that is built as a
-Handlebars [block helper](http://handlebarsjs.com/block_helpers.html).
+Contents of files will be loaded as resources that can be used in
+in a trandtional template or a `layout` (**recommended**))
 
-Helpers are called with the `helper` helper:
+Directory: `resources`
+Helper: `resource`
 
-    {{{helper 'my-helper'}}}
+    {{{resource 'my-osutput' logicalId="MyResource"}}}
 
-    {{{helper 'module:<MODULE>' 'module-helper'}}}
+    {{{resource 'module:<MODULE>' 'resource-name' logicalId="TheirResource"}}}
 
-The particle path should match the name of the helper without the `.js` extension.
+The particle path can match the base name of the file or the base name
+plus any extensions.
+
+#### sets
+
+Intended for use with `layout`
+
+A grouping of section definitions that will always be generated
+together.  Most commonly used to generate parameters with corresponding
+conditions.
+
+Directory: `sets`
+Helper: `set`
+
+    {{{set 'my-set' logicalId="MySet"}}}
+
+    {{{set 'module:<MODULE>' 'set-name' logicalId="TheirSet"}}}
+
+The particle path can match the base name of the file or the base name
+plus any extensions.
 
 ### Tasks
 

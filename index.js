@@ -4,12 +4,12 @@ cfValidate = require('./lib/gulp-cf-validate'),
 cutil = require('./lib/util'),
 rimraf = require('rimraf'),
 es = require('event-stream'),
+fs = require('fs-extra'),
 cache = require('gulp-cached'),
 gulpif = require('gulp-if'),
 gutil = require('gulp-util'),
 Handlebars = require('handlebars'),
 jsonlint = require('gulp-jsonlint'),
-jsonFormat = require('gulp-json-format'),
 lazypipe = require('lazypipe'),
 matter = require('gray-matter'),
 merge = require('merge-stream'),
@@ -58,7 +58,7 @@ Condensation.prototype.condense = function() {
   var helpers = require('./lib/template-helpers')({
       particleLoader: this.particleLoader,
       handlebars: this.handlebars
-    });
+  });
 
   var buildTasks = [];
   var deployTasks = [];
@@ -81,14 +81,13 @@ Condensation.prototype.condense = function() {
       root: options.dist
     });
 
-
     templateData.s3 = s3opts.aws;
     templateData.s3.awsPath = s3.endpoint.href+path.join(s3opts.aws.bucket,s3opts.prefix);
 
     gulp.task(self.genTaskName('build',i),[self.genTaskName('clean:errors')],function() {
 
 
-      var stream = es.readable(function(esCount,cb) {
+      var stream = es.readable(function(esCount,streamCb) {
         var readable = this;
 
         var totalCount = 0;
@@ -100,7 +99,7 @@ Condensation.prototype.condense = function() {
           .pipe(gulpif(/\.hbs$/,through.obj(function(file,enc,cb) {
             var m = matter(file.contents.toString());
             var fn = self.handlebars.compile(m.content);
-            file.contents = new Buffer(fn(_.merge(_.merge(m.data,templateData),{_file: file})));
+            file.contents = new Buffer(fn(_.merge(m.data,templateData),{data: {_file: file}}));
             cb(null,file);
           })))
           .pipe(through.obj(function(file,enc,cb) {
@@ -112,7 +111,7 @@ Condensation.prototype.condense = function() {
           s.on('end',function() {
             if (lastTotalCount === totalCount) {
               readable.emit('end');
-              cb();
+              streamCb();
             }
             else {
               var paths = _.invoke(
@@ -134,9 +133,22 @@ Condensation.prototype.condense = function() {
 
       var templateChannel = lazypipe()
       .pipe(jsonlint)
-      .pipe(jsonlint.reporter)
       .pipe(function() {
-        return jsonFormat(2);
+        return jsonlint.reporter(function(file){
+          gutil.log('File ' + file.path + ' is not valid JSON.');
+          fs.outputFileSync(path.join('condensation_errors',file.path),file.contents);
+        })
+      })
+      .pipe(function() {
+        return through.obj(function(file,enc,cb) {
+            if (file.isNull()) {
+            }
+            else {
+              var formatted = JSON.stringify(JSON.parse(file.contents.toString()), null, 2);
+              file.contents = new Buffer(formatted);
+            }
+            cb(null,file);
+        });
       })
       .pipe(function() {
         return gulpif(
@@ -155,6 +167,7 @@ Condensation.prototype.condense = function() {
     });
 
     buildTasks.push(self.genTaskName('build',i));
+
 
 
     // Ensure the bucket(s) defined in the config exist

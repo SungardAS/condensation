@@ -24,12 +24,9 @@
     "gray-matter": "^2.0.0",
     "gulp": "^3.8.10",
     "gulp-cached": "^1.0.4",
-    "gulp-gzip": "^1.0.0",
     "gulp-if": "^1.2.5",
-    "gulp-json-format": "^1.0.0",
     "gulp-jsonlint": "^1.0.1",
     "gulp-rename": "^1.2.0",
-    "gulp-tar": "^1.2.0",
     "gulp-util": "^3.0.1",
     "handlebars": "^3.0.0",
     "lazypipe": "^0.2.3",
@@ -49,6 +46,7 @@
     "clone": "^1.0.1",
     "coveralls": "^2.11.2",
     "istanbul": "^0.3.7",
-    "mocha": "^2.2.0"
+    "mocha": "^2.2.0",
+    "condensation-examples": "sungardas/condensation-examples"
   }
 }
