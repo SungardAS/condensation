@@ -147,6 +147,8 @@ Quick Start Examples: [condensation-examples](https://github.com/SungardAS/conde
       |
       -- resources
       |
+      -- sets
+      |
       -- partials
 
 Condensation loads particles through core helper methods that
@@ -381,6 +383,23 @@ Helper: `resource`
 The particle path can match the base name of the file or the base name
 plus any extensions.
 
+#### sets
+
+Intended for use with `layout`
+
+A grouping of section definitions that will always be generated
+together.  Most commonly used to generate parameters with corresponding
+conditions.
+
+Directory: `sets`
+Helper: `set`
+
+    {{{set 'my-set' logicalId="MySet"}}}
+
+    {{{set 'module:<MODULE>' 'set-name' logicalId="TheirSet"}}}
+
+The particle path can match the base name of the file or the base name
+plus any extensions.
 
 ### Tasks
 
