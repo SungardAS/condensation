@@ -18,6 +18,7 @@ path = require('path'),
 rename = require('gulp-rename'),
 
 through = require('through2');
+url = require('url');
 
 var DEFAULT_S3_PREFIX = exports.DEFAULT_S3_PREFIX = '';
 var DEFAULT_TASK_PREFIX = exports.DEFAULT_TASK_PREFIX = 'condensation';
@@ -82,7 +83,7 @@ Condensation.prototype.condense = function() {
     });
 
     templateData.s3 = s3opts.aws;
-    templateData.s3.awsPath = s3.endpoint.href+path.join(s3opts.aws.bucket,s3opts.prefix);
+    templateData.s3.awsPath = s3.endpoint.href+url.resolve(s3opts.aws.bucket,s3opts.prefix);
 
     gulp.task(self.genTaskName('build',i),[self.genTaskName('clean:errors')],function() {
 
