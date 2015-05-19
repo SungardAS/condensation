@@ -84,6 +84,7 @@ Condensation.prototype.condense = function() {
 
     templateData.s3 = s3opts.aws;
     templateData.s3.awsPath = s3.endpoint.href+url.resolve(s3opts.aws.bucket,s3opts.prefix);
+    templateData.s3.awsPathInS3Format = "s3://" + s3opts.aws.bucket + "/" + s3opts.prefix;
 
     gulp.task(self.genTaskName('build',i),[self.genTaskName('clean:errors')],function() {
 
