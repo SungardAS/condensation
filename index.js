@@ -83,7 +83,12 @@ Condensation.prototype.condense = function() {
     });
 
     templateData.s3 = s3opts.aws;
-    templateData.s3.awsPath = url.resolve(s3.endpoint.href + s3opts.aws.bucket + "/", s3opts.prefix) + "/";
+
+    var awsPath = s3.endpoint.href + s3opts.aws.bucket + "/" + s3opts.prefix;
+    if(awsPath.indexOf('/', awsPath.length-1) == -1){
+        awsPath += '/';
+    }
+    templateData.s3.awsPath = awsPath;
     templateData.s3.awsPathInS3Format = "s3://" + s3opts.aws.bucket + "/" + s3opts.prefix + "/";
 
     gulp.task(self.genTaskName('build',i),[self.genTaskName('clean:errors')],function() {

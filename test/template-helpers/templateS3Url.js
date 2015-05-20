@@ -5,7 +5,7 @@ var async = require('async');
 
 
 
-describe.only('templateS3Url', function(){
+describe('templateS3Url', function(){
 
     async.each([
         {

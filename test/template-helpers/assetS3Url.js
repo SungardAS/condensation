@@ -21,6 +21,18 @@ describe('assetS3Url', function(){
             expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/assets/example.rb'
         },
         {
+            description: 'should resolve http path on windows with leading slash',
+            particlePath: '\\particles\\assets\\example.rb',
+            protocol: 'http',
+            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/assets/example.rb'
+        },
+        {
+            description: 'should resolve http path on linux with leading slash',
+            particlePath: '/particles/assets/example.rb',
+            protocol: 'http',
+            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/assets/example.rb'
+        },
+        {
             description: 'should resolve s3 path on windows',
             particlePath: 'particles\\assets\\example.rb',
             protocol: 's3',
