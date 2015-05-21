@@ -218,7 +218,7 @@ Asset URLs can be built with the `assetS3Url` helper:
 
     {{{assetS3Url 'my-asset' [protocol=https|s3]}}}
 
-    {{{assetS3Url 'module:<MODULE>' 'module-asset' [protocol=http|s3]}}}
+    {{{assetS3Url 'module:<MODULE>' 'module-asset' [protocol=https|s3]}}}
 
 The particle path will match the name of the asset without the `.hbs` extension, if it exists.
 
@@ -493,6 +493,6 @@ default data definitions.
 ## Errors
 
 Errors due to badly formed JSON or failed CF validations will stop the
-process and the offendng files will be dumped to `condensation_error`
+process and the offendng files will be dumped to `condensation_errors`
 
 
