@@ -216,11 +216,15 @@ removed from the filename.
 
 Asset URLs can be built with the `assetS3Url` helper:
 
-    {{{assetS3Url 'my-asset'}}}
+    {{{assetS3Url 'my-asset' [protocol=http|s3]}}}
 
-    {{{assetS3Url 'module:<MODULE>' 'module-asset'}}}
+    {{{assetS3Url 'module:<MODULE>' 'module-asset' [protocol=http|s3]}}}
 
 The particle path will match the name of the asset without the `.hbs` extension, if it exists.
+
+Parameters:
+
+**protocol** *optional* http|https|s3 Forces the protocol of the url http://, https:// or s3://
 
 Example Output:
 
