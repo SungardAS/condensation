@@ -53,7 +53,26 @@ describe('assetS3Url', function(){
                     }
                 }
             };
-            var root = {s3: {awsPath: 'https://s3-eu-west-1.amazonaws.com/bucket/', awsPathInS3Format: 's3://bucket/'}};
+
+
+            var root = {
+              s3: {
+                condensationUrl: {
+                  protocol: 'https:',
+                  slashes: true,
+                  auth: null,
+                  host: 's3-eu-west-1.amazonaws.com',
+                  port: null,
+                  hostname: 's3-eu-west-1.amazonaws.com',
+                  hash: null,
+                  search: null,
+                  query: null,
+                  pathname: '/bucket/',
+                  path: '/bucket/',
+                  href: 'https://s3-eu-west-1.amazonaws.com//bucket/'
+                }
+              }
+            };
 
             //Act
             var result = helper.helper.apply(root, [null, null, null, hOpts, cOpts]);

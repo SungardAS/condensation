@@ -83,8 +83,9 @@ Condensation.prototype.condense = function() {
     });
 
     templateData.s3 = s3opts.aws;
+    templateData.s3.condensationUrl = url.parse([s3.endpoint.href,s3opts.aws.bucket,s3opts.prefix,''].join('/'));
     templateData.s3.awsPath = url.resolve(s3.endpoint.href + s3opts.aws.bucket + "/", s3opts.prefix) + "/";
-    templateData.s3.awsPathInS3Format = "s3://" + s3opts.aws.bucket + "/" + s3opts.prefix + "/";
+    // templateData.s3.awsPathInS3Format = "s3://" + s3opts.aws.bucket + "/" + s3opts.prefix + "/";
 
     gulp.task(self.genTaskName('build',i),[self.genTaskName('clean:errors')],function() {
 
