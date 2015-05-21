@@ -11,13 +11,13 @@ describe('assetS3Url', function(){
         {
             description: 'should resolve http path on windows',
             particlePath: 'particles\\assets\\example.rb',
-            protocol: 'http',
+            protocol: 'https',
             expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/assets/example.rb'
         },
         {
             description: 'should resolve http path on linux',
             particlePath: 'particles/assets/example.rb',
-            protocol: 'http',
+            protocol: 'https',
             expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/assets/example.rb'
         },
         {
