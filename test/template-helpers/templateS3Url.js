@@ -22,7 +22,6 @@ describe('templateS3Url', function(){
 
         it(config.description, function(done){
 
-            //var root = {s3: {awsPath: 'https://s3-eu-west-1.amazonaws.com/bucket/', awsPathInS3Format: 's3://bucket/'}};
             var root = {
               s3: {
                 condensationUrl: {
