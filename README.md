@@ -224,7 +224,7 @@ The particle path will match the name of the asset without the `.hbs` extension,
 
 Parameters:
 
-**protocol** *optional* https|s3 Forces the protocol of the url http://, https:// or s3://
+**protocol** *optional* https|s3 - Forces the protocol of the url to https:// or s3://
 
 Example Output:
 
