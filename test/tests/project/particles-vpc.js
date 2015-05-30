@@ -10,7 +10,7 @@ describe('particles-vpc', function(){
 
   beforeEach(function() {
     gulp = clone(require('gulp'));
-    require('../').buildTasks(
+    require('../../../').buildTasks(
       gulp,
       {
         s3: [
@@ -25,12 +25,9 @@ describe('particles-vpc', function(){
           }
         ],
         projectName: 'particles-vpc',
-        root: 'test/particles-vpc',
+        root: 'test/fixtures/particles-vpc',
         taskPrefix: '',
-        dist: 'test/dist/particles-vpc',
-        dependencySrc: [
-          'test/particles-vpc/fake_bower_components'
-        ],
+        dist: 'test/dist/particles-vpc'
       }
     );
   });

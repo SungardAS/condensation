@@ -17,7 +17,7 @@ describe('projectC', function(){
 
   beforeEach(function() {
     gulp = clone(require('gulp'));
-    require('../').buildTasks(
+    require('../../../').buildTasks(
       gulp,
       {
         s3: [
@@ -32,12 +32,9 @@ describe('projectC', function(){
           }
         ],
         projectName: 'projectC',
-        root: 'test/projectC',
+        root: 'test/fixtures/projectC',
         taskPrefix: '',
-        dist: 'test/dist/pC',
-        dependencySrc: [
-          'test/projectC/fake_bower_components'
-        ],
+        dist: 'test/dist/pC'
       }
     );
   });

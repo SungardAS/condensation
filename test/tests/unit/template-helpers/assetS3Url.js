@@ -1,5 +1,5 @@
 var assert = require("assert");
-var helper = require('../../lib/template-helpers/assetS3Url');
+var helper = require('../../../../lib/template-helpers/assetS3Url');
 var async = require('async');
 
 
@@ -18,6 +18,18 @@ describe('assetS3Url', function(){
             description: 'should resolve http path on linux',
             particlePath: 'particles/assets/example.rb',
             protocol: 'https',
+            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/assets/example.rb'
+        },
+        {
+            description: 'should resolve http path on windows with leading slash',
+            particlePath: '\\particles\\assets\\example.rb',
+            protocol: 'http',
+            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/assets/example.rb'
+        },
+        {
+            description: 'should resolve http path on linux with leading slash',
+            particlePath: '/particles/assets/example.rb',
+            protocol: 'http',
             expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/assets/example.rb'
         },
         {

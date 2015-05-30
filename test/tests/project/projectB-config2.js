@@ -16,7 +16,7 @@ var config = {
     }
   ],
   projectName: 'projectB-config2',
-  root: 'test/projectB',
+  root: 'test/fixtures/projectB',
   taskPrefix: '',
   dist: 'test/dist/pB-2'
 };
@@ -26,14 +26,14 @@ describe('projectB-config2', function(){
 
   beforeEach(function(done) {
     gulp = clone(require('gulp'));
-    require('../').buildTasks(gulp,config);
+    require('../../../').buildTasks(gulp,config);
     gulp.start('build');
     gulp.on('stop',function(){done()});
   });
 
   afterEach(function(done) {
     var afterGulp = clone(require('gulp'));
-    require('../').buildTasks(afterGulp,config);
+    require('../../../').buildTasks(afterGulp,config);
     afterGulp.start('clean');
     afterGulp.on('stop',function(){done()});
   });
