@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha"
+    "test": "./node_modules/.bin/mocha --recursive test/tests"
   },
   "repository": {
     "type": "git",
@@ -46,7 +46,6 @@
     "clone": "^1.0.1",
     "coveralls": "^2.11.2",
     "istanbul": "^0.3.7",
-    "mocha": "^2.2.0",
-    "condensation-examples": "sungardas/condensation-examples"
+    "mocha": "^2.2.0"
   }
 }
