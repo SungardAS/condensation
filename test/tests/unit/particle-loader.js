@@ -9,17 +9,29 @@ describe('genAssetPaths', function(){
 
   async.each([
     {
-      description: 'should generate paths',
+      description: 'should generate paths for an asset',
       particle: {
         modulePath: path.join(processCwd,'/test/fixtures/projectC/')
       },
-      type: 'partial',
-      particlePath: 'parameter-name-tag',
+      type: 'asset',
+      particlePath: 'my_asset.thing',
       expected:  {
-        path: path.join('test','fixtures','projectC','partials','parameter-name-tag'),
-        urlPath: 'particles/partials/parameter-name-tag'
+        path: path.join('test','fixtures','projectC','assets','my_asset.thing'),
+        urlPath: 'particles/assets/my_asset.thing'
       }
-    }
+    },
+    {
+      description: 'should generate paths for a template',
+      particle: {
+        modulePath: path.join(processCwd,'/test/fixtures/projectC/')
+      },
+      type: 'template',
+      particlePath: 'my.template.json',
+      expected:  {
+        path: path.join('test','fixtures','projectC','cftemplates','my.template.json'),
+        urlPath: 'particles/cftemplates/my.template.json'
+      }
+    },
   ], function(config){
 
     it(config.description, function(done){
