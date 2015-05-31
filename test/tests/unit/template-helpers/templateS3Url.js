@@ -8,21 +8,21 @@ var async = require('async');
 describe('templateS3Url', function(){
 
     async.each([
-        {
-            description: 'should resolve http path on windows',
-            particlePath: 'particles\\cftemplates\\example.template',
-            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/cftemplates/example.template'
-        },
+        //{
+            //description: 'should resolve http path on windows',
+            //particlePath: 'particles\\cftemplates\\example.template',
+            //expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/cftemplates/example.template'
+        //},
         {
             description: 'should resolve http path on linux',
             particlePath: 'particles/cftemplates/example.template',
             expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/cftemplates/example.template'
         },
-        {
-            description: 'should resolve http path on windows with a leading slash',
-            particlePath: '\\particles\\cftemplates\\example.template',
-            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/cftemplates/example.template'
-        },
+        //{
+            //description: 'should resolve http path on windows with a leading slash',
+            //particlePath: '\\particles\\cftemplates\\example.template',
+            //expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/cftemplates/example.template'
+        //},
         {
             description: 'should resolve http path on linux with a leading slash',
             particlePath: '/particles/cftemplates/example.template',

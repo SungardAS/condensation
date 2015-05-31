@@ -33,6 +33,7 @@
     "lodash": "^3.4.0",
     "merge-stream": "^0.1.6",
     "rimraf": "^2.3.2",
+    "slash": "^1.0.0",
     "through2": "^0.6.3",
     "vinyl": "^0.4.6"
   },

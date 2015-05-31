@@ -4,54 +4,41 @@ var async = require('async');
 
 describe('genAssetPaths', function(){
 
-    async.each([
-        {
-            description: 'should generate urlPath on windows',
-            particlePath: 'particles\\cftemplates\\example.template',
-            particle: {
-              modulePath: '',
-            },
-            type: 'asset',
-            expected:  {
-              urlPath: '/particles/cftemplates/example.template'
-            }
-        },
-        {
-            description: 'should resolve http path on linux',
-            particlePath: 'particles/cftemplates/example.template',
-            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/cftemplates/example.template'
-        },
-        {
-            description: 'should resolve http path on windows with a leading slash',
-            particlePath: '\\particles\\cftemplates\\example.template',
-            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/cftemplates/example.template'
-        },
-        {
-            description: 'should resolve http path on linux with a leading slash',
-            particlePath: '/particles/cftemplates/example.template',
-            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/cftemplates/example.template'
-        }
-    ], function(config){
+  async.each([
+    {
+      description: 'should generate paths',
+      particle: {
+        modulePath: '/test/fixtures/projectC/node_modules/projectB/node_modules/projectA'
+      },
+      type: 'partial',
+      particlePath: 'parameter-name-tag',
+      expected:  {
+        path: '/test/fixtures/projectC/node_modules/projectB/node_modules/projectA/particles/partials/parameter-name-tag',
+        relativePath: 'node_modules/projectB/node_modules/projectA/particles/partials/parameter-name-tag',
+        urlPath: 'node_modules/projectB/node_modules/projectA/particles/partials/parameter-name-tag'
+      }
+    }
+  ], function(config){
 
-        it(config.description, function(done){
+    it(config.description, function(done){
 
-            //Arrange
-            var options = {
-                //parentFile: {path: config.particlePath }
-              parentFile: ""
-            };
-            var particleLoader = new ParticleLoader({root:"test/fixtures/projectB"});
+      //Arrange
+      var options = {
+        //parentFile: {path: config.particlePath }
+        parentFile: ""
+      };
+      var particleLoader = new ParticleLoader({root:"test/fixtures/projectC"});
 
-            //Act
-            var result = particleLoader.genParticlePaths(config.particle,config.type,config.particlePath);
-            console.log(result);
+      //Act
+      var result = particleLoader.genParticlePaths(config.particle,config.type,config.particlePath);
+      console.log(result);
 
-            //Assert
-            assert.equal(result, config.expected);
-            done();
-        });
-
+      //Assert
+      assert.equal(result, config.expected);
+      done();
     });
+
+  });
 
 
 
