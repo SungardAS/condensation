@@ -28,10 +28,10 @@ describe('genAssetPaths', function(){
       type: 'template',
       particlePath: 'my.template.json',
       expected:  {
-        path: path.join('test','fixtures','projectC','cftemplates','my.template.json'),
+        path: path.join(processCwd,'test','fixtures','projectC','cftemplates','my.template.json'),
         urlPath: 'particles/cftemplates/my.template.json'
       }
-    },
+    }
   ], function(config){
 
     it(config.description, function(done){
@@ -48,6 +48,7 @@ describe('genAssetPaths', function(){
       console.log(result);
 
       //Assert
+      assert.equal(results.path, config.expected.path);
       assert.equal(result.urlPath, config.expected.urlPath);
       done();
     });
