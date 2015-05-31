@@ -1,14 +1,17 @@
 var assert = require("assert");
 var ParticleLoader = require('../../../lib/particle-loader');
+var path = require('path');
 var async = require('async');
 
 describe('genAssetPaths', function(){
+
+  var processCwd = process.cwd();
 
   async.each([
     {
       description: 'should generate paths',
       particle: {
-        modulePath: '/test/fixtures/projectC/node_modules/projectB/node_modules/projectA'
+        modulePath: path.join(processCwd,'/test/fixtures/projectC/node_modules/projectB/node_modules/projectA')
       },
       type: 'partial',
       particlePath: 'parameter-name-tag',
