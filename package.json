@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha"
+    "test": "./node_modules/.bin/mocha --recursive test/tests"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "lodash": "^3.4.0",
     "merge-stream": "^0.1.6",
     "rimraf": "^2.3.2",
+    "slash": "^1.0.0",
     "through2": "^0.6.3",
     "vinyl": "^0.4.6"
   },
@@ -46,7 +47,6 @@
     "clone": "^1.0.1",
     "coveralls": "^2.11.2",
     "istanbul": "^0.3.7",
-    "mocha": "^2.2.0",
-    "condensation-examples": "sungardas/condensation-examples"
+    "mocha": "^2.2.0"
   }
 }

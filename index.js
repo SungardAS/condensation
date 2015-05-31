@@ -16,8 +16,7 @@ merge = require('merge-stream'),
 ParticleLoader = require('./lib/particle-loader'),
 path = require('path'),
 rename = require('gulp-rename'),
-
-through = require('through2');
+through = require('through2'),
 url = require('url');
 
 var DEFAULT_S3_PREFIX = exports.DEFAULT_S3_PREFIX = '';
@@ -83,8 +82,7 @@ Condensation.prototype.condense = function() {
     });
 
     templateData.s3 = s3opts.aws;
-    templateData.s3.awsPath = url.resolve(s3.endpoint.href + s3opts.aws.bucket + "/", s3opts.prefix) + "/";
-    templateData.s3.awsPathInS3Format = "s3://" + s3opts.aws.bucket + "/" + s3opts.prefix + "/";
+    templateData.s3.condensationUrl = url.parse([s3.endpoint.href,s3opts.aws.bucket,s3opts.prefix,''].join('/'));
 
     gulp.task(self.genTaskName('build',i),[self.genTaskName('clean:errors')],function() {
 
@@ -139,11 +137,12 @@ Condensation.prototype.condense = function() {
         return jsonlint.reporter(function(file){
           gutil.log('File ' + file.path + ' is not valid JSON.');
           fs.outputFileSync(path.join('condensation_errors',file.path),file.contents);
-        })
+        });
       })
       .pipe(function() {
         return through.obj(function(file,enc,cb) {
             if (file.isNull()) {
+              //Do Nothing for now
             }
             else {
               var formatted = JSON.stringify(JSON.parse(file.contents.toString()), null, 2);
@@ -156,7 +155,7 @@ Condensation.prototype.condense = function() {
         return gulpif(
           s3opts.validate,
           cfValidate({region: s3opts.aws.region})
-        )
+        );
       });
 
       stream = stream

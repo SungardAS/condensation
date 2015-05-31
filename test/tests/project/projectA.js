@@ -30,7 +30,7 @@ describe('projectA', function(){
 
   beforeEach(function() {
     gulp = clone(require('gulp'));
-    require('../').buildTasks(
+    require('../../../').buildTasks(
       gulp,
       {
         s3: [
@@ -44,7 +44,7 @@ describe('projectA', function(){
           }
         ],
         projectName: 'projectA',
-        root: 'test/projectA',
+        root: 'test/fixtures/projectA',
         taskPrefix: '',
         dist: 'test/dist/pA',
       }
