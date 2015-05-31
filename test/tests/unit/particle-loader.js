@@ -16,7 +16,7 @@ describe('genAssetPaths', function(){
       type: 'asset',
       particlePath: 'my_asset.thing',
       expected:  {
-        path: path.join('test','fixtures','projectC','assets','my_asset.thing'),
+        path: path.join(processCwd,'test','fixtures','projectC','particles','assets','my_asset.thing'),
         urlPath: 'particles/assets/my_asset.thing'
       }
     },
@@ -28,7 +28,7 @@ describe('genAssetPaths', function(){
       type: 'template',
       particlePath: 'my.template.json',
       expected:  {
-        path: path.join(processCwd,'test','fixtures','projectC','cftemplates','my.template.json'),
+        path: path.join(processCwd,'test','fixtures','projectC','particles','cftemplates','my.template.json'),
         urlPath: 'particles/cftemplates/my.template.json'
       }
     }
