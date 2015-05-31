@@ -11,14 +11,13 @@ describe('genAssetPaths', function(){
     {
       description: 'should generate paths',
       particle: {
-        modulePath: path.join(processCwd,'/test/fixtures/projectC/node_modules/projectB/node_modules/projectA')
+        modulePath: path.join(processCwd,'/test/fixtures/projectC/')
       },
       type: 'partial',
       particlePath: 'parameter-name-tag',
       expected:  {
-        path: '/test/fixtures/projectC/node_modules/projectB/node_modules/projectA/particles/partials/parameter-name-tag',
-        relativePath: 'node_modules/projectB/node_modules/projectA/particles/partials/parameter-name-tag',
-        urlPath: 'node_modules/projectB/node_modules/projectA/particles/partials/parameter-name-tag'
+        path: path.join('test','fixtures','projectC','partials','parameter-name-tag'),
+        urlPath: 'particles/partials/parameter-name-tag'
       }
     }
   ], function(config){
@@ -37,7 +36,7 @@ describe('genAssetPaths', function(){
       console.log(result);
 
       //Assert
-      assert.equal(result, config.expected);
+      assert.equal(result.urlPath, config.expected.urlPath);
       done();
     });
 
