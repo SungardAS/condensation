@@ -48,7 +48,7 @@ describe('genAssetPaths', function(){
       console.log(result);
 
       //Assert
-      assert.equal(results.path, config.expected.path);
+      assert.equal(result.path, config.expected.path);
       assert.equal(result.urlPath, config.expected.urlPath);
       done();
     });
