@@ -2,6 +2,7 @@ var assert = require('assert'),
 clone = require('clone'),
 fs = require('fs'),
 npm = require('npm'),
+spawn = require('child_process').spawn,
 _ = require('lodash');
 
 var config = {
@@ -26,15 +27,8 @@ describe('projectB-config2', function(){
   var gulp;
 
   before(function(done) {
-    var origCwd = process.cwd();
-    process.chdir('test/fixtures/projectB');
-    npm.load({}, function() {
-      npm.commands.link('../projectA',function(err) {
-        console.log(err);
-        process.chdir(origCwd);
-        done();
-      });
-    });
+    var pA = spawn("npm",["link","../projectA"],{cwd: 'test/fixtures/projectB'});
+    pA.on('exit',function(){done();});
   });
 
   beforeEach(function(done) {

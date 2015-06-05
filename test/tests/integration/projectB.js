@@ -32,7 +32,7 @@ describe('projectB', function(){
   var gulp;
 
   before(function(done) {
-    var pA = spawn("npm",["link","../projectA"],{cwd: 'test/fixtures/projectC'});
+    var pA = spawn("npm",["link","../projectA"],{cwd: 'test/fixtures/projectB'});
     pA.on('exit',function(){done();});
   });
 
