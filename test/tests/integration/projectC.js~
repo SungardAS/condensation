@@ -30,7 +30,7 @@ describe('projectC', function(){
 	    console.log(err,stdout,stderr);
 	    func();
     });
-    var pB = exec("npm link ../projectB",{cwd: 'test/fixtures/projectC'},function(err,stdout,stderr){
+    var pB = exec("npm link ../projectA",{cwd: 'test/fixtures/projectC'},function(err,stdout,stderr){
 	    console.log(err,stdout,stderr);
 	    func();
     });

@@ -4,37 +4,38 @@ clone = require('clone'),
 assert = require('assert'),
 path = require('path'),
 npm = require('npm'),
-exec = require('child_process').exec;
+spawn = require('child_process').spawn,
 fs = require('fs');
 
-var distributionFiles = [
-  'particles/cftemplates/proj.template',
-  'node_modules/projectB/particles/assets/bootstrap.sh',
-  'node_modules/projectB/particles/assets/download.sh',
-  'node_modules/projectB/node_modules/projectA/particles/cftemplates/vpc.template'
+var tasks = [
+  'build',
+  'build:0',
+  'build:east',
+  'clean',
+  'default',
+  'deploy',
+  'deploy:0',
+  'deploy:east',
+  's3:bucket:ensure:0',
+  's3:list',
+  's3:objects:write:0'
 ];
 
-describe('projectC', function(){
+var distributionFiles = [
+  'particles/cftemplates/instance.template.json',
+  'particles/assets/bootstrap.sh',
+  'particles/assets/download.sh',
+  'node_modules/projectA/particles/cftemplates/vpc.template'
+];
+
+describe('projectB', function(){
   var gulp;
 
   before(function(done) {
-    var count = 0;
-    var func = function() {
-      count = count + 1;
-      if (count === 2) {
-        done();
-      }
-    };
-
-    var pA = exec("npm link ../projectA",{cwd: 'test/fixtures/projectC'},function(err,stdout,stderr){
+    var pA = exec("npm link ../projectA",{cwd: 'test/fixtures/projectB'},function(err,stdout,stderr){
 	    console.log(err,stdout,stderr);
-	    func();
-    });
-    var pB = exec("npm link ../projectB",{cwd: 'test/fixtures/projectC'},function(err,stdout,stderr){
-	    console.log(err,stdout,stderr);
-	    func();
-    });
-
+	    done();
+    }); 
   });
 
   beforeEach(function() {
@@ -46,19 +47,26 @@ describe('projectC', function(){
           {
             aws: {
               region: 'us-east-1',
-              bucket: 'my-test-bucket',
+              bucket: '',
             },
             labels: ['east'],
             validate: false,
             create: false
           }
         ],
-        projectName: 'projectC',
-        root: 'test/fixtures/projectC',
+        projectName: 'projectB',
+        root: 'test/fixtures/projectB',
         taskPrefix: '',
-        dist: 'test/dist/pC'
+        dist: 'test/dist/pB'
       }
     );
+  });
+
+  tasks.forEach(function(task) {
+    it('should have a task named \''+task+'\'', function(done){
+      assert(_.indexOf(_.keys(gulp.tasks),task)>=0);
+      done();
+    });
   });
 
   it('should build the project', function(done){
@@ -68,8 +76,8 @@ describe('projectC', function(){
       async.each(
         distributionFiles,
         function(file,cb) {
-          fs.lstat(path.join('test/dist/pC/0',file), function(err,stat) {
-            assert(!err);
+          fs.lstat(path.join('test/dist/pB/0',file), function(err,stat) {
+            assert(!err,err);
             cb();
           });
         },
@@ -81,10 +89,11 @@ describe('projectC', function(){
   it('should clean the project', function(done){
     gulp.start('clean');
     gulp.on('stop',function(){
-      fs.lstat('test/dist/pC', function(err, stats) {
+      fs.lstat('test/dist/pB', function(err, stats) {
         assert(err);
         done();
       });
     });
   });
+
 });

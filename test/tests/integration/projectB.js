@@ -4,7 +4,7 @@ clone = require('clone'),
 assert = require('assert'),
 path = require('path'),
 npm = require('npm'),
-spawn = require('child_process').spawn,
+exec = require('child_process').exec,
 fs = require('fs');
 
 var tasks = [
@@ -32,8 +32,10 @@ describe('projectB', function(){
   var gulp;
 
   before(function(done) {
-    var pA = spawn("npm",["link","../projectA"],{cwd: 'test/fixtures/projectB'});
-    pA.on('exit',function(){done();});
+    var pA = exec("npm link ../projectA",{cwd: 'test/fixtures/projectB'},function(err,stdout,stderr){
+	    console.log(err,stdout,stderr);
+	    done();
+    }); 
   });
 
   beforeEach(function() {
