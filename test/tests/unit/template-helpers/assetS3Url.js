@@ -1,69 +1,54 @@
-var assert = require("assert");
-var helper = require('../../../../lib/template-helpers/assetS3Url');
-var async = require('async');
-
+var ParticleLoader = require('../../../../lib/particle-loader'),
+assert = require("assert"),
+async = require('async'),
+helper = require('../../../../lib/template-helpers/assetS3Url'),
+path = require('path');
 
 
 
 describe('assetS3Url', function(){
 
     async.each([
-        //{
-            //description: 'should resolve http path on windows',
-            //particlePath: 'particles\\assets\\example.rb',
-            //protocol: 'https',
-            //expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/assets/example.rb'
-        //},
         {
-            description: 'should resolve http path on linux',
-            particlePath: 'particles/assets/example.rb',
+            description: 'should resolve http path',
+            particlePath: 'bootstrap.sh',
+            filePath: path.join('test','fixtures','projectB','particles','cftemplates','fake.template'),
             protocol: 'https',
-            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/assets/example.rb'
+            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/assets/bootstrap.sh'
         },
-        //{
-            //description: 'should resolve http path on windows with leading slash',
-            //particlePath: '\\particles\\assets\\example.rb',
-            //protocol: 'http',
-            //expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/assets/example.rb'
-        //},
         {
-            description: 'should resolve http path on linux with leading slash',
-            particlePath: '/particles/assets/example.rb',
-            protocol: 'http',
-            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/assets/example.rb'
+            description: 'should resolve http path with leading slash',
+            particlePath: 'bootstrap.sh',
+            filePath: path.join('test','fixtures','projectB','particles','cftemplates','fake.template'),
+            protocol: 'https',
+            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/assets/bootstrap.sh'
         },
-        //{
-            //description: 'should resolve s3 path on windows',
-            //particlePath: 'particles\\assets\\example.rb',
-            //protocol: 's3',
-            //expected:  's3://bucket/particles/assets/example.rb'
-        //},
         {
-            description: 'should resolve s3 path on linux',
-            particlePath: 'particles/assets/example.rb',
+            description: 'should resolve s3 path',
+            particlePath: 'bootstrap.sh',
+            filePath: path.join('test','fixtures','projectB','particles','cftemplates','fake.template'),
             protocol: 's3',
-            expected:  's3://bucket/particles/assets/example.rb'
+            expected:  's3://bucket/particles/assets/bootstrap.sh'
         },
         {
-            description: 'should default to http if no protocol specified',
-            particlePath: 'particles\\assets\\example.rb',
+            description: 'should default to https if no protocol specified',
+            particlePath: 'bootstrap.sh',
+            filePath: path.join('test','fixtures','projectB','particles','cftemplate','fake.template'),
             protocol: null,
-            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/assets/example.rb'
+            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/assets/bootstrap.sh'
         }
     ], function(config){
 
         it(config.description, function(done){
             //Arrange
             var hOpts = {
-                data: {_file: null},
+                data: {_file: {
+                  path: config.filePath
+                }},
                 hash: {protocol: config.protocol}
             };
             var cOpts = {
-                particleLoader: {
-                    loadParticle: function(){
-                        return {relative: config.particlePath};
-                    }
-                }
+                particleLoader: new ParticleLoader({root:path.join('test','fixtures','projectB')})
             };
 
 
@@ -87,7 +72,7 @@ describe('assetS3Url', function(){
             };
 
             //Act
-            var result = helper.helper.apply(root, [null, null, null, hOpts, cOpts]);
+            var result = helper.helper.apply(root, [null, config.particlePath, null, hOpts, cOpts]);
 
             //Assert
             assert.equal(result, config.expected);

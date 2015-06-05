@@ -1,9 +1,9 @@
-var assert = require("assert");
-var ParticleLoader = require('../../../lib/particle-loader');
-var path = require('path');
-var async = require('async');
+var ParticleLoader = require('../../../lib/particle-loader'),
+assert = require("assert"),
+async = require('async'),
+path = require('path');
 
-describe('genAssetPaths', function(){
+describe('genParticlePaths', function(){
 
   var processCwd = process.cwd();
 
@@ -11,7 +11,7 @@ describe('genAssetPaths', function(){
     {
       description: 'should generate paths for an asset',
       particle: {
-        modulePath: path.join(processCwd,'/test/fixtures/projectC/')
+        modulePath: path.join(processCwd,'test','fixtures','projectC')
       },
       type: 'asset',
       particlePath: 'my_asset.thing',
@@ -23,7 +23,7 @@ describe('genAssetPaths', function(){
     {
       description: 'should generate paths for a template',
       particle: {
-        modulePath: path.join(processCwd,'/test/fixtures/projectC/')
+        modulePath: path.join(processCwd,'test','fixtures','projectC')
       },
       type: 'template',
       particlePath: 'my.template.json',
@@ -38,10 +38,9 @@ describe('genAssetPaths', function(){
 
       //Arrange
       var options = {
-        //parentFile: {path: config.particlePath }
         parentFile: ""
       };
-      var particleLoader = new ParticleLoader({root:"test/fixtures/projectC"});
+      var particleLoader = new ParticleLoader({root:path.join('test','fixtures','projectC')});
 
       //Act
       var result = particleLoader.genParticlePaths(config.particle,config.type,config.particlePath);
