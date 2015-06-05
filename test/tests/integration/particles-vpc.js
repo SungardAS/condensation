@@ -10,10 +10,7 @@ describe('particles-vpc', function(){
   var gulp;
 
    before(function(done) {
-    var p = exec("npm link ../particles-common-core",{cwd: 'test/fixtures/particles-vpc'},function(err,stdout,stderr){
-	    console.log(err,stdout,stderr);
-	    done();
-    });
+    var p = exec("npm link ../particles-common-core",{cwd: 'test/fixtures/particles-vpc'},done);
   });
 
   beforeEach(function() {

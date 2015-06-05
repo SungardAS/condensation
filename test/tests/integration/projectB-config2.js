@@ -27,11 +27,7 @@ describe('projectB-config2', function(){
   var gulp;
 
   before(function(done) {
-    var pA = exec("npm link ../projectA",{cwd: 'test/fixtures/projectB'},function(err,stdout,stderr){
-	    console.log(err,stdout,stderr);
-	    done();
-    });
-    //pA.on('exit',function(err){console.log(err); done(err);});
+    var pA = exec("npm link ../projectA",{cwd: 'test/fixtures/projectB'},done);
   });
 
   beforeEach(function(done) {

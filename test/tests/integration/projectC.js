@@ -19,21 +19,15 @@ describe('projectC', function(){
 
   before(function(done) {
     var count = 0;
-    var func = function() {
+    var func = function(err) {
       count = count + 1;
-      if (count === 2) {
-        done();
+      if (count === 2 || err) {
+        done(err);
       }
     };
 
-    var pA = exec("npm link ../projectA",{cwd: 'test/fixtures/projectC'},function(err,stdout,stderr){
-	    console.log(err,stdout,stderr);
-	    func();
-    });
-    var pB = exec("npm link ../projectB",{cwd: 'test/fixtures/projectC'},function(err,stdout,stderr){
-	    console.log(err,stdout,stderr);
-	    func();
-    });
+    var pA = exec("npm link ../projectA",{cwd: 'test/fixtures/projectC'},func);
+    var pB = exec("npm link ../projectB",{cwd: 'test/fixtures/projectC'},func);
 
   });
 
