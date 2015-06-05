@@ -4,6 +4,7 @@ clone = require('clone'),
 assert = require('assert'),
 path = require('path'),
 npm = require('npm'),
+spawn = require('child_process').spawn;
 fs = require('fs');
 
 var distributionFiles = [
@@ -17,16 +18,19 @@ describe('projectC', function(){
   var gulp;
 
   before(function(done) {
-    var origCwd = process.cwd();
-    process.chdir('test/fixtures/projectC');
-    npm.load({}, function() {
-      npm.commands.link('../projectA',function(err) {
-        npm.commands.link('../projectB',function(err) {
-          process.chdir(origCwd);
-          done();
-        });
-      });
-    });
+    var count = 0;
+    var func = function() {
+      count = count + 1;
+      if (count === 2) {
+        done();
+      }
+    };
+
+    var pA = spawn("npm",["link","../projectA"],{cwd: 'test/fixtures/projectC'});
+    var pB = spawn("npm",["link","../projectB"],{cwd: 'test/fixtures/projectC'});
+    pA.on('exit',func);
+    pB.on('exit',func);
+
   });
 
   beforeEach(function() {
