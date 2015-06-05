@@ -9,15 +9,15 @@ describe('templateS3Url', function(){
     async.each([
         {
             description: 'should resolve http path on linux',
-            particlePath: 'instance.template',
+            particlePath: 'instance.template.json',
             filePath: path.join('test','fixtures','projectB','particles','cftemplates','fake.template'),
-            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/cftemplates/instance.template'
+            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/cftemplates/instance.template.json'
         },
         {
             description: 'should resolve http path on linux with a leading slash',
-            particlePath: 'instance.template',
+            particlePath: 'instance.template.json',
             filePath: path.join('test','fixtures','projectB','particles','cftemplates','fake.template'),
-            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/cftemplates/instance.template'
+            expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/cftemplates/instance.template.json'
         }
     ], function(config){
 

@@ -3,6 +3,7 @@ async = require('async'),
 clone = require('clone'),
 assert = require('assert'),
 path = require('path'),
+npm = require('npm'),
 fs = require('fs');
 
 var distributionFiles = [
@@ -14,6 +15,19 @@ var distributionFiles = [
 
 describe('projectC', function(){
   var gulp;
+
+  before(function(done) {
+    var origCwd = process.cwd();
+    process.chdir('test/fixtures/projectC');
+    npm.load({}, function() {
+      npm.commands.link('../projectA',function(err) {
+        npm.commands.link('../projectB',function(err) {
+          process.chdir(origCwd);
+          done();
+        });
+      });
+    });
+  });
 
   beforeEach(function() {
     gulp = clone(require('gulp'));

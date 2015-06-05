@@ -3,6 +3,7 @@ async = require('async'),
 clone = require('clone'),
 assert = require('assert'),
 path = require('path'),
+npm = require('npm'),
 fs = require('fs');
 
 var tasks = [
@@ -20,7 +21,7 @@ var tasks = [
 ];
 
 var distributionFiles = [
-  'particles/cftemplates/instance.template',
+  'particles/cftemplates/instance.template.json',
   'particles/assets/bootstrap.sh',
   'particles/assets/download.sh',
   'node_modules/projectA/particles/cftemplates/vpc.template'
@@ -28,6 +29,17 @@ var distributionFiles = [
 
 describe('projectB', function(){
   var gulp;
+
+  before(function(done) {
+    var origCwd = process.cwd();
+    process.chdir('test/fixtures/projectB');
+    npm.load({}, function() {
+      npm.commands.link('../projectA',function(err) {
+        process.chdir(origCwd);
+        done();
+      });
+    });
+  });
 
   beforeEach(function() {
     gulp = clone(require('gulp'));
@@ -68,7 +80,7 @@ describe('projectB', function(){
         distributionFiles,
         function(file,cb) {
           fs.lstat(path.join('test/dist/pB/0',file), function(err,stat) {
-            assert(!err);
+            assert(!err,err);
             cb();
           });
         },

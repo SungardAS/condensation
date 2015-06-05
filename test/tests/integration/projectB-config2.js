@@ -1,7 +1,8 @@
-var _ = require('lodash'),
+var assert = require('assert'),
 clone = require('clone'),
-assert = require('assert'),
-fs = require('fs');
+fs = require('fs'),
+npm = require('npm'),
+_ = require('lodash');
 
 var config = {
   s3: [
@@ -23,6 +24,18 @@ var config = {
 
 describe('projectB-config2', function(){
   var gulp;
+
+  before(function(done) {
+    var origCwd = process.cwd();
+    process.chdir('test/fixtures/projectB');
+    npm.load({}, function() {
+      npm.commands.link('../projectA',function(err) {
+        console.log(err);
+        process.chdir(origCwd);
+        done();
+      });
+    });
+  });
 
   beforeEach(function(done) {
     gulp = clone(require('gulp'));
