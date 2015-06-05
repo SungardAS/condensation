@@ -45,7 +45,6 @@ describe('genAssetPaths', function(){
 
       //Act
       var result = particleLoader.genParticlePaths(config.particle,config.type,config.particlePath);
-      console.log(result);
 
       //Assert
       assert.equal(result.path, config.expected.path);
