@@ -82,7 +82,6 @@ Condensation.prototype.condense = function() {
     });
 
     templateData.s3 = s3opts.aws;
-    console.log(s3.endpoint.href,s3opts.aws.bucket,s3opts.prefix);
     templateData.s3.condensationUrl = url.parse([s3.endpoint.href,path.posix.join(s3opts.aws.bucket,s3opts.prefix)].join(''));
 
     gulp.task(self.genTaskName('build',i),[self.genTaskName('clean:errors')],function() {

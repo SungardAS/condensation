@@ -3,9 +3,12 @@ async = require('async'),
 clone = require('clone'),
 assert = require('assert'),
 path = require('path'),
-npm = require('npm'),
 exec = require('child_process').exec;
+shared = require('./project-shared'),
 fs = require('fs');
+
+var projectDir = 'test/fixtures/projects/projectC';
+var distDir = 'test/dist/pC';
 
 var distributionFiles = [
   'particles/cftemplates/proj.template',
@@ -19,23 +22,23 @@ describe('projectC', function(){
 
   before(function(done) {
     var count = 0;
-    var func = function(err) {
+    var finishAll = function(err) {
       count = count + 1;
       if (count === 2 || err) {
         done(err);
       }
     };
 
-    var pA = exec("npm link ../projectA",{cwd: 'test/fixtures/projectC'},func);
-    var pB = exec("npm link ../projectB",{cwd: 'test/fixtures/projectC'},func);
+    var pA = exec("npm link ../projectA",{cwd: projectDir},finishAll);
+    var pB = exec("npm link ../projectB",{cwd: projectDir},finishAll);
 
   });
 
-  beforeEach(function() {
-    gulp = clone(require('gulp'));
-    require('../../../').buildTasks(
-      gulp,
-      {
+  shared.shouldBehaveLikeAProject({
+    gulp: gulp,
+    tasks: [],
+    distributionFiles: distributionFiles,
+    projectConfig: {
         s3: [
           {
             aws: {
@@ -48,37 +51,10 @@ describe('projectC', function(){
           }
         ],
         projectName: 'projectC',
-        root: 'test/fixtures/projectC',
+        root: projectDir,
         taskPrefix: '',
-        dist: 'test/dist/pC'
+        dist: distDir
       }
-    );
   });
 
-  it('should build the project', function(done){
-    gulp.start('build');
-    gulp.on('err',assert.fail);
-    gulp.on('stop',function(){
-      async.each(
-        distributionFiles,
-        function(file,cb) {
-          fs.lstat(path.join('test/dist/pC/0',file), function(err,stat) {
-            assert(!err);
-            cb();
-          });
-        },
-        done
-      );
-    });
-  });
-
-  it('should clean the project', function(done){
-    gulp.start('clean');
-    gulp.on('stop',function(){
-      fs.lstat('test/dist/pC', function(err, stats) {
-        assert(err);
-        done();
-      });
-    });
-  });
 });

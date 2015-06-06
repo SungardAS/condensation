@@ -3,9 +3,12 @@ async = require('async'),
 clone = require('clone'),
 assert = require('assert'),
 path = require('path'),
-npm = require('npm'),
 exec = require('child_process').exec,
+shared = require('./project-shared'),
 fs = require('fs');
+
+var projectDir = 'test/fixtures/projects/projectB';
+var distDir = 'test/dist/pB';
 
 var tasks = [
   'build',
@@ -32,14 +35,14 @@ describe('projectB', function(){
   var gulp;
 
   before(function(done) {
-    var pA = exec("npm link ../projectA",{cwd: 'test/fixtures/projectB'},done);
+    var pA = exec("npm link ../projectA",{cwd: projectDir},done);
   });
 
-  beforeEach(function() {
-    gulp = clone(require('gulp'));
-    require('../../../').buildTasks(
-      gulp,
-      {
+  shared.shouldBehaveLikeAProject({
+    gulp: gulp,
+    tasks: tasks,
+    distributionFiles: distributionFiles,
+    projectConfig: {
         s3: [
           {
             aws: {
@@ -52,45 +55,10 @@ describe('projectB', function(){
           }
         ],
         projectName: 'projectB',
-        root: 'test/fixtures/projectB',
+        root: projectDir,
         taskPrefix: '',
-        dist: 'test/dist/pB'
+        dist: distDir
       }
-    );
-  });
-
-  tasks.forEach(function(task) {
-    it('should have a task named \''+task+'\'', function(done){
-      assert(_.indexOf(_.keys(gulp.tasks),task)>=0);
-      done();
-    });
-  });
-
-  it('should build the project', function(done){
-    gulp.start('build');
-    gulp.on('err',assert.fail);
-    gulp.on('stop',function(){
-      async.each(
-        distributionFiles,
-        function(file,cb) {
-          fs.lstat(path.join('test/dist/pB/0',file), function(err,stat) {
-            assert(!err,err);
-            cb();
-          });
-        },
-        done
-      );
-    });
-  });
-
-  it('should clean the project', function(done){
-    gulp.start('clean');
-    gulp.on('stop',function(){
-      fs.lstat('test/dist/pB', function(err, stats) {
-        assert(err);
-        done();
-      });
-    });
   });
 
 });

@@ -3,7 +3,12 @@ clone = require('clone'),
 fs = require('fs'),
 npm = require('npm'),
 exec = require('child_process').exec,
+path = require('path'),
+shared = require('./project-shared'),
 _ = require('lodash');
+
+var projectDir = 'test/fixtures/projects/projectB';
+var distDir = 'test/dist/pB-2';
 
 var config = {
   s3: [
@@ -18,35 +23,28 @@ var config = {
     }
   ],
   projectName: 'projectB-config2',
-  root: 'test/fixtures/projectB',
+  root: projectDir,
   taskPrefix: '',
-  dist: 'test/dist/pB-2'
+  dist: distDir
 };
 
 describe('projectB-config2', function(){
   var gulp;
 
   before(function(done) {
-    var pA = exec("npm link ../projectA",{cwd: 'test/fixtures/projectB'},done);
+    var pA = exec("npm link ../projectA",{cwd: projectDir},done);
   });
 
-  beforeEach(function(done) {
-    gulp = clone(require('gulp'));
-    require('../../../').buildTasks(gulp,config);
-    gulp.start('build');
-    gulp.on('stop',function(){done()});
-  });
-
-  afterEach(function(done) {
-    var afterGulp = clone(require('gulp'));
-    require('../../../').buildTasks(afterGulp,config);
-    afterGulp.start('clean');
-    afterGulp.on('stop',function(){done()});
+  shared.shouldBehaveLikeAProject({
+    gulp: gulp,
+    tasks: [],
+    distributionFiles: [],
+    projectConfig: config
   });
 
   it("should prefix all file paths with 'testing-path' for the distribution", function(done){
-      fs.lstat('test/dist/pB-2/0/testing-path', function(err, stats) {
-        assert((!err && stats.isDirectory()));
+      fs.lstat(path.join('./',distDir,'0','testing-path'), function(err, stats) {
+        assert((!err && stats.isDirectory()),err);
         done();
       });
   });

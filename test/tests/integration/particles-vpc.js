@@ -6,11 +6,14 @@ assert = require('assert'),
 path = require('path'),
 fs = require('fs');
 
+var projectDir = 'test/fixtures/projects/particles-vpc';
+var distDir = 'test/dist/particles-vpc';
+
 describe('particles-vpc', function(){
   var gulp;
 
    before(function(done) {
-    var p = exec("npm link ../particles-common-core",{cwd: 'test/fixtures/particles-vpc'},done);
+    var p = exec("npm link ../particles-common-core",{cwd: projectDir},done);
   });
 
   beforeEach(function() {
@@ -30,9 +33,9 @@ describe('particles-vpc', function(){
           }
         ],
         projectName: 'particles-vpc',
-        root: 'test/fixtures/particles-vpc',
+        root: projectDir,
         taskPrefix: '',
-        dist: 'test/dist/particles-vpc'
+        dist: distDir
       }
     );
   });
@@ -48,7 +51,7 @@ describe('particles-vpc', function(){
   it('should clean the project', function(done){
     gulp.start('clean');
     gulp.on('stop',function(){
-      fs.lstat('test/dist/particles-vpc', function(err, stats) {
+      fs.lstat(distDir, function(err, stats) {
         assert(err);
         done();
       });
