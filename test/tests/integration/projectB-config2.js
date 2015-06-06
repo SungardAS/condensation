@@ -1,7 +1,6 @@
 var assert = require('assert'),
 clone = require('clone'),
 fs = require('fs'),
-npm = require('npm'),
 exec = require('child_process').exec,
 path = require('path'),
 shared = require('./project-shared'),
