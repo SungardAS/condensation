@@ -38,6 +38,10 @@ describe('projectB', function(){
     var pA = exec("npm link ../projectA",{cwd: projectDir},done);
   });
 
+  after(function(done) {
+    var pA = exec("npm unlink ../projectA",{cwd: projectDir},done);
+  });
+
   shared.shouldBehaveLikeAProject({
     gulp: gulp,
     tasks: tasks,

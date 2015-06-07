@@ -17,6 +17,10 @@ describe('particles-vpc', function(){
     var p = exec("npm link ../particles-common-core",{cwd: projectDir},done);
   });
 
+  after(function(done) {
+    var p = exec("npm unlink ../particles-common-core",{cwd: projectDir},done);
+  });
+
   shared.shouldBehaveLikeAProject({
     gulp: gulp,
     tasks: [],
