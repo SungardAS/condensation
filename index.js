@@ -55,7 +55,7 @@ Condensation.prototype.condense = function() {
 
   var gulp = this.gulp || require('gulp');
 
-  var helpers = require('./lib/template-helpers')({
+  var helpers = require('./lib/all-helpers')({
       particleLoader: this.particleLoader,
       handlebars: this.handlebars
   });
