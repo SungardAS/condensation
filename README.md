@@ -193,8 +193,7 @@ have to to be in any specific order.
       {{{parameter 'my_parameter' logicalId="MyParameter"}}}
       {{{condition 'my_condition' logicalId="MyCondition"}}}
 
-      [[! helpers can occur in any order, allowing you to group related
-section parts together }}
+      [[! helpers can occur in any order, allowing you to group related section parts together }}
 
       {{#each things}}
         {{{parameter 'repeate_me' logicalId="RepeateMe" logicalIdSuffix=@index}}}
@@ -247,7 +246,7 @@ uploaded to S3.
 #### conditions
 
 Contents of files will be loaded as conditions that can be used in
-in a trandtional template or a `layout` (**recommended**))
+in a trandtional template or a `layout` (**recommended**)
 
 Directory: `conditions`
 Helper: `condition`
@@ -297,7 +296,7 @@ The particle path should match the name of the helper without the `.js` extensio
 #### mappings
 
 Contents of files will be loaded as mappings that can be used in
-in a trandtional template or a `layout` (**recommended**))
+in a trandtional template or a `layout` (**recommended**)
 
 Directory: `mappings`
 Helper: `mapping`
@@ -312,7 +311,7 @@ plus any extensions.
 #### metadata
 
 Contents of files will be loaded as metadatas that can be used in
-in a trandtional template or a `layout` (**recommended**))
+in a trandtional template or a `layout` (**recommended**)
 
 Directory: `metadatas`
 Helper: `metadata`
@@ -327,7 +326,7 @@ plus any extensions.
 #### outputs
 
 Contents of files will be loaded as outputs that can be used in
-in a trandtional template or a `layout` (**recommended**))
+in a trandtional template or a `layout` (**recommended**)
 
 Directory: `outputs`
 Helper: `output`
@@ -342,7 +341,7 @@ plus any extensions.
 #### parameters
 
 Contents of files will be loaded as parameters that can be used in
-in a trandtional template or a `layout` (**recommended**))
+in a trandtional template or a `layout` (**recommended**)
 
 Directory: `parameters`
 Helper: `parameter`
@@ -376,7 +375,7 @@ If the desired partial is not being loaded ensure precedence is given to an exac
 #### resources
 
 Contents of files will be loaded as resources that can be used in
-in a trandtional template or a `layout` (**recommended**))
+in a trandtional template or a `layout` (**recommended**)
 
 Directory: `resources`
 Helper: `resource`
