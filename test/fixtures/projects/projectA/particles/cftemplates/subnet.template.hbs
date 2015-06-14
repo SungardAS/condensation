@@ -2,6 +2,15 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "{{{helper 'test-helper'}}}",
   "Parameters": {
+    "SubnetCidr": {
+      "Type": "String"
+    },
+    "AvailabilityZone": {
+      "Type": "String"
+    },
+    "VpcId": {
+      "Type": "String"
+    },
     {{{partial 'parameter-name-tag'}}}
   },
   "Resources": {
@@ -33,13 +42,6 @@
             }
           }
         ]
-      }
-    }
-  },
-  "Outputs": {
-    "VpcId": {
-      "Value": {
-        "Ref": "vpc"
       }
     }
   }

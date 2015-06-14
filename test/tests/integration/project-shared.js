@@ -1,4 +1,5 @@
 var _ = require('lodash'),
+AWS = require('aws-sdk'),
 async = require('async'),
 clone = require('clone'),
 assert = require('assert'),
@@ -7,6 +8,18 @@ fs = require('fs');
 
 exports.shouldBehaveLikeAProject = function(options){
   var gulp = options.gulp;
+
+  before('check for AWS credentials', function(cb) {
+    var self = this;
+    var awsCreds = new AWS.Credentials();
+    awsCreds.get(function(err) {
+      if (!err) {
+        process.env.FORCE_VALIDATE=true
+        self.timeout(5000);
+      }
+      cb();
+    });
+  });
 
   beforeEach('create new gulp object', function() {
     gulp = clone(require('gulp'));
@@ -50,6 +63,8 @@ exports.shouldBehaveLikeAProject = function(options){
       done();
     });
   });
+
+
 
   it('should build the project', function(done){
     gulp.start('build');

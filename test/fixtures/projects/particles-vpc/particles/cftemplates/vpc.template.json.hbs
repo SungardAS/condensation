@@ -11,9 +11,9 @@
     }
   },
   "Conditions": {
-    {{{condition 'module:particles-common-core' 'is_true' name="CondCreateVpcSecurityGroup" parameterName="CreateVpcSecurityGroup"}}},
-    {{{condition 'module:particles-common-core' 'is_true' name="CondOpenVpcCommunication" parameterName="OpenVpcCommunication"}}},
-    {{{condition 'module:particles-common-core' 'is_true' name="CondCreateInternetGateway" parameterName="CreateInternetGateway"}}}
+    {{{condition 'module:particles-common-core' 'is_true' logicalId="CondCreateVpcSecurityGroup" parameterName="CreateVpcSecurityGroup"}}},
+    {{{condition 'module:particles-common-core' 'is_true' logicalId="CondOpenVpcCommunication" parameterName="OpenVpcCommunication"}}},
+    {{{condition 'module:particles-common-core' 'is_true' logicalId="CondCreateInternetGateway" parameterName="CreateInternetGateway"}}}
   },
   "Resources": {
     "vpc": {

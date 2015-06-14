@@ -42,7 +42,7 @@ describe('projectA', function(){
               region: 'us-east-1',
               bucket: '',
             },
-            validate: false,
+            validate: true,
             create: false
           }
         ],
