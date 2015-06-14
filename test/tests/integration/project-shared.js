@@ -10,10 +10,12 @@ exports.shouldBehaveLikeAProject = function(options){
   var gulp = options.gulp;
 
   before('check for AWS credentials', function(cb) {
-    var awsCreds = new AWS.Credentials();
-    awsCreds.get(function(err) {
+    var self = this;
+    var awsCreds = new AWS.CredentialProviderChain();
+    awsCreds.resolve(function(err) {
       if (!err) {
         process.env.FORCE_VALIDATE=true
+        self.timeout(5000);
       }
       cb();
     });
