@@ -9,16 +9,21 @@ fs = require('fs');
 exports.shouldBehaveLikeAProject = function(options){
   var gulp = options.gulp;
 
-  before('check for AWS credentials', function(cb) {
+  before('check for AWS credentials', function() {
     var self = this;
-    var awsCreds = new AWS.Credentials();
-    awsCreds.get(function(err) {
-      if (!err) {
-        process.env.FORCE_VALIDATE=true
-        self.timeout(5000);
-      }
-      cb();
-    });
+    try {
+      var awsCreds = new AWS.Credentials();
+      process.env.FORCE_VALIDATE=true
+      self.timeout(5000);
+    }
+    catch(e) {
+      // No AWS Creds
+    }
+    //awsCreds.get(function(err) {
+      //if (!err) {
+      //}
+      //cb();
+    //});
   });
 
   beforeEach('create new gulp object', function() {
