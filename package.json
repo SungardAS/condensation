@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --recursive test/tests"
+    "test": "./node_modules/.bin/mocha --recursive test/tests --timeout 10000"
   },
   "repository": {
     "type": "git",

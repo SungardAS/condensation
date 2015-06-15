@@ -15,7 +15,6 @@ exports.shouldBehaveLikeAProject = function(options){
     awsCreds.resolve(function(err) {
       if (!err) {
         process.env.FORCE_VALIDATE=true
-        self.timeout(5000);
       }
       cb();
     });

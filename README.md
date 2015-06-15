@@ -116,7 +116,7 @@ Quick Start Examples: [condensation-examples](https://github.com/SungardAS/conde
       dist: 'dist'
     };
 
-    // Add necessary gulp tasks to build, compile and validate
+    // Add gulp tasks to build, compile and validate
     // CloudFormation templates
     require('condensation').buildTasks(gulp,config);
 
@@ -152,9 +152,9 @@ Quick Start Examples: [condensation-examples](https://github.com/SungardAS/conde
       |
       -- partials
 
-Condensation loads particles through core helper methods that
+Condensation builds templates with helper methods that
 are able to load particles from the local project
-as well as any condensation compatible project added as a npm
+or from any condensation compatible project added as a npm
 dependency.
 
 All helpers follow the same pattern:
@@ -168,7 +168,7 @@ of the npm dependency.
 #### Lazy Loading
 
 Particles will only be included in the final distribution if they are
-referenced from a `hbs` file.
+referenced in a `hbs` file.
 
 ### layout support
 
