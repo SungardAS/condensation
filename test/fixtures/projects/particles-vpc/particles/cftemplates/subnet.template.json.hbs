@@ -1,0 +1,121 @@
+{{#layout}}
+    {{{parameter 'vpc_cidr' logicalId="SubnetCidr" description="Subnet CIDR [x.x.x.x/x]"}}}
+    {{#parameter logicalId="AvailabilityZone"}}
+      "Default": "random",
+      "Description": "Availability Zone",
+      "Type": "String",
+      "ConstraintDescription": "Must be a valid AZ for the region."
+    {{/parameter}}
+    {{#parameter logicalId="VpcId"}}
+      "Description": "ID of an existing VPC to create the subnet in",
+      "Type": "AWS::EC2::VPC::Id"
+    {{/parameter}}
+    {{#parameter logicalId="RouteTableId"}}
+      "Description": "Route table that the subnet will attach to.",
+      "Default": "default",
+      "Type": "String",
+      "MinLength": "1",
+      "MaxLength": "255",
+      "AllowedPattern": "[\\x20-\\x7E]*",
+      "ConstraintDescription": "can contain only ASCII characters."
+    {{/parameter}}
+    {{#parameter logicalId="NameTag"}}
+      "Description": "Set the name tag for all created resources.",
+      "Default": "default",
+      "Type": "String",
+      "MinLength": "1",
+      "MaxLength": "255",
+      "AllowedPattern": "[\\x20-\\x7E]*",
+      "ConstraintDescription": "can contain only ASCII characters."
+    {{/parameter}}
+
+    {{set 'module:particles-common-core' 'true_false' parameterLogicalId="tf"}}
+
+    {{#condition logicalId="condNonDefaultRouteTable"}}
+      "Fn::Not": [
+        {
+          "Fn::Equals": [
+            {
+              "Ref": "RouteTableId"
+            },
+            "default"
+          ]
+        }
+      ]
+    {{/condition}}
+    {{#condition logicalId="condNonDefaultAZ"}}
+      "Fn::Not": [
+        {
+          "Fn::Equals": [
+            {
+              "Ref": "AvailabilityZone"
+            },
+            "random"
+          ]
+        }
+      ]
+    {{/condition}}
+    {{#condition logicalId="condDefaultAZ"}}
+      "Fn::Equals": [
+        {
+          "Ref": "AvailabilityZone"
+        },
+        "random"
+      ]
+    {{/condition}}
+
+    {{#resource logicalId="Subnet"}}
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": {
+          "Ref": "SubnetCidr"
+        },
+        "AvailabilityZone": {
+          "Fn::If": [
+            "condNonDefaultAZ",
+            {
+              "Ref": "AvailabilityZone"
+            },
+            {
+              "Ref": "AWS::NoValue"
+            }
+          ]
+        },
+        "VpcId": {
+          "Ref": "VpcId"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Ref": "NameTag"
+            }
+          }
+        ]
+      }
+    {{/resource}}
+
+    {{#resource logicalId="RouteTableAssociation"}}
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Condition": "condNonDefaultRouteTable",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "RouteTableId"
+        },
+        "SubnetId": {
+          "Ref": "Subnet"
+        }
+      }
+    {{/resource}}
+
+    {{#output logicalId="SubnetId"}}
+      "Value": {
+        "Ref": "Subnet"
+      }
+    {{/output}}
+
+    {{#output logicalId="AvailabilityZone"}}
+      "Value": { "Fn::GetAtt" : [ "Subnet", "AvailabilityZone" ] }
+    {{/output}}
+
+{{/layout}}

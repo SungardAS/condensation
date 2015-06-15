@@ -1,10 +1,10 @@
 {
   "name": "condensation",
-  "version": "0.3.1",
-  "description": "",
+  "version": "0.4.0",
+  "description": "Package, reuse and share particles for CloudFormation projects",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha"
+    "test": "./node_modules/.bin/mocha --recursive test/tests --timeout 15000"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
     "backoff": "^2.4.0",
     "del": "^1.1.1",
     "event-stream": "^3.3.0",
-    "fs-extra": "^0.18.0",
+    "fs-extra": "^0.19.0",
     "glob": "^5.0.5",
     "gray-matter": "^2.0.0",
     "gulp": "^3.8.10",
@@ -32,9 +32,11 @@
     "lazypipe": "^0.2.3",
     "lodash": "^3.4.0",
     "merge-stream": "^0.1.6",
+    "parse-filepath": "^0.5.0",
     "rimraf": "^2.3.2",
-    "through2": "^0.6.3",
-    "vinyl": "^0.4.6"
+    "slash": "^1.0.0",
+    "through2": "^2.0.0",
+    "vinyl": "^0.5.0"
   },
   "license": "ISC",
   "bugs": {
@@ -42,11 +44,14 @@
   },
   "homepage": "https://github.com/sungardas/condensation",
   "devDependencies": {
-    "async": "^0.9.0",
+    "async": "^1.2.0",
     "clone": "^1.0.1",
     "coveralls": "^2.11.2",
     "istanbul": "^0.3.7",
-    "mocha": "^2.2.0",
-    "condensation-examples": "sungardas/condensation-examples"
+    "mocha": "^2.2.0"
+  },
+  "engines": {
+    "node": ">0.12.0",
+    "iojs": "*"
   }
 }

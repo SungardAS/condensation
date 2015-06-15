@@ -4,6 +4,7 @@ Package, reuse and share particles for CloudFormation projects
 
 [![NPM](https://nodei.co/npm/condensation.png)](https://nodei.co/npm/condensation/)
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SungardAS/condensation?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Build Status](https://travis-ci.org/SungardAS/condensation.svg?branch=master)](https://travis-ci.org/SungardAS/condensation?branch=master)
 [![Code Climate](https://codeclimate.com/github/SungardAS/condensation/badges/gpa.svg?branch=master)](https://codeclimate.com/github/SungardAS/condensation?branch=master)
 [![Coverage Status](https://coveralls.io/repos/SungardAS/condensation/badge.svg?branch=master)](https://coveralls.io/r/SungardAS/condensation?branch=master)
@@ -14,7 +15,7 @@ Package, reuse and share particles for CloudFormation projects
 
 Condensation is a [gulp](http://gulpjs.com) task generator that helps
 compile, package and upload [AWS CloudFormation](http://aws.amazon.com/cloudformation/)
-templates and supporting assets.
+templates and supporting assets as distributions.
 
 Any file with the extension `.hbs` will be compiled with
 [Handlebars.js](http://http://handlebarsjs.com/) to support
@@ -115,7 +116,7 @@ Quick Start Examples: [condensation-examples](https://github.com/SungardAS/conde
       dist: 'dist'
     };
 
-    // Add necessary gulp tasks to build, compile and validate
+    // Add gulp tasks to build, compile and validate
     // CloudFormation templates
     require('condensation').buildTasks(gulp,config);
 
@@ -151,9 +152,9 @@ Quick Start Examples: [condensation-examples](https://github.com/SungardAS/conde
       |
       -- partials
 
-Condensation loads particles through core helper methods that
+Condensation builds templates with helper methods that
 are able to load particles from the local project
-as well as any condensation compatible project added as a npm
+or from any condensation compatible project added as a npm
 dependency.
 
 All helpers follow the same pattern:
@@ -167,7 +168,7 @@ of the npm dependency.
 #### Lazy Loading
 
 Particles will only be included in the final distribution if they are
-referenced from a `hbs` file.
+referenced in a `hbs` file.
 
 ### layout support
 
@@ -192,8 +193,7 @@ have to to be in any specific order.
       {{{parameter 'my_parameter' logicalId="MyParameter"}}}
       {{{condition 'my_condition' logicalId="MyCondition"}}}
 
-      [[! helpers can occur in any order, allowing you to group related
-section parts together }}
+      [[! helpers can occur in any order, allowing you to group related section parts together }}
 
       {{#each things}}
         {{{parameter 'repeate_me' logicalId="RepeateMe" logicalIdSuffix=@index}}}
@@ -216,11 +216,15 @@ removed from the filename.
 
 Asset URLs can be built with the `assetS3Url` helper:
 
-    {{{assetS3Url 'my-asset'}}}
+    {{{assetS3Url 'my-asset' [protocol=https|s3]}}}
 
-    {{{assetS3Url 'module:<MODULE>' 'module-asset'}}}
+    {{{assetS3Url 'module:<MODULE>' 'module-asset' [protocol=https|s3]}}}
 
 The particle path will match the name of the asset without the `.hbs` extension, if it exists.
+
+Parameters:
+
+**protocol** *optional* https|s3 - Forces the protocol of the url to https:// or s3://
 
 Example Output:
 
@@ -242,7 +246,7 @@ uploaded to S3.
 #### conditions
 
 Contents of files will be loaded as conditions that can be used in
-in a trandtional template or a `layout` (**recommended**))
+in a trandtional template or a `layout` (**recommended**)
 
 Directory: `conditions`
 Helper: `condition`
@@ -292,7 +296,7 @@ The particle path should match the name of the helper without the `.js` extensio
 #### mappings
 
 Contents of files will be loaded as mappings that can be used in
-in a trandtional template or a `layout` (**recommended**))
+in a trandtional template or a `layout` (**recommended**)
 
 Directory: `mappings`
 Helper: `mapping`
@@ -307,7 +311,7 @@ plus any extensions.
 #### metadata
 
 Contents of files will be loaded as metadatas that can be used in
-in a trandtional template or a `layout` (**recommended**))
+in a trandtional template or a `layout` (**recommended**)
 
 Directory: `metadatas`
 Helper: `metadata`
@@ -322,7 +326,7 @@ plus any extensions.
 #### outputs
 
 Contents of files will be loaded as outputs that can be used in
-in a trandtional template or a `layout` (**recommended**))
+in a trandtional template or a `layout` (**recommended**)
 
 Directory: `outputs`
 Helper: `output`
@@ -337,7 +341,7 @@ plus any extensions.
 #### parameters
 
 Contents of files will be loaded as parameters that can be used in
-in a trandtional template or a `layout` (**recommended**))
+in a trandtional template or a `layout` (**recommended**)
 
 Directory: `parameters`
 Helper: `parameter`
@@ -371,7 +375,7 @@ If the desired partial is not being loaded ensure precedence is given to an exac
 #### resources
 
 Contents of files will be loaded as resources that can be used in
-in a trandtional template or a `layout` (**recommended**))
+in a trandtional template or a `layout` (**recommended**)
 
 Directory: `resources`
 Helper: `resource`
@@ -480,6 +484,18 @@ Deploy tempates to all S3 buckets that contain the label, LABEL.
       dist: 'dist'
     };
 
+## Handlebars Helpers
+
+Aside from the helpers to load particles, condensation provides the
+following generic handlebars helpers.
+
+### concat
+
+Concatenate strings
+
+    {{concat 'one' 'two'}}
+    {{#parameter logicalId=(concat 'myPrefix',myStrVar)}}
+
 ## Front Matter
 
 All `cftemplates` and `partials` are first processed with
@@ -489,6 +505,6 @@ default data definitions.
 ## Errors
 
 Errors due to badly formed JSON or failed CF validations will stop the
-process and the offendng files will be dumped to `condensation_error`
+process and the offendng files will be dumped to `condensation_errors`
 
 
