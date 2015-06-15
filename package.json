@@ -1,7 +1,7 @@
 {
   "name": "condensation",
-  "version": "0.3.2",
-  "description": "",
+  "version": "0.4.0",
+  "description": "Package, reuse and share particles for CloudFormation projects",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --recursive test/tests --timeout 10000"
