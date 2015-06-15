@@ -15,7 +15,7 @@ Package, reuse and share particles for CloudFormation projects
 
 Condensation is a [gulp](http://gulpjs.com) task generator that helps
 compile, package and upload [AWS CloudFormation](http://aws.amazon.com/cloudformation/)
-templates and supporting assets.
+templates and supporting assets as distributions.
 
 Any file with the extension `.hbs` will be compiled with
 [Handlebars.js](http://http://handlebarsjs.com/) to support
@@ -483,6 +483,18 @@ Deploy tempates to all S3 buckets that contain the label, LABEL.
       // Where the build task will put the distribution
       dist: 'dist'
     };
+
+## Handlebars Helpers
+
+Aside from the helpers to load particles, condensation provides the
+following generic handlebars helpers.
+
+### concat
+
+Concatenate strings
+
+    {{concat 'one' 'two'}}
+    {{#parameter logicalId=(concat 'myPrefix',myStrVar)}}
 
 ## Front Matter
 
