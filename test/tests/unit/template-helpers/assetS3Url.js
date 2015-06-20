@@ -57,9 +57,9 @@ describe('assetS3Url', function(){
                 hash: null,
                 search: null,
                 query: null,
-                pathname: '/bucket/',
+                pathname: '/bucket',
                 path: '/bucket/',
-                href: 'https://s3-eu-west-1.amazonaws.com//bucket/'
+                href: 'https://s3-eu-west-1.amazonaws.com/bucket'
               }
             }
           }
