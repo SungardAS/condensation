@@ -14,7 +14,7 @@ describe('templateS3Url', function(){
 
   async.each([
     {
-      description: 'should resolve http path on linux',
+      description: 'should resolve http path',
       particlePath: 'instance.template.json',
       filePath: path.join('test','fixtures','projects','projectB','particles','cftemplates','fake.template'),
       expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/cftemplates/instance.template.json'
@@ -41,9 +41,9 @@ describe('templateS3Url', function(){
                 hash: null,
                 search: null,
                 query: null,
-                pathname: '/bucket/',
+                pathname: '/bucket',
                 path: '/bucket/',
-                href: 'https://s3-eu-west-1.amazonaws.com//bucket/'
+                href: 'https://s3-eu-west-1.amazonaws.com/bucket'
               }
             }
           }
