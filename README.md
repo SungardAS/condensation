@@ -494,7 +494,7 @@ following generic handlebars helpers.
 Concatenate strings
 
     {{concat 'one' 'two'}}
-    {{#parameter logicalId=(concat 'myPrefix',myStrVar)}}
+    {{#parameter logicalId=(concat 'myPrefix' myStrVar)}}
 
 ## Front Matter
 
