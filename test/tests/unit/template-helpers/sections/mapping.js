@@ -10,17 +10,17 @@ describe('mapping', function(){
 
   async.each([
     {
-      description: 'work as a wrapper',
+      description: 'should work as a wrapper',
       content: '{{#mapping logicalId="AmiMap"}}{"ap-northeast-1":{"ami":"ami-ab1df7ab"}}{{/mapping}}',
       expected:  '"AmiMap":{"ap-northeast-1":{"ami":"ami-ab1df7ab"}}'
     },
     {
-      description: 'work as a wrapper without root object braces',
+      description: 'should work as a wrapper without root object braces',
       content: '{{#mapping logicalId="AmiMap"}}"ap-northeast-1":{"ami":"ami-ab1df7ab"}{{/mapping}}',
       expected:  '"AmiMap":{"ap-northeast-1":{"ami":"ami-ab1df7ab"}}'
     },
     {
-      description: 'work in a layout',
+      description: 'should work in a layout',
       content: '{{#layout}}{{#mapping logicalId="AmiMap"}}"ap-northeast-1":{"ami":"ami-ab1df7ab"}{{/mapping}}{{/layout}}',
       expected:  '{"AWSTemplateFormatVersion":"2010-09-09","Mappings":{"AmiMap":{"ap-northeast-1":{"ami":"ami-ab1df7ab"}}}}'
     }
