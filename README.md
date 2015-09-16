@@ -23,7 +23,7 @@ partials, helpers and variable replacement.
 
 ## Features
 
-* Write reusable CloudFormation snippits (particles) that can be included as
+* Write reusable CloudFormation snippets (particles) that can be included as
   in other condensation projets
 * Package templates and assets that can be uploaded to multiple buckets across
   regions with one command.
@@ -48,8 +48,8 @@ scripts can be difficult to manage.
   services.  Condensation allows that definition to become a independent
   stack that can be referenced by other templates that are part of the
   same distribution package.
-* To bootstrap instances it is beneficial to have scripts and configuration
-  files deployed alongside and verisoned with the template
+* When bootstrapping ec2 instances it is beneficial to have versioned scripts and configuration
+  files deployed in the same bucket and path as the CloudFormation template
   they are associated with.
 * When using `AWS::CloudFormation::Authentication` to download assets from
   S3 buckets all resources must be in the same region.  Condensation
@@ -207,7 +207,7 @@ have to to be in any specific order.
 #### assets
 
 Files to be uploaded to S3 that are used to supplement CloudFormation
-templates.  Files can include boostrap scripts, packaged install files
+templates.  Files can include bootsrap scripts, packaged install files
 or configuration files.
 
 Any file with a `.hbs` extension will be
@@ -246,7 +246,7 @@ uploaded to S3.
 #### conditions
 
 Contents of files will be loaded as conditions that can be used in
-in a trandtional template or a `layout` (**recommended**)
+in a traditional template or a `layout` (**recommended**)
 
 Directory: `conditions`
 Helper: `condition`
@@ -296,7 +296,7 @@ The particle path should match the name of the helper without the `.js` extensio
 #### mappings
 
 Contents of files will be loaded as mappings that can be used in
-in a trandtional template or a `layout` (**recommended**)
+in a traditional template or a `layout` (**recommended**)
 
 Directory: `mappings`
 Helper: `mapping`
@@ -311,7 +311,7 @@ plus any extensions.
 #### metadata
 
 Contents of files will be loaded as metadatas that can be used in
-in a trandtional template or a `layout` (**recommended**)
+in a traditional template or a `layout` (**recommended**)
 
 Directory: `metadatas`
 Helper: `metadata`
@@ -326,12 +326,12 @@ plus any extensions.
 #### outputs
 
 Contents of files will be loaded as outputs that can be used in
-in a trandtional template or a `layout` (**recommended**)
+in a traditional template or a `layout` (**recommended**)
 
 Directory: `outputs`
 Helper: `output`
 
-    {{{output 'my-osutput' logicalId="MyOutput"}}}
+    {{{output 'my-output' logicalId="MyOutput"}}}
 
     {{{output 'module:<MODULE>' 'output-name' logicalId="TheirOutput"}}}
 
@@ -341,12 +341,12 @@ plus any extensions.
 #### parameters
 
 Contents of files will be loaded as parameters that can be used in
-in a trandtional template or a `layout` (**recommended**)
+in a traditional template or a `layout` (**recommended**)
 
 Directory: `parameters`
 Helper: `parameter`
 
-    {{{parameter 'my-osutput' logicalId="MyParameter"}}}
+    {{{parameter 'my-output' logicalId="MyParameter"}}}
 
     {{{parameter 'module:<MODULE>' 'parameter-name' logicalId="TheirParameter"}}}
 
@@ -375,12 +375,12 @@ If the desired partial is not being loaded ensure precedence is given to an exac
 #### resources
 
 Contents of files will be loaded as resources that can be used in
-in a trandtional template or a `layout` (**recommended**)
+in a traditional template or a `layout` (**recommended**)
 
 Directory: `resources`
 Helper: `resource`
 
-    {{{resource 'my-osutput' logicalId="MyResource"}}}
+    {{{resource 'my-output' logicalId="MyResource"}}}
 
     {{{resource 'module:<MODULE>' 'resource-name' logicalId="TheirResource"}}}
 
@@ -422,7 +422,7 @@ for deployment to s3. Templates and assets are written to the configured
 
 
 #### condensation:s3:list
-Will list all the configured s3 bukets and module corresponding ID.
+Will list all the configured s3 buckets and module corresponding ID.
 
     > gulp condensation:s3:list
     [10:21:47] Using gulpfile ~/condensation-example/gulpfile.js
@@ -442,10 +442,10 @@ variables: `AWS_SECRET_ACCESS_KEY` and `AWS_ACCESS_KEY_ID`
 This will upload templates to all cofigured S3 buckets.
 
 #### condensation:deploy:ID
-Deploy tempates to a specific S3 bucket.
+Deploy templates to a specific S3 bucket.
 
 #### condensation:deploy:LABEL
-Deploy tempates to all S3 buckets that contain the label, LABEL.
+Deploy templates to all S3 buckets that contain the label, LABEL.
 
 ## Config Options
 
@@ -465,7 +465,7 @@ Deploy tempates to all S3 buckets that contain the label, LABEL.
           // Create this bucket if it does not already exist
           create: true
 
-          // Prefix all objects (allows for multiple deploymets to the same bucket
+          // Prefix all objects (allows for multiple deployments to the same bucket
           prefix: '',
 
           labels: ['east']
@@ -505,6 +505,6 @@ default data definitions.
 ## Errors
 
 Errors due to badly formed JSON or failed CF validations will stop the
-process and the offendng files will be dumped to `condensation_errors`
+process and the offending files will be dumped to `condensation_errors`
 
 
