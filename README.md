@@ -175,7 +175,7 @@ referenced in a `hbs` file.
 **New in 0.3.0**
 
 Instead of including particles within a traditional CloudFormation
-tempalte the introduction of a layout supports capturing helper output
+template the introduction of a layout supports capturing helper output
 and adding it to the correct section.  Helpers within a layout do not
 have to to be in any specific order.
 
