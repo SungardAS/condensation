@@ -193,7 +193,7 @@ have to to be in any specific order.
       {{{parameter 'my_parameter' logicalId="MyParameter"}}}
       {{{condition 'my_condition' logicalId="MyCondition"}}}
 
-      [[! helpers can occur in any order, allowing you to group related section parts together }}
+      {{! helpers can occur in any order, allowing you to group related section parts together }}
 
       {{#each things}}
         {{{parameter 'repeate_me' logicalId="RepeateMe" logicalIdSuffix=@index}}}
