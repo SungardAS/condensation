@@ -175,7 +175,7 @@ referenced in a `hbs` file.
 **New in 0.3.0**
 
 Instead of including particles within a traditional CloudFormation
-tempalte the introduction of a layout supports capturing helper output
+template the introduction of a layout supports capturing helper output
 and adding it to the correct section.  Helpers within a layout do not
 have to to be in any specific order.
 
@@ -193,7 +193,7 @@ have to to be in any specific order.
       {{{parameter 'my_parameter' logicalId="MyParameter"}}}
       {{{condition 'my_condition' logicalId="MyCondition"}}}
 
-      [[! helpers can occur in any order, allowing you to group related section parts together }}
+      {{! helpers can occur in any order, allowing you to group related section parts together }}
 
       {{#each things}}
         {{{parameter 'repeate_me' logicalId="RepeateMe" logicalIdSuffix=@index}}}
