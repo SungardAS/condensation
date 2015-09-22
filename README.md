@@ -1,8 +1,8 @@
-[![logo](docs/images/condensation_logo.svg)]
-
 # condensation
 
 Package, reuse and share particles for CloudFormation projects
+
+![logo](./docs/images/condensation_logo.png?raw=true)
 
 [![NPM](https://nodei.co/npm/condensation.png)](https://nodei.co/npm/condensation/)
 
