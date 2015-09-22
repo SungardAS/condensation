@@ -1,3 +1,4 @@
+[[logo](docs/images/condensation_logo.svg)]
 # condensation
 
 Package, reuse and share particles for CloudFormation projects
