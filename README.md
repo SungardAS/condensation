@@ -222,7 +222,6 @@ Asset URLs can be built with the `assetS3Url` helper:
 
     {{{assetS3Url 'module:<MODULE>' 'module-asset' [protocol=https|s3]}}}
 
-The particle path will match the name of the asset without the `.hbs` extension, if it exists.
 
 Parameters:
 
@@ -233,6 +232,20 @@ Example Output:
     "https://s3-us-west-1.amazonaws.com/BUCKET/assets/my-asset"
 
     "https://s3-us-west-1.amazonaws.com/BUCKET/node_modules/MODULE/particles/assets/module-asset"
+
+Asset paths (the full key path as it will be in the s3 bucket) can be built with the `assetPath` helper:
+
+    {{{assetPath 'my-asset'}}}
+
+    {{{assetPath 'module:<MODULE>' 'module-asset' }}}
+
+Example Output:
+
+    "/assets/my-asset"
+
+    "/node_modules/MODULE/particles/assets/module-asset"
+
+For both assetS3Url and assetPath the particle path will match the name of the asset without the `.hbs` extension, if it exists.
 
 To include assets that are not directly referenced from a template
 use the `requireAssets` helper.  It will ensure a glob of assets are
@@ -509,4 +522,7 @@ default data definitions.
 Errors due to badly formed JSON or failed CF validations will stop the
 process and the offending files will be dumped to `condensation_errors`
 
+## Acknowledgements
 
+Big thank-you to [Brent Stees](https://github.com/bstees) for creating
+the condensation logo!
