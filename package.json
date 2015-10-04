@@ -24,7 +24,7 @@
     "gray-matter": "^2.0.0",
     "gulp": "^3.8.10",
     "gulp-cached": "^1.0.4",
-    "gulp-if": "^1.2.5",
+    "gulp-if": "^2.0.0",
     "gulp-jsonlint": "^1.0.1",
     "gulp-rename": "^1.2.0",
     "gulp-util": "^3.0.1",
