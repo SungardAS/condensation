@@ -77,9 +77,14 @@ The  Handlebars helper will ensure that the URL will always reference a template
 bucket.
 
 
-## Use
 
-Quick Start Examples: [condensation-examples](https://github.com/SungardAS/condensation-examples)
+## Quick Start Example Projects
+
+* [condensation-examples](https://github.com/SungardAS/condensation-examples)
+* [particles-cloudsploit-scans](https://github.com/SungardAS/particles-cloudsploit-scans)
+* [particles-enhanced-snapshots](https://github.com/SungardAS/particles-enhanced-snapshots)
+
+## Use
 
 ### Create a project
 
