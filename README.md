@@ -84,48 +84,22 @@ bucket.
 * [particles-cloudsploit-scans](https://github.com/SungardAS/particles-cloudsploit-scans)
 * [particles-enhanced-snapshots](https://github.com/SungardAS/particles-enhanced-snapshots)
 
+Check out the growing list of particles on
+[npm](https://www.npmjs.com/browse/keyword/condensation-particles)!
+
 ## Use
 
-### Create a project
+Get started with the Yeoman
+[generator](https://github.com/SungardAS/generator-condensation).
 
-    > npm init
+    > npm install -g yo
+    
+    > npm install -g generator-condensation
+    
+    > yo condensation:particles
 
-### Recommended .gitignore
+This will set up a project for building and sharing particles.
 
-    condensation_errors
-    config/local.js
-    dist
-    node_modules
-
-#### Install [gulp](http://gulpjs.com/)
-
-    > npm install -g gulp
-
-#### Install condensation
-
-    > npm install condensation --save
-
-#### Add condensation to gulpfile.js
-
-    var gulp = require('gulp');
-
-    var config = {
-      s3: [
-        {
-          aws: {
-            region: 'us-east-1',
-            bucket: 'MY-FAVORITE-BUCKET',
-          },
-          validate: true,
-          create: true
-        }
-      ],
-      dist: 'dist'
-    };
-
-    // Add gulp tasks to build, compile and validate
-    // CloudFormation templates
-    require('condensation').buildTasks(gulp,config);
 
 ### Project Structure
 
