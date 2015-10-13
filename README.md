@@ -304,10 +304,10 @@ plus any extensions.
 
 #### metadata
 
-Contents of files will be loaded as metadatas that can be used in
+Contents of files will be loaded as metadata that can be used in
 in a traditional template or a `layout` (**recommended**)
 
-Directory: `metadatas`
+Directory: `metadata`
 Helper: `metadata`
 
     {{{metadata 'my-metadata' logicalId="MyMetadata"}}}
