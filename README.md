@@ -84,48 +84,22 @@ bucket.
 * [particles-cloudsploit-scans](https://github.com/SungardAS/particles-cloudsploit-scans)
 * [particles-enhanced-snapshots](https://github.com/SungardAS/particles-enhanced-snapshots)
 
+Check out the growing list of particles on
+[npm](https://www.npmjs.com/browse/keyword/condensation-particles)!
+
 ## Use
 
-### Create a project
+Get started with the Yeoman
+[generator](https://github.com/SungardAS/generator-condensation).
 
-    > npm init
+    > npm install -g yo
+    
+    > npm install -g generator-condensation
+    
+    > yo condensation:particles
 
-### Recommended .gitignore
+This will set up a project for building and sharing particles.
 
-    condensation_errors
-    config/local.js
-    dist
-    node_modules
-
-#### Install [gulp](http://gulpjs.com/)
-
-    > npm install -g gulp
-
-#### Install condensation
-
-    > npm install condensation --save
-
-#### Add condensation to gulpfile.js
-
-    var gulp = require('gulp');
-
-    var config = {
-      s3: [
-        {
-          aws: {
-            region: 'us-east-1',
-            bucket: 'MY-FAVORITE-BUCKET',
-          },
-          validate: true,
-          create: true
-        }
-      ],
-      dist: 'dist'
-    };
-
-    // Add gulp tasks to build, compile and validate
-    // CloudFormation templates
-    require('condensation').buildTasks(gulp,config);
 
 ### Project Structure
 
@@ -330,10 +304,10 @@ plus any extensions.
 
 #### metadata
 
-Contents of files will be loaded as metadatas that can be used in
+Contents of files will be loaded as metadata that can be used in
 in a traditional template or a `layout` (**recommended**)
 
-Directory: `metadatas`
+Directory: `metadata`
 Helper: `metadata`
 
     {{{metadata 'my-metadata' logicalId="MyMetadata"}}}
@@ -526,6 +500,20 @@ default data definitions.
 
 Errors due to badly formed JSON or failed CF validations will stop the
 process and the offending files will be dumped to `condensation_errors`
+
+## Experimental
+
+### condensation.js
+
+If a project contains `condensation.js` the file will be loaded as a
+module and will attement to run the `initialize` function providing a
+callback as the only parameter.
+
+This can be used by particle project to bootstrap any necessary assets
+before any template compiling begins.
+
+Example:
+[particles-cloudsploit-scans](https://github.com/SungardAS/particles-cloudsploit-scans)
 
 ## Acknowledgements
 
