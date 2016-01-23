@@ -501,6 +501,20 @@ default data definitions.
 Errors due to badly formed JSON or failed CF validations will stop the
 process and the offending files will be dumped to `condensation_errors`
 
+## Experimental
+
+### condensation.js
+
+If a project contains `condensation.js` the file will be loaded as a
+module and will attement to run the `initialize` function providing a
+callback as the only parameter.
+
+This can be used by particle project to bootstrap any necessary assets
+before any template compiling begins.
+
+Example:
+[particles-cloudsploit-scans](https://github.com/SungardAS/particles-cloudsploit-scans)
+
 ## Acknowledgements
 
 Big thank-you to [Brent Stees](https://github.com/bstees) for creating
