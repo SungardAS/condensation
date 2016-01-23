@@ -1,59 +1,64 @@
 {
   "name": "condensation",
-  "version": "0.4.9",
+  "version": "0.4.10",
   "description": "Package, reuse and share particles for CloudFormation projects",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --recursive test/tests --timeout 45000"
+    "test": "mocha --recursive test/tests --timeout 45000"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sungardas/condensation.git"
+    "url": "git+https://github.com/sungardas/condensation.git"
   },
-  "author": {
-    "name": "Kevin McGrath",
-    "email": "kevin.mcgrath@sungardas.com"
-  },
+  "author": "Kevin McGrath <kevin.mcgrath@sungardas.com>",
   "dependencies": {
-    "aws-sdk": "^2.0.17",
-    "backoff": "^2.4.0",
-    "del": "^2.0.2",
-    "event-stream": "^3.3.0",
-    "fs-extra": "^0.24.0",
-    "glob": "^5.0.5",
-    "gray-matter": "^2.0.0",
-    "gulp": "^3.8.10",
-    "gulp-cached": "^1.0.4",
+    "aws-sdk": "^2.2.32",
+    "backlog": "0.0.3",
+    "backoff": "^2.4.1",
+    "del": "^2.2.0",
+    "event-stream": "^3.3.2",
+    "fs-extra": "^0.26.4",
+    "glob": "^6.0.4",
+    "gray-matter": "^2.0.2",
+    "gulp": "^3.9.0",
+    "gulp-cached": "^1.1.0",
     "gulp-if": "^2.0.0",
-    "gulp-jsonlint": "^1.0.1",
-    "gulp-rename": "^1.2.0",
-    "gulp-util": "^3.0.1",
-    "handlebars": "^4.0.2",
+    "gulp-jsonlint": "^1.1.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-util": "^3.0.7",
+    "handlebars": "^4.0.5",
     "lazypipe": "^1.0.1",
-    "lodash": "^3.4.0",
+    "lodash": "^4.0.0",
     "merge-stream": "^1.0.0",
-    "rimraf": "^2.3.2",
+    "rimraf": "^2.5.1",
     "s3": "^4.4.0",
     "slash": "^1.0.0",
     "through2": "^2.0.0",
-    "vinyl": "^1.0.0"
+    "vinyl": "^1.1.1"
   },
-  "license": "ISC",
-  "keywords": ["condensation"],
+  "license": "Apache-2.0",
+  "keywords": [
+    "condensation"
+  ],
   "bugs": {
     "url": "https://github.com/sungardas/condensation/issues"
   },
   "homepage": "https://github.com/sungardas/condensation",
   "devDependencies": {
-    "async": "^1.2.0",
-    "clone": "^1.0.1",
-    "coveralls": "^2.11.2",
-    "istanbul": "^0.3.7",
-    "mocha": "^2.2.0"
+    "async": "^1.5.2",
+    "clone": "^1.0.2",
+    "coveralls": "^2.11.6",
+    "istanbul": "^0.4.2",
+    "mocha": "^2.3.4"
   },
   "engines": {
     "node": ">0.12.0",
     "iojs": "*"
   },
-  "engineStrict": true
+  "engineStrict": true,
+  "engine-strict": true,
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  }
 }
