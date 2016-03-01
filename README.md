@@ -1,5 +1,3 @@
-[![Sungard Availability Services | Labs][labs-logo]][labs-github-url]
-
 # condensation
 
 Package, reuse and share particles for CloudFormation projects
@@ -7,7 +5,6 @@ Package, reuse and share particles for CloudFormation projects
 ![condensation][condensation-image]
 
 [![NPM][npm-image]][npm-url]
-
 [![Gitter][gitter-image]][gitter-url]
 [![Build Status][travis-image]][travis-url]
 [![Code Climate][codeclimate-image]][codeclimate-url]
@@ -521,6 +518,19 @@ Example:
 
 Big thank-you to [Brent Stees](https://github.com/bstees) for creating
 the condensation logo!
+
+## Sungard Availability Services | Labs
+
+[![Sungard Availability Services | Labs][labs-logo]][labs-github-url]
+
+This project is maintained by the Labs group at [Sungard Availability
+Services](http://sungardas.com)
+
+GitHub: [https://sungardas.github.io](https://sungardas.github.io)
+
+Blog:
+[http://blog.sungardas.com/CTOLabs/](http://blog.sungardas.com/CTOLabs/)
+
 
 [labs-github-url]: https://sungardas.github.io
 [labs-logo]: https://raw.githubusercontent.com/SungardAS/repo-assets/master/images/logos/sungardas-labs-logo-small.png
