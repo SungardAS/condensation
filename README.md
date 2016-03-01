@@ -1,18 +1,18 @@
+[![Sungard Availability Services | Labs][labs-logo]][labs-github-url]
+
 # condensation
 
 Package, reuse and share particles for CloudFormation projects
 
 ![condensation][condensation-image]
-[![Sungard Availability Services |
-Labs][labs-logo]][labs-github-url]
 
 [![NPM][npm-image]][npm-url]
 
 [![Gitter][gitter-image]][gitter-url]
-[![Build Status](https://travis-ci.org/SungardAS/condensation.svg?branch=master)](https://travis-ci.org/SungardAS/condensation?branch=master)
-[![Code Climate](https://codeclimate.com/github/SungardAS/condensation/badges/gpa.svg?branch=master)](https://codeclimate.com/github/SungardAS/condensation?branch=master)
-[![Coverage Status](https://coveralls.io/repos/SungardAS/condensation/badge.svg?branch=master)](https://coveralls.io/r/SungardAS/condensation?branch=master)
-[![Dependency Status](https://david-dm.org/SungardAS/condensation.svg?branch=master)](https://david-dm.org/SungardAS/condensation?branch=master)
+[![Build Status][travis-image]][travis-url]
+[![Code Climate][codeclimate-image]][codeclimate-url]
+[![Coverage Status][coveralls-image]][coveralls-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
 
 
 ## Summary
