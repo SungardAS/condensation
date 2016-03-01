@@ -2,11 +2,13 @@
 
 Package, reuse and share particles for CloudFormation projects
 
-![logo](./docs/images/condensation_logo.png?raw=true)
+![condensation][condensation-image]
+[![Sungard Availability Services |
+Labs][labs-logo]][labs-github-url]
 
-[![NPM](https://nodei.co/npm/condensation.png)](https://nodei.co/npm/condensation/)
+[![NPM][npm-image]][npm-url]
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SungardAS/condensation?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Gitter][gitter-image]][gitter-url]
 [![Build Status](https://travis-ci.org/SungardAS/condensation.svg?branch=master)](https://travis-ci.org/SungardAS/condensation?branch=master)
 [![Code Climate](https://codeclimate.com/github/SungardAS/condensation/badges/gpa.svg?branch=master)](https://codeclimate.com/github/SungardAS/condensation?branch=master)
 [![Coverage Status](https://coveralls.io/repos/SungardAS/condensation/badge.svg?branch=master)](https://coveralls.io/r/SungardAS/condensation?branch=master)
@@ -519,3 +521,26 @@ Example:
 
 Big thank-you to [Brent Stees](https://github.com/bstees) for creating
 the condensation logo!
+
+[labs-github-url]: https://sungardas.github.io
+[labs-logo]: https://raw.githubusercontent.com/SungardAS/repo-assets/master/images/logos/sungardas-labs-logo-small.png
+[condensation-image]: ./docs/images/condensation_logo.png?raw=true
+[npm-image]: https://badge.fury.io/js/condensation.svg
+[npm-url]: https://npmjs.org/package/condensation
+[travis-image]:
+https://travis-ci.org/SungardAS/condensation.svg?branch=master
+[travis-url]: https://travis-ci.org/SungardAS/condensation
+[daviddm-image]:
+https://david-dm.org/SungardAS/condensation.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/SungardAS/condensation
+[coveralls-image]:
+https://coveralls.io/repos/SungardAS/condensation/badge.svg
+[coveralls-url]:
+https://coveralls.io/r/SungardAS/condensation
+[codeclimate-image]:
+https://codeclimate.com/github/SungardAS/condensation/badges/gpa.svg
+[codeclimate-url]:
+https://codeclimate.com/github/SungardAS/condensation
+[gitter-image]: https://badges.gitter.im/Join%20Chat.svg
+[gitter-url]:
+https://gitter.im/SungardAS/condensation?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
