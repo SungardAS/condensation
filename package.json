@@ -36,7 +36,8 @@
     "s3": "^4.4.0",
     "slash": "^1.0.0",
     "through2": "^2.0.0",
-    "vinyl": "^1.0.0"
+    "vinyl": "^1.0.0",
+    "config": "^1.16.0"
   },
   "license": "ISC",
   "keywords": ["condensation"],
