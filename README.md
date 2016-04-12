@@ -519,9 +519,10 @@ Example:
 Big thank-you to [Brent Stees](https://github.com/bstees) for creating
 the condensation logo!
 
-## [![Sungard Availability Services | Labs][labs-logo]][labs-github-url]
+## Sungard Availability Services | Labs
+[![Sungard Availability Services | Labs][labs-logo]][labs-github-url]
 
-This project is maintained by the Labs group at [Sungard Availability
+This project is maintained by the Labs team at [Sungard Availability
 Services](http://sungardas.com)
 
 GitHub: [https://sungardas.github.io](https://sungardas.github.io)
