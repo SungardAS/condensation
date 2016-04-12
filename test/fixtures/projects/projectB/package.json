@@ -1,3 +1,6 @@
 {
-  "name": "projectB"
+  "name": "projectB",
+  "dependencies": {
+    "projectA": "../projectA"
+  }
 }

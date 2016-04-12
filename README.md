@@ -2,15 +2,14 @@
 
 Package, reuse and share particles for CloudFormation projects
 
-![logo](./docs/images/condensation_logo.png?raw=true)
+![condensation][condensation-image]
 
-[![NPM](https://nodei.co/npm/condensation.png)](https://nodei.co/npm/condensation/)
-
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SungardAS/condensation?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![Build Status](https://travis-ci.org/SungardAS/condensation.svg?branch=master)](https://travis-ci.org/SungardAS/condensation?branch=master)
-[![Code Climate](https://codeclimate.com/github/SungardAS/condensation/badges/gpa.svg?branch=master)](https://codeclimate.com/github/SungardAS/condensation?branch=master)
-[![Coverage Status](https://coveralls.io/repos/SungardAS/condensation/badge.svg?branch=master)](https://coveralls.io/r/SungardAS/condensation?branch=master)
-[![Dependency Status](https://david-dm.org/SungardAS/condensation.svg?branch=master)](https://david-dm.org/SungardAS/condensation?branch=master)
+[![NPM][npm-image]][npm-url]
+[![Gitter][gitter-image]][gitter-url]
+[![Build Status][travis-image]][travis-url]
+[![Code Climate][codeclimate-image]][codeclimate-url]
+[![Coverage Status][coveralls-image]][coveralls-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
 
 
 ## Summary
@@ -519,3 +518,38 @@ Example:
 
 Big thank-you to [Brent Stees](https://github.com/bstees) for creating
 the condensation logo!
+
+## Sungard Availability Services | Labs
+[![Sungard Availability Services | Labs][labs-logo]][labs-github-url]
+
+This project is maintained by the Labs team at [Sungard Availability
+Services](http://sungardas.com)
+
+GitHub: [https://sungardas.github.io](https://sungardas.github.io)
+
+Blog:
+[http://blog.sungardas.com/CTOLabs/](http://blog.sungardas.com/CTOLabs/)
+
+
+[labs-github-url]: https://sungardas.github.io
+[labs-logo]: https://raw.githubusercontent.com/SungardAS/repo-assets/master/images/logos/sungardas-labs-logo-small.png
+[condensation-image]: ./docs/images/condensation_logo.png?raw=true
+[npm-image]: https://badge.fury.io/js/condensation.svg
+[npm-url]: https://npmjs.org/package/condensation
+[travis-image]:
+https://travis-ci.org/SungardAS/condensation.svg?branch=master
+[travis-url]: https://travis-ci.org/SungardAS/condensation
+[daviddm-image]:
+https://david-dm.org/SungardAS/condensation.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/SungardAS/condensation
+[coveralls-image]:
+https://coveralls.io/repos/SungardAS/condensation/badge.svg
+[coveralls-url]:
+https://coveralls.io/r/SungardAS/condensation
+[codeclimate-image]:
+https://codeclimate.com/github/SungardAS/condensation/badges/gpa.svg
+[codeclimate-url]:
+https://codeclimate.com/github/SungardAS/condensation
+[gitter-image]: https://badges.gitter.im/Join%20Chat.svg
+[gitter-url]:
+https://gitter.im/SungardAS/condensation?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
