@@ -62,9 +62,9 @@ bucket they are deployed to.
 
 Example:
 
-    "TemplateURL": "{{{templateS3Url 'vpc.template' }}}"
+    "TemplateURL": "{{templateS3Url 'vpc.template' }}"
     ...
-    "TemplateURL": "{{{templateS3Url 'subnet.template' }}}"
+    "TemplateURL": "{{templateS3Url 'subnet.template' }}"
 
 Output:
 
@@ -139,7 +139,7 @@ dependency.
 
 All helpers follow the same pattern:
 
-    {{{<CONDENSATION-HELPER> [module:<MODULE>] '<PATH_TO_PARTICLE>' [OPTIONS...]}}}
+    {{<CONDENSATION-HELPER> [module:<MODULE>] '<PATH_TO_PARTICLE>' [OPTIONS...]}}
 
 When including the particles from another project *MODULE* is the name
 of the npm dependency.
@@ -170,16 +170,16 @@ have to to be in any specific order.
     ---
 
     {{#layout templateDescription="condensation rocks!"}}
-      {{{parameter 'my_parameter' logicalId="MyParameter"}}}
-      {{{condition 'my_condition' logicalId="MyCondition"}}}
+      {{parameter 'my_parameter' logicalId="MyParameter"}}
+      {{condition 'my_condition' logicalId="MyCondition"}}
 
       {{! helpers can occur in any order, allowing you to group related section parts together }}
 
       {{#each things}}
-        {{{parameter 'repeate_me' logicalId="RepeateMe" logicalIdSuffix=@index}}}
-        {{{condition 'repeate_me' logicalId="RepeateMeCond" logicalIdSuffix=@index}}}
-        {{{resource 'repeate_me' logicalId="RepeateMeResource" logicalIdSuffix=@index}}}
-        {{{output 'repeate_me' logicalId="RepeateMeOutput" logicalIdSuffix=@index}}}
+        {{parameter 'repeate_me' logicalId="RepeateMe" logicalIdSuffix=@index}}
+        {{condition 'repeate_me' logicalId="RepeateMeCond" logicalIdSuffix=@index}}
+        {{resource 'repeate_me' logicalId="RepeateMeResource" logicalIdSuffix=@index}}
+        {{output 'repeate_me' logicalId="RepeateMeOutput" logicalIdSuffix=@index}}
       {{/each}}
     {{/layout}}
 
@@ -196,9 +196,9 @@ removed from the filename.
 
 Asset URLs can be built with the `assetS3Url` helper:
 
-    {{{assetS3Url 'my-asset' [protocol=https|s3]}}}
+    {{assetS3Url 'my-asset' [protocol=https|s3]}}
 
-    {{{assetS3Url 'module:<MODULE>' 'module-asset' [protocol=https|s3]}}}
+    {{assetS3Url 'module:<MODULE>' 'module-asset' [protocol=https|s3]}}
 
 
 Parameters:
@@ -213,9 +213,9 @@ Example Output:
 
 Asset paths (the full key path as it will be in the s3 bucket) can be built with the `assetPath` helper:
 
-    {{{assetPath 'my-asset'}}}
+    {{assetPath 'my-asset'}}
 
-    {{{assetPath 'module:<MODULE>' 'module-asset' }}}
+    {{assetPath 'module:<MODULE>' 'module-asset' }}
 
 Example Output:
 
@@ -229,9 +229,9 @@ To include assets that are not directly referenced from a template
 use the `requireAssets` helper.  It will ensure a glob of assets are
 included in the distribution.
 
-    {{{requireAssets '/**'}}
+    {{requireAssets '/**'}}
 
-    {{{requireAssets 'module:<MODULE>' '/**'}}}
+    {{requireAssets 'module:<MODULE>' '/**'}}
 
 `requireAssets` will not produce output, only ensure that the glob is
 uploaded to S3.
@@ -244,9 +244,9 @@ in a traditional template or a `layout` (**recommended**)
 Directory: `conditions`
 Helper: `condition`
 
-    {{{condition 'my-condition' logicalId="MyCond"}}}
+    {{condition 'my-condition' logicalId="MyCond"}}
 
-    {{{condition 'module:<MODULE>' 'condition-name' logicalId="TheirCond"}}}
+    {{condition 'module:<MODULE>' 'condition-name' logicalId="TheirCond"}}
 
 The particle path can match the base name of the file or the base name
 plus any extensions.
@@ -261,9 +261,9 @@ handlebars and saved to S3 without the `.hbs` extension.
 
 Template URLs can be built with the `assetS3Url` helper:
 
-    {{{templateS3Url 'my.template'}}}
+    {{templateS3Url 'my.template'}}
 
-    {{{templateS3Url 'module:<MODULE>' 'module.template'}}}
+    {{templateS3Url 'module:<MODULE>' 'module.template'}}
 
 The particle path should match the name of the template without the `.hbs` extension, if it exists.
 
@@ -280,9 +280,9 @@ Handlebars [block helper](http://handlebarsjs.com/block_helpers.html).
 
 Helpers are called with the `helper` helper:
 
-    {{{helper 'my-helper'}}}
+    {{helper 'my-helper'}}
 
-    {{{helper 'module:<MODULE>' 'module-helper'}}}
+    {{helper 'module:<MODULE>' 'module-helper'}}
 
 The particle path should match the name of the helper without the `.js` extension.
 
@@ -294,9 +294,9 @@ in a traditional template or a `layout` (**recommended**)
 Directory: `mappings`
 Helper: `mapping`
 
-    {{{mapping 'my-mapping' logicalId="MyMapping"}}}
+    {{mapping 'my-mapping' logicalId="MyMapping"}}
 
-    {{{mapping 'module:<MODULE>' 'mapping-name' logicalId="TheirMapping"}}}
+    {{mapping 'module:<MODULE>' 'mapping-name' logicalId="TheirMapping"}}
 
 The particle path can match the base name of the file or the base name
 plus any extensions.
@@ -309,9 +309,9 @@ in a traditional template or a `layout` (**recommended**)
 Directory: `metadata`
 Helper: `metadata`
 
-    {{{metadata 'my-metadata' logicalId="MyMetadata"}}}
+    {{metadata 'my-metadata' logicalId="MyMetadata"}}
 
-    {{{metadata 'module:<MODULE>' 'metadata-name' logicalId="TheirMetadata"}}}
+    {{metadata 'module:<MODULE>' 'metadata-name' logicalId="TheirMetadata"}}
 
 The particle path can match the base name of the file or the base name
 plus any extensions.
@@ -324,9 +324,9 @@ in a traditional template or a `layout` (**recommended**)
 Directory: `outputs`
 Helper: `output`
 
-    {{{output 'my-output' logicalId="MyOutput"}}}
+    {{output 'my-output' logicalId="MyOutput"}}
 
-    {{{output 'module:<MODULE>' 'output-name' logicalId="TheirOutput"}}}
+    {{output 'module:<MODULE>' 'output-name' logicalId="TheirOutput"}}
 
 The particle path can match the base name of the file or the base name
 plus any extensions.
@@ -339,9 +339,9 @@ in a traditional template or a `layout` (**recommended**)
 Directory: `parameters`
 Helper: `parameter`
 
-    {{{parameter 'my-output' logicalId="MyParameter"}}}
+    {{parameter 'my-output' logicalId="MyParameter"}}
 
-    {{{parameter 'module:<MODULE>' 'parameter-name' logicalId="TheirParameter"}}}
+    {{parameter 'module:<MODULE>' 'parameter-name' logicalId="TheirParameter"}}
 
 The particle path can match the base name of the file or the base name
 plus any extensions.
@@ -355,9 +355,9 @@ These files will not be packaged or uploaded to S3.
 
 Partials can be loaded with the `partial` helper:
 
-    {{{partial 'my-partial'}}}
+    {{partial 'my-partial'}}
 
-    {{{partial 'module:<MODULE>' 'module-partial'}}}
+    {{partial 'module:<MODULE>' 'module-partial'}}
 
 The particle path only needs to match the base name of the partial.
 
@@ -373,9 +373,9 @@ in a traditional template or a `layout` (**recommended**)
 Directory: `resources`
 Helper: `resource`
 
-    {{{resource 'my-output' logicalId="MyResource"}}}
+    {{resource 'my-output' logicalId="MyResource"}}
 
-    {{{resource 'module:<MODULE>' 'resource-name' logicalId="TheirResource"}}}
+    {{resource 'module:<MODULE>' 'resource-name' logicalId="TheirResource"}}
 
 The particle path can match the base name of the file or the base name
 plus any extensions.
@@ -391,9 +391,9 @@ conditions.
 Directory: `sets`
 Helper: `set`
 
-    {{{set 'my-set' logicalId="MySet"}}}
+    {{set 'my-set' logicalId="MySet"}}
 
-    {{{set 'module:<MODULE>' 'set-name' logicalId="TheirSet"}}}
+    {{set 'module:<MODULE>' 'set-name' logicalId="TheirSet"}}
 
 The particle path can match the base name of the file or the base name
 plus any extensions.
