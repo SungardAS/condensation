@@ -1,5 +1,6 @@
 var Condensation = require('./lib/condensation');
 
 module.exports.buildTasks = function(gulp,options) {
-  return new Condensation(gulp,options);
+  var condensation = new Condensation(gulp,options);
+  return condensation.condense();
 };
