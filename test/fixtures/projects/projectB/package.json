@@ -2,5 +2,6 @@
   "name": "projectB",
   "dependencies": {
     "projectA": "../projectA"
-  }
+  },
+  "keywords": ["condensation-particles"]
 }
