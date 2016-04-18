@@ -1,6 +1,6 @@
 {
   "name": "condensation",
-  "version": "0.4.12",
+  "version": "0.4.13-rc0",
   "description": "Package, reuse and share particles for CloudFormation projects",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "backoff": "^2.4.1",
     "del": "^2.2.0",
     "event-stream": "^3.3.2",
-    "fs-extra": "^0.26.4",
+    "fs-extra": "^0.27.0",
     "glob": "^7.0.0",
     "gray-matter": "^2.0.2",
     "gulp": "^3.9.0",
