@@ -1,4 +1,4 @@
-var ParticleLoader = require('../../../lib/condensation/loaders/particle-loader'),
+var ParticleLoader = require('../../lib/condensation/loaders/particle-loader'),
 assert = require("assert"),
 async = require('async'),
 path = require('path');

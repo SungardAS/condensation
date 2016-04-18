@@ -1,4 +1,4 @@
-var concat = require('../../../../lib/handlebars-helpers/concat'),
+var concat = require('../../../lib/handlebars-helpers/concat'),
 assert = require('assert');
 
 describe('concat', function() {

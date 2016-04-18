@@ -13,6 +13,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Better reporting for particle compile errors
 
+### Fixed
+- When a template has invalid JSON the correct error is reported and the
+  file is dumped to `condensation_errors`
+
 ## [0.4.12] - 2016-04-13
 ### Fixed
 - turn off HTML escaping at the highest level
