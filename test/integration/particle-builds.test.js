@@ -49,6 +49,20 @@ describe('particle-builds', function(){
 
   });
 
+  it("works with older full object particle definitions", function() {
+    var hOpts = {
+      data: {
+        _file: {path: [projectDir,'particles','cftemplates','____test_template'].join(path.sep) }
+      },
+      hash: {
+        logicalId: "Parameter1"
+      }
+    };
+
+    var result = sections.parameter.helper.call(condensation, null, 'full_object', null, hOpts, cOpts);
+    assert.deepEqual(JSON.parse('{'+result+'}'),{Parameter1: {Type: "String"}});
+  });
+
   it("fails when a parameter has no logicalId", function() {
     var hOpts = {
       data: {
@@ -60,6 +74,33 @@ describe('particle-builds', function(){
 
     assert.throws(sections.parameter.helper.bind(condensation, null, 'generic', null, hOpts, cOpts));
   });
+
+  it("fails when a parameter has invalid JSON", function() {
+    var hOpts = {
+      data: {
+        _file: {path: [projectDir,'particles','cftemplates','____test_template'].join(path.sep) }
+      },
+      hash: {
+        logicalId: "Parameter1"
+      }
+    };
+
+    assert.throws(sections.parameter.helper.bind(condensation, null, 'malformed', null, hOpts, cOpts));
+  });
+
+  it("fails when a parameter extends malformed", function() {
+    var hOpts = {
+      data: {
+        _file: {path: [projectDir,'particles','cftemplates','____test_template'].join(path.sep) }
+      },
+      hash: {
+        logicalId: "Parameter1"
+      }
+    };
+
+    assert.throws(sections.parameter.helper.bind(condensation, null, 'extend_malformed', null, hOpts, cOpts));
+  });
+
 });
 
 
