@@ -58,7 +58,7 @@ describe('particle-builds', function(){
       }
     };
 
-    assert.throws(sections.parameter.helper.bind(condensation, [null, 'generic', null, hOpts, cOpts]));
+    assert.throws(sections.parameter.helper.bind(condensation, null, 'generic', null, hOpts, cOpts));
   });
 });
 
