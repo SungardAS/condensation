@@ -25,7 +25,7 @@ var projectConfig = {
 };
 
 
-describe.only('particle-builds', function(){
+describe('particle-builds', function(){
   var condensation = new Condensation(projectConfig);
 
   var cOpts = {
