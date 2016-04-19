@@ -1,6 +1,6 @@
 coverage
 node_modules/*
-test/fixtures/projects/*/node_modules
+test/fixtures/projects/*/node_modules/*
 !test/fixtures/projects/projectB/node_modules/projectD/
 npm*
 test/dist/
