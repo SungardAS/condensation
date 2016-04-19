@@ -1,5 +1,7 @@
 coverage
-node_modules/
+node_modules/*
+test/fixtures/projects/*/node_modules
+!test/fixtures/projects/projectB/node_modules/projectD/
 npm*
 test/dist/
 condensation_errors

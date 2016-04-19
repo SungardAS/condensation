@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var assert = require('assert');
-var Condensation = require('../../lib/condensation');
-var sections = require('../../lib/condensation/template-helpers/sections');
+var Condensation = require('../../../../lib/condensation');
+var sections = require('../../../../lib/condensation/template-helpers/sections');
 var path = require('path');
 
 var projectDir = 'test/fixtures/projects/particle-builds';
@@ -25,7 +25,7 @@ var projectConfig = {
 };
 
 
-describe('particle-builds', function(){
+describe('parameters', function(){
   var condensation = new Condensation(projectConfig);
 
   var cOpts = {
