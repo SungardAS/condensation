@@ -10,7 +10,7 @@ fs = require('fs');
 var projectDir = 'test/fixtures/projects/particles-vpc';
 var distDir = 'test/dist/particles-vpc';
 
-describe('particles-vpc', function(){
+describe.only('particles-vpc', function(){
   var gulp;
 
   before(function(done) {
