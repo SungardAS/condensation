@@ -1,1 +1,1 @@
-{{{partial 'module:projectA' 'ami-map'}}}
+{{partial 'module:projectA' 'ami-map'}}

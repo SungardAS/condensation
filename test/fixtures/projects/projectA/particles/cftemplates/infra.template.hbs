@@ -25,7 +25,7 @@
         "Default": "auto",
         "ConstraintDescription": "Must be a valid AZ for the region or 'auto'."
       },
-      {{{partial 'parameter-name-tag'}}}
+      {{partial 'parameter-name-tag'}}
     },
     "Conditions": {
       "SubnetAutoSelection": {"Fn::Equals": [{"Ref": "SubnetAvailabilityZone"}, "auto"]}
@@ -45,7 +45,7 @@
               "Ref": "NameTag"
             }
           },
-          "TemplateURL": "{{{templateS3Url 'vpc.template'}}}"
+          "TemplateURL": "{{templateS3Url 'vpc.template'}}"
         }
       },
       "Subnet": {
@@ -71,7 +71,7 @@
             },
             "NameTag": { "Ref": "NameTag" }
           },
-          "TemplateURL": "{{{templateS3Url 'subnet.template'}}}"
+          "TemplateURL": "{{templateS3Url 'subnet.template'}}"
         },
         "DependsOn": "Vpc"
       }

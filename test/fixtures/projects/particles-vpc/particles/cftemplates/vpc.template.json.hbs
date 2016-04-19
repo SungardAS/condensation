@@ -1,19 +1,19 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
   "Parameters": {
-    {{{parameter 'vpc_cidr' logicalId="VpcCidr"}}},
-    {{{parameter 'module:particles-common-core' 'true_false' logicalId="CreateVpcSecurityGroup" default="false" description="[true|false] Create a security group assigned to the new VPC"}}},
-    {{{parameter 'module:particles-common-core' 'true_false' logicalId="OpenVpcCommunication" default="false" description="[true|false] Open all communication within the VPC"}}},
-    {{{parameter 'module:particles-common-core' 'true_false' logicalId="CreateInternetGateway" default="false" description="[true|false] Create an Internet Gateway for the VPC"}}},
+    {{parameter 'vpc_cidr' logicalId="VpcCidr"}},
+    {{parameter 'module:particles-common-core' 'true_false' logicalId="CreateVpcSecurityGroup" default="false" description="[true|false] Create a security group assigned to the new VPC"}},
+    {{parameter 'module:particles-common-core' 'true_false' logicalId="OpenVpcCommunication" default="false" description="[true|false] Open all communication within the VPC"}},
+    {{parameter 'module:particles-common-core' 'true_false' logicalId="CreateInternetGateway" default="false" description="[true|false] Create an Internet Gateway for the VPC"}},
     "NameTag": {
       "Description": "Will set the name tag on all resources created",
       "Type": "String"
     }
   },
   "Conditions": {
-    {{{condition 'module:particles-common-core' 'is_true' logicalId="CondCreateVpcSecurityGroup" parameterName="CreateVpcSecurityGroup"}}},
-    {{{condition 'module:particles-common-core' 'is_true' logicalId="CondOpenVpcCommunication" parameterName="OpenVpcCommunication"}}},
-    {{{condition 'module:particles-common-core' 'is_true' logicalId="CondCreateInternetGateway" parameterName="CreateInternetGateway"}}}
+    {{condition 'module:particles-common-core' 'is_true' logicalId="CondCreateVpcSecurityGroup" parameterName="CreateVpcSecurityGroup"}},
+    {{condition 'module:particles-common-core' 'is_true' logicalId="CondOpenVpcCommunication" parameterName="OpenVpcCommunication"}},
+    {{condition 'module:particles-common-core' 'is_true' logicalId="CondCreateInternetGateway" parameterName="CreateInternetGateway"}}
   },
   "Resources": {
     "vpc": {
