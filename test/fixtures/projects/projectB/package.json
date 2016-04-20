@@ -1,5 +1,6 @@
 {
   "name": "projectB",
+  "version": "0.0.0",
   "dependencies": {
     "projectA": "../projectA"
   },

@@ -14,18 +14,18 @@ var distributionFiles = [
   'particles/cftemplates/proj.template',
   'node_modules/projectB/particles/assets/bootstrap.sh',
   'node_modules/projectB/particles/assets/download.sh',
-  'node_modules/projectB/node_modules/projectA/particles/cftemplates/vpc.template'
+  'node_modules/projectA/particles/cftemplates/vpc.template'
 ];
 
-describe('projectC', function(){
+describe.only('projectC', function(){
   var gulp;
 
   before(function(done) {
-    var pB = exec("npm link ../projectB",{cwd: projectDir},done);
+    var pB = exec("npm install",{cwd: projectDir},done);
   });
 
   after(function(done) {
-    var pB = exec("npm unlink ../projectB",{cwd: projectDir},done);
+    exec("rm -rf node_modules/*",{cwd: projectDir},done);
   });
 
   shared.shouldBehaveLikeAProject({
