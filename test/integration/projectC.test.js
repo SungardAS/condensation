@@ -15,10 +15,10 @@ var distDir = 'test/dist/pC';
 var distributionFiles = [
   'particles/cftemplates/proj.template',
   'node_modules/projectB/particles/assets/bootstrap.sh',
-  'node_modules/projectB/particles/assets/download.sh',
-  'node_modules/projectA/particles/cftemplates/vpc.template'
+  'node_modules/projectB/particles/assets/download.sh'
 ];
-if (semver.satisfies(process.version,">=5")) {
+
+if (semver.gte(process.versions.node,"5.0.0")) {
   distributionFiles.push('node_modules/projectA/particles/cftemplates/vpc.template');
 }
 else {
