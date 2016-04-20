@@ -1,7 +1,7 @@
-var ParticleLoader = require('../../../../lib/condensation/loaders/particle-loader'),
+var ParticleLoader = require('../../../lib/condensation/loaders/particle-loader'),
 assert = require("assert"),
 async = require('async'),
-helper = require('../../../../lib/condensation/template-helpers/assetPath'),
+helper = require('../../../lib/condensation/template-helpers/assetPath'),
 path = require('path');
 
 

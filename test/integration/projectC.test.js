@@ -1,31 +1,39 @@
-var _ = require('lodash'),
-async = require('async'),
-clone = require('clone'),
-assert = require('assert'),
-path = require('path'),
-exec = require('child_process').exec;
-shared = require('./project-shared'),
-fs = require('fs');
+var _ = require('lodash');
+var assert = require('assert');
+var async = require('async');
+var clone = require('clone');
+var exec = require('child_process').exec;
+var fs = require('fs');
+var path = require('path');
+var semver = require('semver');
+var shared = require('./project-shared');
 
 var projectDir = 'test/fixtures/projects/projectC';
 var distDir = 'test/dist/pC';
 
+
 var distributionFiles = [
   'particles/cftemplates/proj.template',
   'node_modules/projectB/particles/assets/bootstrap.sh',
-  'node_modules/projectB/particles/assets/download.sh',
-  'node_modules/projectB/node_modules/projectA/particles/cftemplates/vpc.template'
+  'node_modules/projectB/particles/assets/download.sh'
 ];
+
+if (semver.gte(process.versions.node,"5.0.0")) {
+  distributionFiles.push('node_modules/projectA/particles/cftemplates/vpc.template');
+}
+else {
+  distributionFiles.push('node_modules/projectB/node_modules/projectA/particles/cftemplates/vpc.template');
+}
 
 describe('projectC', function(){
   var gulp;
 
   before(function(done) {
-    var pB = exec("npm link ../projectB",{cwd: projectDir},done);
+    var pB = exec("npm install",{cwd: projectDir},done);
   });
 
   after(function(done) {
-    var pB = exec("npm unlink ../projectB",{cwd: projectDir},done);
+    exec("rm -rf node_modules/*",{cwd: projectDir},done);
   });
 
   shared.shouldBehaveLikeAProject({

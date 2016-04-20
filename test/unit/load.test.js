@@ -3,7 +3,7 @@ clone = require('clone'),
 assert = require('assert'),
 gulp = clone(require('gulp'));
 
-require('../../../').buildTasks(gulp);
+require('../../').buildTasks(gulp);
 
 describe('load', function(done){
   it('should populate gulp tasks with correct prefix', function(tDone){

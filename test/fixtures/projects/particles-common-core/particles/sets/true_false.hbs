@@ -1,0 +1,8 @@
+{{parameter 'true_false' logicalId=parameterLogicalId}}
+{{#if conditionLogicalId}}
+  {{condition 'is_true' logicalId=conditionLogicalId parameterLogicalId=parameterLogicalId}}
+  {{condition 'is_false' logicalId=(concat 'Not' conditionLogicalId) parameterLogicalId=parameterLogicalId}}
+{{else}}
+  {{condition 'is_true' logicalId=(concat parameterLogicalId 'IsTrueCondition') parameterLogicalId=parameterLogicalId}}
+  {{condition 'is_false' logicalId=(concat parameterLogicalId 'IsFalseCondition') parameterLogicalId=parameterLogicalId}}
+{{/if}}

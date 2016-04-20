@@ -1,4 +1,4 @@
-var ParticleLoader = require('../../../../../lib/condensation/loaders/particle-loader'),
+var ParticleLoader = require('../../../../lib/condensation/loaders/particle-loader'),
 Handlebars = require('handlebars'),
 assert = require("assert"),
 async = require('async'),
@@ -31,7 +31,7 @@ describe('mapping', function(){
       var testHandlebars = Handlebars.create();
 
       //Arrange
-      var helpers = require('../../../../../lib/condensation/loaders/all-helpers')({
+      var helpers = require('../../../../lib/condensation/loaders/all-helpers')({
           particleLoader: ParticleLoader,
           handlebars: testHandlebars
       });

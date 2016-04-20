@@ -1,5 +1,5 @@
-{{#layout}}
-    {{{parameter 'vpc_cidr' logicalId="SubnetCidr" description="Subnet CIDR [x.x.x.x/x]"}}}
+{{#layout TemplateDescription="A Subnet"}}
+    {{parameter 'vpc_cidr' logicalId="SubnetCidr" description="Subnet CIDR [x.x.x.x/x]"}}
     {{#parameter logicalId="AvailabilityZone"}}
       "Default": "random",
       "Description": "Availability Zone",
@@ -29,7 +29,7 @@
       "ConstraintDescription": "can contain only ASCII characters."
     {{/parameter}}
 
-    {{set 'module:particles-common-core' 'true_false' parameterLogicalId="tf"}}
+    {{set 'true_false_set' parameterLogicalId="tf"}}
 
     {{#condition logicalId="condNonDefaultRouteTable"}}
       "Fn::Not": [

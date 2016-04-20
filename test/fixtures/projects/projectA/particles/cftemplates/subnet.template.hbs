@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{{{helper 'test-helper'}}}",
+  "Description": "{{helper 'test-helper'}}",
   "Parameters": {
     "SubnetCidr": {
       "Type": "String"
@@ -11,7 +11,7 @@
     "VpcId": {
       "Type": "String"
     },
-    {{{partial 'parameter-name-tag'}}}
+    {{partial 'parameter-name-tag'}}
   },
   "Resources": {
     "Subnet": {

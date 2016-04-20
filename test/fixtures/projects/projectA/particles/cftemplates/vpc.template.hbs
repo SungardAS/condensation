@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{{{helper 'test-helper'}}}",
+  "Description": "{{helper 'test-helper'}}",
   "Parameters": {
     "VpcCidr": {
       "Description": "The VPC Network Range",
@@ -11,7 +11,7 @@
       "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
       "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x."
     },
-    {{{partial 'parameter-name-tag'}}}
+    {{partial 'parameter-name-tag'}}
   },
   "Resources": {
     "vpc": {

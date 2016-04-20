@@ -1,4 +1,4 @@
-{{{requireAssets '*'}}}
+{{requireAssets '*'}}
 {
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "Create a Instance with it's own VPC",
@@ -28,7 +28,7 @@
     "KeyName": {
       "Type": "String"
     },
-    {{{partial 'module:projectA' 'parameter-name-tag'}}}
+    {{partial 'module:projectA' 'parameter-name-tag'}}
   },
   "Resources": {
     "Vpc": {
@@ -42,7 +42,7 @@
             "Ref": "NameTag"
           }
         },
-        "TemplateURL": "{{{templateS3Url 'module:projectA' 'vpc.template'}}}"
+        "TemplateURL": "{{templateS3Url 'module:projectA' 'vpc.template'}}"
       }
     },
     "CfnUser": {

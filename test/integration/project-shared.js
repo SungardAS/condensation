@@ -22,7 +22,7 @@ exports.shouldBehaveLikeAProject = function(options){
 
   beforeEach('create new gulp object', function() {
     gulp = clone(require('gulp'));
-    require('../../../').buildTasks(
+    require('../../').buildTasks(
       gulp,
       options.projectConfig
     );
@@ -30,7 +30,7 @@ exports.shouldBehaveLikeAProject = function(options){
 
   after('clean the project', function(done) {
     var afterGulp = clone(require('gulp'));
-    require('../../../').buildTasks(afterGulp,options.projectConfig);
+    require('../../').buildTasks(afterGulp,options.projectConfig);
     afterGulp.start('clean');
     afterGulp.on('stop',function(){
       fs.lstat(options.projectConfig.dist, function(err, stats) {

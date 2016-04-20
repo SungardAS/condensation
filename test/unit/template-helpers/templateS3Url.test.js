@@ -1,12 +1,10 @@
-var ParticleLoader = require('../../../../lib/condensation/loaders/particle-loader'),
+var ParticleLoader = require('../../../lib/condensation/loaders/particle-loader'),
 assert = require("assert"),
 async = require('async'),
-helper = require('../../../../lib/condensation/template-helpers/assetS3Url'),
+helper = require('../../../lib/condensation/template-helpers/templateS3Url'),
 path = require('path');
 
-
-
-describe('assetS3Url', function(){
+describe('templateS3Url', function(){
 
   /*
    *  particlePath - As would be written in the template
@@ -16,29 +14,15 @@ describe('assetS3Url', function(){
 
   async.each([
     {
-      description: 'should resolve https path',
-      particlePath: 'bootstrap.sh',
+      description: 'should resolve http path',
+      particlePath: 'instance.template.json',
       filePath: path.join('test','fixtures','projects','projectB','particles','cftemplates','fake.template'),
-      protocol: 'https',
-      expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/assets/bootstrap.sh'
-    },
-    {
-      description: 'should resolve s3 path',
-      particlePath: 'bootstrap.sh',
-      filePath: path.join('test','fixtures','projects','projectB','particles','cftemplates','fake.template'),
-      protocol: 's3',
-      expected:  's3://bucket/particles/assets/bootstrap.sh'
-    },
-    {
-      description: 'should default to https if no protocol specified',
-      particlePath: 'bootstrap.sh',
-      filePath: path.join('test','fixtures','projects','projectB','particles','cftemplate','fake.template'),
-      protocol: null,
-      expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/assets/bootstrap.sh'
+      expected:  'https://s3-eu-west-1.amazonaws.com/bucket/particles/cftemplates/instance.template.json'
     }
   ], function(config){
 
     it(config.description, function(done){
+
       //Arrange
       var hOpts = {
         data: {
@@ -70,8 +54,6 @@ describe('assetS3Url', function(){
         particleLoader: new ParticleLoader({root:path.join('test','fixtures','projects','projectB')})
       };
 
-
-
       //Act
       var result = helper.helper.apply(root, [null, config.particlePath, null, hOpts, cOpts]);
 
@@ -81,5 +63,8 @@ describe('assetS3Url', function(){
     });
 
   });
+
+
+
 
 });
