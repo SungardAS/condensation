@@ -17,7 +17,7 @@ var distributionFiles = [
   'node_modules/projectA/particles/cftemplates/vpc.template'
 ];
 
-describe.only('projectC', function(){
+describe('projectC', function(){
   var gulp;
 
   before(function(done) {
