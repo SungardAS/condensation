@@ -1,6 +1,6 @@
 {
   "name": "condensation",
-  "version": "0.4.13-rc0",
+  "version": "0.4.13-rc1",
   "description": "Package, reuse and share particles for CloudFormation projects",
   "main": "index.js",
   "scripts": {
