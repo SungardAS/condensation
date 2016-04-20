@@ -1,14 +1,16 @@
-var _ = require('lodash'),
-async = require('async'),
-clone = require('clone'),
-assert = require('assert'),
-path = require('path'),
-exec = require('child_process').exec;
-shared = require('./project-shared'),
-fs = require('fs');
+var _ = require('lodash');
+var assert = require('assert');
+var async = require('async');
+var clone = require('clone');
+var exec = require('child_process').exec;
+var fs = require('fs');
+var path = require('path');
+var semver = require('semver');
+var shared = require('./project-shared');
 
 var projectDir = 'test/fixtures/projects/projectC';
 var distDir = 'test/dist/pC';
+
 
 var distributionFiles = [
   'particles/cftemplates/proj.template',
@@ -16,6 +18,12 @@ var distributionFiles = [
   'node_modules/projectB/particles/assets/download.sh',
   'node_modules/projectA/particles/cftemplates/vpc.template'
 ];
+if (semver.satisfies(process.version,">=5")) {
+  distributionFiles.push('node_modules/projectA/particles/cftemplates/vpc.template');
+}
+else {
+  distributionFiles.push('node_modules/projectB/node_modules/projectA/particles/cftemplates/vpc.template');
+}
 
 describe('projectC', function(){
   var gulp;
