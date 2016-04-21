@@ -149,7 +149,7 @@ of the npm dependency.
 **New in 0.5.0**
 
 Use `m` instead of `module` if referencing a module that
-starts with `particles-` to minimize characters used. The `m` options
+starts with `particles-` to minimize characters used. The `m` option
 will add `particles-` to the beginning of \<MODULE\> for you.
 
     {{<CONDENSATION-HELPER> [m:<MODULE>] '<PATH_TO_PARTICLE>' [OPTIONS...]}}
