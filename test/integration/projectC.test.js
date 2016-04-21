@@ -8,55 +8,35 @@ var path = require('path');
 var semver = require('semver');
 var shared = require('./project-shared');
 
-var projectDir = 'test/fixtures/projects/projectC';
-var distDir = 'test/dist/pC';
-
-
-var distributionFiles = [
-  'particles/cftemplates/proj.template',
-  'node_modules/projectB/particles/assets/bootstrap.sh',
-  'node_modules/projectB/particles/assets/download.sh'
-];
-
-if (semver.gte(process.versions.node,"5.0.0")) {
-  distributionFiles.push('node_modules/projectA/particles/cftemplates/vpc.template');
-}
-else {
-  distributionFiles.push('node_modules/projectB/node_modules/projectA/particles/cftemplates/vpc.template');
-}
-
 describe('projectC', function(){
-  var gulp;
+  var projectName = 'projectC';
+
+  var config = shared.generateConfig(
+      projectName,
+      {distributionFiles:distributionFiles}
+  );
+
+  var distributionFiles = [
+    'particles/cftemplates/proj.template',
+    'node_modules/projectB/particles/assets/bootstrap.sh',
+    'node_modules/projectB/particles/assets/download.sh'
+  ];
+
+  if (semver.gte(process.versions.node,"5.0.0")) {
+    distributionFiles.push('node_modules/projectA/particles/cftemplates/vpc.template');
+  }
+  else {
+    distributionFiles.push('node_modules/projectB/node_modules/projectA/particles/cftemplates/vpc.template');
+  }
 
   before(function(done) {
-    var pB = exec("npm install",{cwd: projectDir},done);
+    var pB = exec("npm install",{cwd: config.projectConfig.root},done);
   });
 
   after(function(done) {
-    exec("rm -rf node_modules/*",{cwd: projectDir},done);
+    exec("rm -rf node_modules/*",{cwd: config.projectConfig.root},done);
   });
 
-  shared.shouldBehaveLikeAProject({
-    gulp: gulp,
-    tasks: [],
-    distributionFiles: distributionFiles,
-    projectConfig: {
-        s3: [
-          {
-            aws: {
-              region: 'us-east-1',
-              bucket: 'my-test-bucket',
-            },
-            labels: ['east'],
-            validate: false,
-            create: false
-          }
-        ],
-        projectName: 'projectC',
-        root: projectDir,
-        taskPrefix: '',
-        dist: distDir
-      }
-  });
+  shared.shouldBehaveLikeAProject(config);
 
 });

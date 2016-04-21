@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var assert = require('assert');
 var Condensation = require('../../../../lib/condensation');
-var sections = require('../../../../lib/condensation/template-helpers/sections');
+var CPT = require('condensation-particle-tests');
 var path = require('path');
 
 var projectDir = 'test/fixtures/projects/particle-builds';
@@ -26,79 +26,53 @@ var projectConfig = {
 
 
 describe('parameters', function(){
-  var condensation = new Condensation(projectConfig);
+  var condensation = new Condensation(null, projectConfig);
 
-  var cOpts = {
-    particleLoader: condensation.particleLoader,
-    handlebars: condensation.handlebars
-  };
-
+  var cTests = new CPT({condensation: condensation});
 
   it("creates a parameter", function() {
-    var hOpts = {
-      data: {
-        _file: {path: [projectDir,'particles','cftemplates','____test_template'].join(path.sep) }
-      },
-      hash: {
-        logicalId: "Parameter1"
-      }
-    };
-
-    var result = sections.parameter.helper.apply(condensation, [null, 'generic', null, hOpts, cOpts]);
-    assert.deepEqual(JSON.parse('{'+result+'}'),{Parameter1: {Type: ""}});
-
+    cTests.testParticle(
+      "parameter",
+      "generic",
+      {Parameter1: {Type: ""}},
+      {logicalId: "Parameter1"}
+    );
   });
 
   it("works with older full object particle definitions", function() {
-    var hOpts = {
-      data: {
-        _file: {path: [projectDir,'particles','cftemplates','____test_template'].join(path.sep) }
-      },
-      hash: {
-        logicalId: "Parameter1"
-      }
-    };
-
-    var result = sections.parameter.helper.call(condensation, null, 'full_object', null, hOpts, cOpts);
-    assert.deepEqual(JSON.parse('{'+result+'}'),{Parameter1: {Type: "String"}});
+    cTests.testParticle(
+      "parameter",
+      "full_object",
+      {Parameter1: {Type: "String"}},
+      {logicalId: "Parameter1"}
+    );
   });
 
   it("fails when a parameter has no logicalId", function() {
-    var hOpts = {
-      data: {
-        _file: {path: [projectDir,'particles','cftemplates','____test_template'].join(path.sep) }
-      },
-      hash: {
-      }
-    };
-
-    assert.throws(sections.parameter.helper.bind(condensation, null, 'generic', null, hOpts, cOpts));
+    cTests.testParticle(
+      "parameter",
+      "generic",
+      null,
+      {expectError: true}
+    );
   });
 
   it("fails when a parameter has invalid JSON", function() {
-    var hOpts = {
-      data: {
-        _file: {path: [projectDir,'particles','cftemplates','____test_template'].join(path.sep) }
-      },
-      hash: {
-        logicalId: "Parameter1"
-      }
-    };
-
-    assert.throws(sections.parameter.helper.bind(condensation, null, 'malformed', null, hOpts, cOpts));
+    cTests.testParticle(
+      "parameter",
+      "malformed",
+      null,
+      {logicalId: "Parameter1", expectError: true}
+    );
   });
 
   it("fails when a parameter extends malformed", function() {
-    var hOpts = {
-      data: {
-        _file: {path: [projectDir,'particles','cftemplates','____test_template'].join(path.sep) }
-      },
-      hash: {
-        logicalId: "Parameter1"
-      }
-    };
-
-    assert.throws(sections.parameter.helper.bind(condensation, null, 'extend_malformed', null, hOpts, cOpts));
+    cTests.testParticle(
+      "parameter",
+      "extend_malformed",
+      null,
+      {logicalId: "Parameter1", expectError: true}
+    );
   });
 
 });

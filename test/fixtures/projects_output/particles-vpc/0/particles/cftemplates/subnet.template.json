@@ -1,0 +1,158 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "A Subnet",
+  "Conditions": {
+    "tfIsTrueCondition": {
+      "Fn::Equals": [
+        {
+          "Ref": ""
+        },
+        "true"
+      ]
+    },
+    "tfIsFalseCondition": {
+      "Fn::Equals": [
+        {
+          "Ref": ""
+        },
+        "false"
+      ]
+    },
+    "condNonDefaultRouteTable": {
+      "Fn::Not": [
+        {
+          "Fn::Equals": [
+            {
+              "Ref": "RouteTableId"
+            },
+            "default"
+          ]
+        }
+      ]
+    },
+    "condNonDefaultAZ": {
+      "Fn::Not": [
+        {
+          "Fn::Equals": [
+            {
+              "Ref": "AvailabilityZone"
+            },
+            "random"
+          ]
+        }
+      ]
+    },
+    "condDefaultAZ": {
+      "Fn::Equals": [
+        {
+          "Ref": "AvailabilityZone"
+        },
+        "random"
+      ]
+    }
+  },
+  "Outputs": {
+    "SubnetId": {
+      "Value": {
+        "Ref": "Subnet"
+      }
+    },
+    "AvailabilityZone": {
+      "Value": {
+        "Fn::GetAtt": [
+          "Subnet",
+          "AvailabilityZone"
+        ]
+      }
+    }
+  },
+  "Parameters": {
+    "SubnetCidr": {
+      "Type": "String",
+      "Default": "10.1.0.0/16",
+      "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+      "MaxLength": "18",
+      "MinLength": "9",
+      "Description": "Subnet CIDR [x.x.x.x/x]",
+      "ConstraintDescription": "must be a valid CIDR range formatted as x.x.x.x/x"
+    },
+    "AvailabilityZone": {
+      "Default": "random",
+      "Description": "Availability Zone",
+      "Type": "String",
+      "ConstraintDescription": "Must be a valid AZ for the region."
+    },
+    "VpcId": {
+      "Description": "ID of an existing VPC to create the subnet in",
+      "Type": "AWS::EC2::VPC::Id"
+    },
+    "RouteTableId": {
+      "Description": "Route table that the subnet will attach to.",
+      "Default": "default",
+      "Type": "String",
+      "MinLength": "1",
+      "MaxLength": "255",
+      "AllowedPattern": "[\\x20-\\x7E]*",
+      "ConstraintDescription": "can contain only ASCII characters."
+    },
+    "NameTag": {
+      "Description": "Set the name tag for all created resources.",
+      "Default": "default",
+      "Type": "String",
+      "MinLength": "1",
+      "MaxLength": "255",
+      "AllowedPattern": "[\\x20-\\x7E]*",
+      "ConstraintDescription": "can contain only ASCII characters."
+    },
+    "tf": {
+      "Type": "String",
+      "MaxLength": "5",
+      "MinLength": "4",
+      "ConstraintDescription": "[true|false]"
+    }
+  },
+  "Resources": {
+    "Subnet": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": {
+          "Ref": "SubnetCidr"
+        },
+        "AvailabilityZone": {
+          "Fn::If": [
+            "condNonDefaultAZ",
+            {
+              "Ref": "AvailabilityZone"
+            },
+            {
+              "Ref": "AWS::NoValue"
+            }
+          ]
+        },
+        "VpcId": {
+          "Ref": "VpcId"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Ref": "NameTag"
+            }
+          }
+        ]
+      }
+    },
+    "RouteTableAssociation": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Condition": "condNonDefaultRouteTable",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "RouteTableId"
+        },
+        "SubnetId": {
+          "Ref": "Subnet"
+        }
+      }
+    }
+  }
+}
