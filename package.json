@@ -1,6 +1,6 @@
 {
   "name": "condensation",
-  "version": "0.4.13-rc2",
+  "version": "0.5.0",
   "description": "Package, reuse and share particles for CloudFormation projects",
   "main": "index.js",
   "scripts": {
@@ -47,7 +47,7 @@
   "devDependencies": {
     "async": "^1.5.2",
     "clone": "^1.0.2",
-    "condensation-particle-tests": "^0.4.0-rc4",
+    "condensation-particle-tests": "^0.5.0",
     "coveralls": "^2.11.6",
     "istanbul": "^0.4.2",
     "mocha": "^2.3.4",
