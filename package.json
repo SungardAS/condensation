@@ -1,6 +1,6 @@
 {
   "name": "condensation",
-  "version": "0.4.13-rc1",
+  "version": "0.4.13-rc2",
   "description": "Package, reuse and share particles for CloudFormation projects",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,6 @@
     "aws-sdk": "^2.2.32",
     "backlog": "0.0.3",
     "backoff": "^2.4.1",
-    "condensation-particle-tests": "^0.4.0-rc3",
     "del": "^2.2.0",
     "event-stream": "^3.3.2",
     "fs-extra": "^0.28.0",
@@ -48,6 +47,7 @@
   "devDependencies": {
     "async": "^1.5.2",
     "clone": "^1.0.2",
+    "condensation-particle-tests": "^0.4.0-rc3",
     "coveralls": "^2.11.6",
     "istanbul": "^0.4.2",
     "mocha": "^2.3.4",
