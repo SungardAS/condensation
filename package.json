@@ -15,6 +15,7 @@
     "aws-sdk": "^2.2.32",
     "backlog": "0.0.3",
     "backoff": "^2.4.1",
+    "condensation-particle-tests": "^0.4.0-rc3",
     "del": "^2.2.0",
     "event-stream": "^3.3.2",
     "fs-extra": "^0.28.0",
