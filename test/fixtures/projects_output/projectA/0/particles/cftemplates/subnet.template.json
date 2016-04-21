@@ -1,0 +1,51 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "This test text was generated for region us-east-1",
+  "Parameters": {
+    "SubnetCidr": {
+      "Type": "String"
+    },
+    "AvailabilityZone": {
+      "Type": "String"
+    },
+    "VpcId": {
+      "Type": "String"
+    },
+    "NameTag": {
+      "Description": "Will set the name tag on all resources created",
+      "Type": "String"
+    }
+  },
+  "Resources": {
+    "Subnet": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": {
+          "Ref": "SubnetCidr"
+        },
+        "AvailabilityZone": {
+          "Fn::If": [
+            "condNonDefaultAZ",
+            {
+              "Ref": "AvailabilityZone"
+            },
+            {
+              "Ref": "AWS::NoValue"
+            }
+          ]
+        },
+        "VpcId": {
+          "Ref": "VpcId"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Ref": "NameTag"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

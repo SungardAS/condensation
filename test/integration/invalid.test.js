@@ -1,50 +1,32 @@
-var _ = require('lodash'),
-  async = require('async'),
-  clone = require('clone'),
-  assert = require('assert'),
-  path = require('path'),
-  shared = require('./project-shared'),
-  fs = require('fs');
-
-var projectDir = 'test/fixtures/projects/invalid';
-var distDir = 'test/dist/invalid';
-
-var projectConfig = {
-  s3: [
-    {
-      aws: {
-        region: 'us-east-1',
-        bucket: '',
-      },
-      validate: false,
-      create: false
-    }
-  ],
-  projectName: 'invalid',
-  root: projectDir,
-  taskPrefix: '',
-  dist: distDir,
-};
-
+var _ = require('lodash');
+var assert = require('assert');
+var clone = require('clone');
+var fs = require('fs');
+var path = require('path');
+var shared = require('./project-shared');
 
 describe.skip('invalid', function(){
   var gulp;
+
+  var projectName = 'invalid';
+
+  var config = shared.generateConfig(projectName, {gulp: gulp});
 
   beforeEach('create new gulp object', function() {
     gulp = clone(require('gulp'));
     require('../../').buildTasks(
       gulp,
-      projectConfig
+      config.projectConfig
     );
   });
 
   after('clean the project', function(done) {
     var afterGulp = clone(require('gulp'));
-    require('../../').buildTasks(afterGulp,projectConfig);
+    require('../../').buildTasks(afterGulp,config.projectConfig);
     afterGulp.start('clean');
     afterGulp.on('stop',function(){
-      fs.lstat(projectConfig.dist, function(err, stats) {
-        assert(err,projectConfig.dist + " not clean");
+      fs.lstat(config.projectConfig.dist, function(err, stats) {
+        assert(err,config.projectConfig.dist + " not clean");
         done();
       });
     });

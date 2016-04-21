@@ -1,0 +1,310 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Create a Instance with it's own VPC",
+  "Parameters": {
+    "InstanceType": {
+      "Description": "EC2 instance type",
+      "Type": "String",
+      "Default": "t2.medium",
+      "ConstraintDescription": "must be a valid EC2 instance type."
+    },
+    "SecurityGroupId": {
+      "Description": "Existing security group that has access to a Sky appliance",
+      "Type": "String"
+    },
+    "VpcCidr": {
+      "Description": "The VPC Network Range",
+      "Type": "String",
+      "MinLength": "9",
+      "MaxLength": "18",
+      "Default": "10.0.0.0/16",
+      "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+      "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x."
+    },
+    "SubnetId": {
+      "Type": "String"
+    },
+    "KeyName": {
+      "Type": "String"
+    },
+    "NameTag": {
+      "Description": "Will set the name tag on all resources created",
+      "Type": "String"
+    }
+  },
+  "Resources": {
+    "Vpc": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "Parameters": {
+          "VpcCidr": {
+            "Ref": "VpcCidr"
+          },
+          "NameTag": {
+            "Ref": "NameTag"
+          }
+        },
+        "TemplateURL": "https://s3.amazonaws.com/testing-path/node_modules/projectA/particles/cftemplates/vpc.template.json"
+      }
+    },
+    "CfnUser": {
+      "Type": "AWS::IAM::User",
+      "Properties": {
+        "Path": "/",
+        "Policies": [
+          {
+            "PolicyName": "root",
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "cloudformation:DescribeStackResource",
+                    "s3:GetObject"
+                  ],
+                  "Resource": "*"
+                },
+                {
+                  "Sid": "CloudFormationReadAccess",
+                  "Action": [
+                    "s3:GetObject"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:s3:::",
+                        "/*"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "CfnKeys": {
+      "Type": "AWS::IAM::AccessKey",
+      "Properties": {
+        "UserName": {
+          "Ref": "CfnUser"
+        }
+      }
+    },
+    "WaitHandle": {
+      "Type": "AWS::CloudFormation::WaitConditionHandle"
+    },
+    "WaitCondition": {
+      "Type": "AWS::CloudFormation::WaitCondition",
+      "DependsOn": "Client",
+      "Properties": {
+        "Handle": {
+          "Ref": "WaitHandle"
+        },
+        "Timeout": "6000"
+      }
+    },
+    "Client": {
+      "Type": "AWS::EC2::Instance",
+      "Metadata": {
+        "AWS::CloudFormation::Init": {
+          "configSets": {
+            "default": [
+              "enableRepos",
+              "runScripts"
+            ]
+          },
+          "enableRepos": {
+            "commands": {
+              "001": {
+                "command": "yum-config-manager --enable epel"
+              },
+              "002": {
+                "command": "yum update -y"
+              }
+            }
+          },
+          "runScripts": {
+            "files": {
+              "/root/gen_data.sh": {
+                "source": "https://s3.amazonaws.com/testing-path/particles/assets/bootstrap.sh",
+                "mode": "000755"
+              }
+            },
+            "commands": {
+              "001": {
+                "command": "/root/bootstrap.sh"
+              }
+            }
+          }
+        },
+        "AWS::CloudFormation::Authentication": {
+          "S3AccessCreds": {
+            "type": "S3",
+            "accessKeyId": {
+              "Ref": "CfnKeys"
+            },
+            "secretKey": {
+              "Fn::GetAtt": [
+                "CfnKeys",
+                "SecretAccessKey"
+              ]
+            },
+            "buckets": [
+              ""
+            ]
+          }
+        }
+      },
+      "Properties": {
+        "KeyName": {
+          "Ref": "KeyName"
+        },
+        "ImageId": {
+          "Fn::FindInMap": [
+            "RegionMap",
+            {
+              "Ref": "AWS::Region"
+            },
+            "AMI"
+          ]
+        },
+        "InstanceType": {
+          "Ref": "InstanceType"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Ref": "NameTag"
+            }
+          }
+        ],
+        "NetworkInterfaces": [
+          {
+            "DeviceIndex": "0",
+            "AssociatePublicIpAddress": true,
+            "GroupSet": [
+              {
+                "Ref": "SecurityGroupId"
+              }
+            ],
+            "SubnetId": {
+              "Ref": "SubnetId"
+            }
+          }
+        ],
+        "BlockDeviceMappings": [
+          {
+            "DeviceName": "/dev/xvda",
+            "Ebs": {
+              "VolumeSize": "8",
+              "VolumeType": "gp2"
+            }
+          },
+          {
+            "DeviceName": "/dev/xvdf",
+            "Ebs": {
+              "VolumeSize": "51",
+              "VolumeType": "gp2"
+            }
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash -ex\n",
+                "# Helper function\n",
+                "function error_exit\n",
+                "{\n",
+                "  /opt/aws/bin/cfn-signal -e 1 -r \"$1\" ",
+                "         --stack ",
+                {
+                  "Ref": "AWS::StackName"
+                },
+                "         --resource ServerGroup ",
+                "         --region ",
+                {
+                  "Ref": "AWS::Region"
+                },
+                "\n",
+                "  exit 1\n",
+                "}\n",
+                "# Process CloudFormation init definitions\n",
+                "/opt/aws/bin/cfn-init -s ",
+                {
+                  "Ref": "AWS::StackName"
+                },
+                " -r Client ",
+                "    --region ",
+                {
+                  "Ref": "AWS::Region"
+                },
+                " || error_exit 'Failed to run cfn-init'\n",
+                "# All is well so signal success\n",
+                "/opt/aws/bin/cfn-signal -e 0 -d \"`cut -f2 -d= /etc/iscsi/initiatorname.iscsi`\" ",
+                "         --region ",
+                {
+                  "Ref": "AWS::Region"
+                },
+                " \"",
+                {
+                  "Ref": "WaitHandle"
+                },
+                "\" \n",
+                "#EOF"
+              ]
+            ]
+          }
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "HostIqn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "WaitCondition",
+          "Data"
+        ]
+      }
+    },
+    "PrivateIp": {
+      "Value": {
+        "Fn::GetAtt": [
+          "Client",
+          "PrivateIp"
+        ]
+      }
+    },
+    "PublicIp": {
+      "Value": {
+        "Fn::GetAtt": [
+          "Client",
+          "PublicIp"
+        ]
+      }
+    },
+    "PrivateDnsName": {
+      "Value": {
+        "Fn::GetAtt": [
+          "Client",
+          "PrivateDnsName"
+        ]
+      }
+    },
+    "PublicDnsName": {
+      "Value": {
+        "Fn::GetAtt": [
+          "Client",
+          "PublicDnsName"
+        ]
+      }
+    }
+  }
+}

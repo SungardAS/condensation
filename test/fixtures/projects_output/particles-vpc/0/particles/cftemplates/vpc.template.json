@@ -1,0 +1,240 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Parameters": {
+    "VpcCidr": {
+      "Type": "String",
+      "Default": "10.1.0.0/16",
+      "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+      "MaxLength": "18",
+      "MinLength": "9",
+      "Description": "Valid CIDR Range. Format: x.x.x.x/x",
+      "ConstraintDescription": "must be a valid CIDR range formatted as x.x.x.x/x"
+    },
+    "CreateVpcSecurityGroup": {
+      "Type": "String",
+      "Default": "false",
+      "MaxLength": "5",
+      "MinLength": "4",
+      "Description": "[true|false] Create a security group assigned to the new VPC",
+      "ConstraintDescription": "[true|false]"
+    },
+    "OpenVpcCommunication": {
+      "Type": "String",
+      "Default": "false",
+      "MaxLength": "5",
+      "MinLength": "4",
+      "Description": "[true|false] Open all communication within the VPC",
+      "ConstraintDescription": "[true|false]"
+    },
+    "CreateInternetGateway": {
+      "Type": "String",
+      "Default": "false",
+      "MaxLength": "5",
+      "MinLength": "4",
+      "Description": "[true|false] Create an Internet Gateway for the VPC",
+      "ConstraintDescription": "[true|false]"
+    },
+    "NameTag": {
+      "Description": "Will set the name tag on all resources created",
+      "Type": "String"
+    }
+  },
+  "Conditions": {
+    "CondCreateVpcSecurityGroup": {
+      "Fn::Equals": [
+        {
+          "Ref": "CreateVpcSecurityGroup"
+        },
+        "true"
+      ]
+    },
+    "CondOpenVpcCommunication": {
+      "Fn::Equals": [
+        {
+          "Ref": "OpenVpcCommunication"
+        },
+        "true"
+      ]
+    },
+    "CondCreateInternetGateway": {
+      "Fn::Equals": [
+        {
+          "Ref": "CreateInternetGateway"
+        },
+        "true"
+      ]
+    }
+  },
+  "Resources": {
+    "vpc": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": {
+          "Ref": "VpcCidr"
+        },
+        "InstanceTenancy": "default",
+        "EnableDnsSupport": "true",
+        "EnableDnsHostnames": "true",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Ref": "NameTag"
+            }
+          }
+        ]
+      }
+    },
+    "internetGateway": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Condition": "CondCreateInternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Ref": "NameTag"
+            }
+          }
+        ]
+      }
+    },
+    "networkACL": {
+      "Type": "AWS::EC2::NetworkAcl",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc"
+        }
+      }
+    },
+    "routeTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Ref": "NameTag"
+            }
+          }
+        ]
+      }
+    },
+    "VpcSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Condition": "CondCreateVpcSecurityGroup",
+      "Properties": {
+        "GroupDescription": "VPC Default Security Group",
+        "VpcId": {
+          "Ref": "vpc"
+        },
+        "SecurityGroupEgress": [
+          {
+            "IpProtocol": "-1",
+            "CidrIp": "0.0.0.0/0"
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Ref": "NameTag"
+            }
+          }
+        ]
+      }
+    },
+    "SecurityGroupIngress": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Condition": "CondOpenVpcCommunication",
+      "Properties": {
+        "GroupId": {
+          "Fn::GetAtt": [
+            "VpcSecurityGroup",
+            "GroupId"
+          ]
+        },
+        "IpProtocol": "-1",
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
+            "VpcSecurityGroup",
+            "GroupId"
+          ]
+        }
+      }
+    },
+    "acl1": {
+      "Type": "AWS::EC2::NetworkAclEntry",
+      "Properties": {
+        "CidrBlock": "0.0.0.0/0",
+        "Egress": true,
+        "Protocol": "-1",
+        "RuleAction": "allow",
+        "RuleNumber": "100",
+        "NetworkAclId": {
+          "Ref": "networkACL"
+        }
+      }
+    },
+    "acl2": {
+      "Type": "AWS::EC2::NetworkAclEntry",
+      "Properties": {
+        "CidrBlock": "0.0.0.0/0",
+        "Protocol": "-1",
+        "RuleAction": "allow",
+        "RuleNumber": "100",
+        "NetworkAclId": {
+          "Ref": "networkACL"
+        }
+      }
+    },
+    "gw1": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Condition": "CondCreateInternetGateway",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc"
+        },
+        "InternetGatewayId": {
+          "Ref": "internetGateway"
+        }
+      }
+    },
+    "route1": {
+      "Type": "AWS::EC2::Route",
+      "Condition": "CondCreateInternetGateway",
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "RouteTableId": {
+          "Ref": "routeTable"
+        },
+        "GatewayId": {
+          "Ref": "internetGateway"
+        }
+      },
+      "DependsOn": "gw1"
+    }
+  },
+  "Description": "",
+  "Outputs": {
+    "VpcId": {
+      "Value": {
+        "Ref": "vpc"
+      }
+    },
+    "RouteTableId": {
+      "Value": {
+        "Ref": "routeTable"
+      }
+    },
+    "SecurityGroupId": {
+      "Value": {
+        "Ref": "VpcSecurityGroup"
+      },
+      "Condition": "CondCreateVpcSecurityGroup"
+    }
+  }
+}
