@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [UNRELEASED]
+## [0.5.0]
 ### Added
 - Short module reference syntax. Use `m` instead of `module` to
   reference a particle module.  When `m` is used `particles-` will
@@ -13,11 +13,28 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Better reporting for particle compile errors
 
+- Overhaul of the test suite. Now uses
+  [condensation-particle-tests][cpt-url] to test individual particles.
+
+- Expose all helpers through class object. Used by
+  [condensation-particle-tests][cpt-url]
+
+### Changed
+- The constructor no longer calls `condense`. The function must be
+  called after initializing the class.
+- Dependencies updated to latest versions
+
 ### Fixed
 - When a template has invalid JSON the correct error is reported and the
   file is dumped to `condensation_errors`
+- merge order in partials and sets
+
+### Removed
+- jsonlint - was not adding value.  Will look for better lint-er
 
 ## [0.4.12] - 2016-04-13
 ### Fixed
 - turn off HTML escaping at the highest level
 - merge order of Front Matter with extended templates
+
+[cpt-url]: https://github.com/SungardAS/condensation-particle-tests

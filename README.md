@@ -14,8 +14,8 @@ Package, reuse and share particles for CloudFormation projects
 
 ## Summary
 
-Condensation is a [gulp](http://gulpjs.com) task generator that helps
-compile, package and upload [AWS CloudFormation](http://aws.amazon.com/cloudformation/)
+Condensation is a [gulp](http://gulpjs.com) task generator that
+compiles, packages and uploads [AWS CloudFormation](http://aws.amazon.com/cloudformation/)
 templates and supporting assets as distributions.
 
 Any file with the extension `.hbs` will be compiled with
@@ -24,15 +24,15 @@ partials, helpers and variable replacement.
 
 ## Features
 
-* Write reusable CloudFormation snippets (particles) that can be included as
-  in other condensation projets
-* Package templates and assets that can be uploaded to multiple buckets across
+* Write reusable CloudFormation snippets, called `particles` that can be used
+  accross condensation projets
+* Package templates and assets then upload full distributions to multiple buckets across
   regions with one command.
 * Reference another template within the distribution with
   [AWS::CloudFormation::Stack](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html)
 and the `templateS3Url` helper
 * Upload scripts, configuration files and other assets alongside
-  CloudFormation templates.
+  CloudFormation templates and reference them with asset helpers.
 
 ## Why?
 
@@ -41,23 +41,24 @@ AWS resources.  Reusing parts of templates, referencing other
 templates with `AWS::CloudFormation::Stack` and deploying cloud-init
 scripts can be difficult to manage.
 
-* Often sections such as AMI [mappings](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/mappings-section-structure.html)
-  are re-used by many templates.  Particles provide a way to
+* Sections such as AMI [mappings](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/mappings-section-structure.html)
+  are often re-used by many templates.  Particles provide a way to
   write the mapping once and reuse it in other templates by reference.
 * It is common to set up resources, such as a VPC, with nearly
   identical attributes and structure for different applications and
   services.  Condensation allows that definition to become a independent
   stack that can be referenced by other templates that are part of the
-  same distribution package.
+  same distribution.
 * When bootstrapping ec2 instances it is beneficial to have versioned scripts and configuration
   files deployed in the same bucket and path as the CloudFormation template
   they are associated with.
 * When using `AWS::CloudFormation::Authentication` to download assets from
   S3 buckets all resources must be in the same region.  Condensation
   makes it easy to deploy the same templates and assets to multiple
-  regions and ensure the referencing URLs are correct.
+  regions and ensure the referencing URLs are always pointing to the
+  right place.
 
-All templates in a distribution can reference one another based on the
+For example, templates in a distribution can reference one another based on the
 bucket they are deployed to.
 
 Example:
@@ -72,14 +73,13 @@ Output:
     ...
     "TemplateURL": "https://s3-us-west-1.amazonaws.com/<BUCKET>/cftemplates/subnet.template"
 
-The  Handlebars helper will ensure that the URL will always reference a template deployed within the same
-bucket.
-
+The Handlebars helper, `templateS3Url`, creates a URL that will always reference a template deployed within the same bucket.
 
 
 ## Quick Start Example Projects
 
 * [condensation-examples](https://github.com/SungardAS/condensation-examples)
+* [particles-vpc](https://github.com/SungardAS/particles-vpc)
 * [particles-cloudsploit-scans](https://github.com/SungardAS/particles-cloudsploit-scans)
 * [particles-enhanced-snapshots](https://github.com/SungardAS/particles-enhanced-snapshots)
 
@@ -95,18 +95,20 @@ Get started with the Yeoman
     
     > npm install -g generator-condensation
     
-    > yo condensation:particles
+    > yo condensation:project particles-my-project
 
-This will set up a project for building and sharing particles.
+This will set up a new project for building and sharing particles.
 
 
 ### Project Structure
 
-    my-project
+    particles-my-project
     |
     -- guplfile.js
     |
     -- README.md
+    |
+    -- CHANGELOG.md
     |
     --particles
       |
@@ -132,9 +134,9 @@ This will set up a project for building and sharing particles.
       |
       -- partials
 
-Condensation builds templates with helper methods that
+Condensation builds templates with Handlebars helpers that
 are able to load particles from the local project
-or from any condensation compatible project added as a npm
+or from any condensation compatible module added as a npm
 dependency.
 
 All helpers follow the same pattern:
@@ -144,6 +146,17 @@ All helpers follow the same pattern:
 When including the particles from another project *MODULE* is the name
 of the npm dependency.
 
+**New in 0.5.0**
+
+Use `m` instead of `module` if referencing a module that
+starts with `particles-` to minimize characters used. The `m` option
+will add `particles-` to the beginning of \<MODULE\> for you.
+
+    {{<CONDENSATION-HELPER> [m:<MODULE>] '<PATH_TO_PARTICLE>' [OPTIONS...]}}
+
+Example, load a particle from `particles-core`
+
+    {{parameter "m:core" "base" logicalId="Parameter1"}}
 
 #### Lazy Loading
 
