@@ -19,7 +19,7 @@ compiles, packages and uploads [AWS CloudFormation](http://aws.amazon.com/cloudf
 templates and supporting assets as distributions.
 
 Any file with the extension `.hbs` will be compiled with
-[Handlebars.js](http://http://handlebarsjs.com/) to support
+[Handlebars.js](http://handlebarsjs.com/) to support
 partials, helpers and variable replacement.
 
 ## Features
