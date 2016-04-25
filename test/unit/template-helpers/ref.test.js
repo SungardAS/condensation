@@ -2,7 +2,7 @@ var assert = require("assert");
 var ref = require("../../../lib/condensation/template-helpers/ref");
 
 describe("helpers", function() {
-  describe.only("ref", function() {
+  describe("ref", function() {
 
     it("should accept a string and return it as a Ref", function() {
       var result = ref("LogicalId");
