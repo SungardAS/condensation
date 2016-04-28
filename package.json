@@ -1,6 +1,6 @@
 {
   "name": "condensation",
-  "version": "0.5.1-rc0",
+  "version": "0.5.1-rc1",
   "publishConfig": {
     "tag": "rc"
   },
@@ -20,7 +20,7 @@
     "backoff": "^2.4.1",
     "del": "^2.2.0",
     "event-stream": "^3.3.2",
-    "fs-extra": "^0.28.0",
+    "fs-extra": "^0.30.0",
     "glob": "^7.0.0",
     "gray-matter": "^2.0.2",
     "gulp": "^3.9.0",
