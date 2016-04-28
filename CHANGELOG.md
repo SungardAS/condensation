@@ -2,6 +2,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Added
+- `ref` helper
+- `scopeId` helper
+- `scope` can be set to true or false which will add or ignore logicalId
+  prefix and suffix respectively.
+
+### Fixed
+- doValidation in build.js will now validate correctly
+- tests will now validate if AWS Credentials are available
+- condensation helpers use the same parameter format as handlebars helpers
+
 ## [0.5.0] - 2016-04-21
 ### Added
 - Short module reference syntax. Use `m` instead of `module` to

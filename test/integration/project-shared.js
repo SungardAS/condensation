@@ -62,17 +62,17 @@ exports.shouldBehaveLikeAProject = function(options){
     );
   });
 
-  //after('clean the project', function(done) {
-  //var afterGulp = clone(require('gulp'));
-  //require('../../').buildTasks(afterGulp,options.projectConfig);
-  //afterGulp.start('clean');
-  //afterGulp.on('stop',function(){
-  //fs.lstat(options.projectConfig.dist, function(err, stats) {
-  //assert(err);
-  //done();
-  //});
-  //});
-  //});
+  after('clean the project', function(done) {
+    var afterGulp = clone(require('gulp'));
+    require('../../').buildTasks(afterGulp,options.projectConfig);
+    afterGulp.start('clean');
+    afterGulp.on('stop',function(){
+      fs.lstat(options.projectConfig.dist, function(err, stats) {
+        assert(err);
+        done();
+      });
+    });
+  });
 
 
   options.tasks.forEach(function(task) {
