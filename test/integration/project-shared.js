@@ -48,11 +48,7 @@ exports.shouldBehaveLikeAProject = function(options){
     var awsCreds = new AWS.CredentialProviderChain();
     awsCreds.resolve(function(err) {
       if (!err) {
-        console.log("AWS Credentials present will run validation");
         process.env.FORCE_VALIDATE=true
-      }
-      else {
-        console.log("AWS Credentials NOT present no validation");
       }
       cb();
     });

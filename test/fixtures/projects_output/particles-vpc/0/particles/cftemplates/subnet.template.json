@@ -5,7 +5,7 @@
     "tfIsTrueCondition": {
       "Fn::Equals": [
         {
-          "Ref": ""
+          "Ref": "tf"
         },
         "true"
       ]
@@ -13,7 +13,7 @@
     "tfIsFalseCondition": {
       "Fn::Equals": [
         {
-          "Ref": ""
+          "Ref": "tf"
         },
         "false"
       ]
