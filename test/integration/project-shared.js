@@ -27,7 +27,7 @@ exports.generateConfig = function(projectName,overrides) {
             region: 'us-east-1',
             bucket: '',
           },
-          validate: true,
+          validate: false,
           create: false
         }
       ],
@@ -48,7 +48,11 @@ exports.shouldBehaveLikeAProject = function(options){
     var awsCreds = new AWS.CredentialProviderChain();
     awsCreds.resolve(function(err) {
       if (!err) {
+        console.log("AWS Credentials present will run validation");
         process.env.FORCE_VALIDATE=true
+      }
+      else {
+        console.log("AWS Credentials NOT present no validation");
       }
       cb();
     });
@@ -62,17 +66,17 @@ exports.shouldBehaveLikeAProject = function(options){
     );
   });
 
-  //after('clean the project', function(done) {
-  //var afterGulp = clone(require('gulp'));
-  //require('../../').buildTasks(afterGulp,options.projectConfig);
-  //afterGulp.start('clean');
-  //afterGulp.on('stop',function(){
-  //fs.lstat(options.projectConfig.dist, function(err, stats) {
-  //assert(err);
-  //done();
-  //});
-  //});
-  //});
+  after('clean the project', function(done) {
+    var afterGulp = clone(require('gulp'));
+    require('../../').buildTasks(afterGulp,options.projectConfig);
+    afterGulp.start('clean');
+    afterGulp.on('stop',function(){
+      fs.lstat(options.projectConfig.dist, function(err, stats) {
+        assert(err);
+        done();
+      });
+    });
+  });
 
 
   options.tasks.forEach(function(task) {
