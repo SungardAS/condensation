@@ -18,9 +18,10 @@ env:
   - secure: kUaJjK1l+A/x1LnTscwzOYdBaFekJ+wv6AQtYXmOiz3SPPDTbizD+pLUs+ZRBvWi2D5e6LivvBKLoOn5mvr/KSip0hriTCBwfjK+Sx8+kreXUv+gZXX+gCd37CCpp5PuOba0nErwNn3TAV3tCnMkUp0wxFnOdREXeCFv/qYEzGo=
 deploy:
   provider: npm
+  email: as.us.labs@sungardas.com
   api_key:
-    secure: DTFvyi0XhtWBG4UGyIwzns5HcEJ2simELtwke7ip7cEK0VJUCWWe38jVbCRJQkaIzkJc3s6+RHSl03KEiUiKJVQBDbjIGfFAooRSv630m4Fuy86eyu/6jCjtCyb2JzCF6NChBVY6UEFtPk2cW7Uk5bEYdY2tCGgHtSs5d+UqnLM=
+    secure: IafCsbxGASncqJ1b90lR91bbGqyUoO5ljuJRab+qvQenJafts7LAFeaYxpT0o8eRFZYwsJwAjJeqV1S8NcT4/Dz6NAbi2b3+f1qY0viXk2rWyZhHWgPjMKOQFTw2tEhbkAW2hMYf6YvAW087hnrXUVXQqlcw/p39EzN8WYxAIe8=
   on:
     tags: true
     repo: SungardAS/condensation
-    node: '4'
+    node: 4
