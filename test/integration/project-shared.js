@@ -27,7 +27,7 @@ exports.generateConfig = function(projectName,overrides) {
             region: 'us-east-1',
             bucket: '',
           },
-          validate: false,
+          validate: true,
           create: false
         }
       ],
