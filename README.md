@@ -411,6 +411,31 @@ Helper: `set`
 The particle path can match the base name of the file or the base name
 plus any extensions.
 
+##### Scoping
+
+Sets can be repeated multiple times in a template.  Sets can also be
+embedded within other sets.  To help with namespacing a set can be
+scoped with a `logicalIdPrefix` and/or a 'logicalIdSuffix`.  These
+values will be apporperiately added to and logicalIds within the set.
+
+To reference a logicalId within a scoped set use the `scopeId` and `ref`
+handlebars helpers provided by condensation.
+
+    {{!-- sets/my_set.hbs --}}
+    {{parameter "cidr" logicalId="Cidr"}}
+    {{resource "subnet" logicalId="Subnet" cidr=(ref "cidr")}}
+
+    ---
+
+    {{!-- cftemplates/my_template.template.json.hbs --}}
+
+    {{set "my_set" logicalIdSuffix="1"}}
+    {{set "my_set" logicalIdSuffix="2"}}
+
+The definition above would produce two parameters, `Cidr1` and `Cidr2`, and
+two resources, `Subnet1` and `Subnet2`.  Each subnet will reference
+their respective Cidr parameter.
+
 ### Tasks
 
 Get a full list of tasks by running `gulp -T`
@@ -489,6 +514,25 @@ Deploy templates to all S3 buckets that contain the label, LABEL.
       // Where the build task will put the distribution
       dist: 'dist'
     };
+
+## Condensation Helpers
+
+### ref
+
+Build a reference to a logicalId.  By default `ref` will return a
+logicalId in relation to it's scope adding any logicalIdPrefix and/or
+logicalIdSuffix as necessary.  This can be turned off by setting `scope`
+to `false`.
+
+    {{ref 'MyParameter'}}
+    {{ref 'MyParameter' scope=false}}
+
+### scopeId
+
+Return a logicalId based on it's current scope.  Will add any
+logicalIdPrefix and/or logicalIdSuffix that is defined.
+
+    {{scopeId 'MyParameter'}}
 
 ## Handlebars Helpers
 
