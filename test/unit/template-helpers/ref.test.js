@@ -25,7 +25,7 @@ describe("helpers", function() {
     });
 
     it("should ignore prefix and suffix if scope is false", function() {
-      var result = ref.apply({logicalIdPrefix: "My", logicalIdSuffix: "2"}, ["LogicalId",{scope:false}]);
+      var result = ref.apply({logicalIdPrefix: "My", logicalIdSuffix: "2"}, ["LogicalId",{hash: {scope:false}}]);
       assert.deepEqual(result,'{"Ref": "LogicalId"}');
     });
 
