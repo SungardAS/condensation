@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.5.2] - 2016-04-30
+### Fixed
+- `ref` helper needs to look in options.hash to follow handlebars
+  standards
+
 ## [0.5.1] - 2016-04-29
 ### Added
 - `ref` helper
