@@ -1,15 +1,13 @@
 language: node_js
 sudo: false
 node_js:
-- stable
-- '5'
-- '4'
+- 6
+- 5
+- 4
 - '0.12'
 - iojs
 matrix:
-  allow_failures:
-  - node_js: 6
-after_script: NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha
+after_success: NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha
   --report lcovonly -- -R spec --timeout 15000 "./test/**/*.test.js" && cat ./coverage/lcov.info
   | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
 env:
@@ -18,10 +16,10 @@ env:
   - secure: kUaJjK1l+A/x1LnTscwzOYdBaFekJ+wv6AQtYXmOiz3SPPDTbizD+pLUs+ZRBvWi2D5e6LivvBKLoOn5mvr/KSip0hriTCBwfjK+Sx8+kreXUv+gZXX+gCd37CCpp5PuOba0nErwNn3TAV3tCnMkUp0wxFnOdREXeCFv/qYEzGo=
 deploy:
   provider: npm
-  email: as.us.awscto@sungardas.com
+  email: as.us.labs@sungardas.com
   api_key:
     secure: IafCsbxGASncqJ1b90lR91bbGqyUoO5ljuJRab+qvQenJafts7LAFeaYxpT0o8eRFZYwsJwAjJeqV1S8NcT4/Dz6NAbi2b3+f1qY0viXk2rWyZhHWgPjMKOQFTw2tEhbkAW2hMYf6YvAW087hnrXUVXQqlcw/p39EzN8WYxAIe8=
   on:
     tags: true
     repo: SungardAS/condensation
-    node: 4
+    node: 6
