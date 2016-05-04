@@ -1,6 +1,20 @@
 # Change Log
-All notable changes to this project will be documented in this file.
-This project adheres to [Semantic Versioning](http://semver.org/).
+All notable changes to this project will be documented here in
+accordance with [Keep a CHANGELOG][keep-changelog-url].
+This project adheres to [Semantic Versioning][semver-url].
+
+## [0.5.3] - 2016-05-04
+### Added
+- The template being compiled is now recorded in the Handlebars data
+  object as `_templatePath`
+- s3:list now includes the prefix path
+
+### Changed
+- npm releases will now happen with node 6
+
+### Fixed
+- If a prefix starts with a `/` ensure `//` does not occur when
+  written to S3
 
 ## [0.5.2] - 2016-04-30
 ### Fixed
@@ -54,4 +68,5 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - turn off HTML escaping at the highest level
 - merge order of Front Matter with extended templates
 
+[keep-changelog-url]: http://keepachangelog.com/
 [cpt-url]: https://github.com/SungardAS/condensation-particle-tests
