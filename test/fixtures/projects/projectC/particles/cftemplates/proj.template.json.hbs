@@ -9,6 +9,7 @@
       "Properties": {
         "TemplateURL": "{{templateS3Url 'module:projectB' 'instance.template.json'}}"
       }
-    }
+    },
+    {{resource "lambda_function" logicalId="LambdaFunction"}}
   }
 }
