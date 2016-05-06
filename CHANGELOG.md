@@ -3,6 +3,12 @@ All notable changes to this project will be documented here in
 accordance with [Keep a CHANGELOG][keep-changelog-url].
 This project adheres to [Semantic Versioning][semver-url].
 
+## [0.5.4] - 2016-05-06
+### Fixed
+- The particle loader should ignore directories when using glob to find
+  particles
+- `_templatePath` should be the full relative path
+
 ## [0.5.3] - 2016-05-04
 ### Added
 - The template being compiled is now recorded in the Handlebars data
