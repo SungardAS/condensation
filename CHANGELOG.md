@@ -3,6 +3,10 @@ All notable changes to this project will be documented here in
 accordance with [Keep a CHANGELOG][keep-changelog-url].
 This project adheres to [Semantic Versioning][semver-url].
 
+## [0.5.5] - 2016-05-12
+### Fixed
+- output when errors bubble up in `_buildHelper`
+
 ## [0.5.4] - 2016-05-06
 ### Fixed
 - The particle loader should ignore directories when using glob to find
