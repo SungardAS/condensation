@@ -14,13 +14,51 @@ Package, reuse and share particles for CloudFormation projects
 
 ## Summary
 
-Condensation is a [gulp](http://gulpjs.com) task generator that
-compiles, packages and uploads [AWS CloudFormation](http://aws.amazon.com/cloudformation/)
+Condensation uses [gulp](http://gulpjs.com) to generate tasks that
+compile, package and upload [AWS CloudFormation](http://aws.amazon.com/cloudformation/)
 templates and supporting assets as distributions.
 
 Any file with the extension `.hbs` will be compiled with
 [Handlebars.js](http://handlebarsjs.com/) to support
 partials, helpers and variable replacement.
+
+## Quick Start
+
+### With Docker
+
+The fastest way to get started with condensation: [docker-condensation][docker-condensation-url]
+
+```
+$ alias condensation="docker run -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN -v \"$HOME\"/.aws/credentials:/home/condensation/.aws/credentials -v \`pwd\`:/particles --rm sungardas/condensation"
+
+$ condensation create project particles-MYPROJECT
+$ cd particles-MYPROJECT
+$ condensation run build
+```
+
+### With a nodejs environment
+
+Use the Yeoman
+[generator](https://github.com/SungardAS/generator-condensation).
+
+```
+$ npm install -g yo
+$ npm install -g generator-condensation
+$ yo condensation:project particles-MYPROJECT
+$ cd particles-MYPROJECT
+$ npm run build
+```
+
+### Example Projects
+
+* [condensation-examples](https://github.com/SungardAS/condensation-examples)
+* [particles-vpc](https://github.com/SungardAS/particles-vpc)
+* [particles-cloudsploit-scans](https://github.com/SungardAS/particles-cloudsploit-scans)
+* [particles-enhanced-snapshots](https://github.com/SungardAS/particles-enhanced-snapshots)
+
+Check out the growing list of particles on
+[npm](https://www.npmjs.com/browse/keyword/condensation-particles)!
+
 
 ## Features
 
@@ -76,29 +114,8 @@ Output:
 The Handlebars helper, `templateS3Url`, creates a URL that will always reference a template deployed within the same bucket.
 
 
-## Quick Start Example Projects
-
-* [condensation-examples](https://github.com/SungardAS/condensation-examples)
-* [particles-vpc](https://github.com/SungardAS/particles-vpc)
-* [particles-cloudsploit-scans](https://github.com/SungardAS/particles-cloudsploit-scans)
-* [particles-enhanced-snapshots](https://github.com/SungardAS/particles-enhanced-snapshots)
-
-Check out the growing list of particles on
-[npm](https://www.npmjs.com/browse/keyword/condensation-particles)!
 
 ## Use
-
-Get started with the Yeoman
-[generator](https://github.com/SungardAS/generator-condensation).
-
-    > npm install -g yo
-    
-    > npm install -g generator-condensation
-    
-    > yo condensation:project particles-my-project
-
-This will set up a new project for building and sharing particles.
-
 
 ### Project Structure
 
@@ -588,25 +605,19 @@ Blog:
 [http://blog.sungardas.com/CTOLabs/](http://blog.sungardas.com/CTOLabs/)
 
 
+[codeclimate-image]: https://codeclimate.com/github/SungardAS/condensation/badges/gpa.svg
+[codeclimate-url]: https://codeclimate.com/github/SungardAS/condensation
+[condensation-image]: ./docs/images/condensation_logo.png?raw=true
+[coveralls-image]: https://coveralls.io/repos/SungardAS/condensation/badge.svg
+[coveralls-url]: https://coveralls.io/r/SungardAS/condensation
+[docker-condensation-url]: https://github.com/SungardAS/docker-condensation
+[daviddm-image]: https://david-dm.org/SungardAS/condensation.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/SungardAS/condensation
+[gitter-image]: https://badges.gitter.im/Join%20Chat.svg
+[gitter-url]: https://gitter.im/SungardAS/condensation?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
 [labs-github-url]: https://sungardas.github.io
 [labs-logo]: https://raw.githubusercontent.com/SungardAS/repo-assets/master/images/logos/sungardas-labs-logo-small.png
-[condensation-image]: ./docs/images/condensation_logo.png?raw=true
 [npm-image]: https://badge.fury.io/js/condensation.svg
 [npm-url]: https://npmjs.org/package/condensation
-[travis-image]:
-https://travis-ci.org/SungardAS/condensation.svg?branch=master
+[travis-image]: https://travis-ci.org/SungardAS/condensation.svg?branch=master
 [travis-url]: https://travis-ci.org/SungardAS/condensation
-[daviddm-image]:
-https://david-dm.org/SungardAS/condensation.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/SungardAS/condensation
-[coveralls-image]:
-https://coveralls.io/repos/SungardAS/condensation/badge.svg
-[coveralls-url]:
-https://coveralls.io/r/SungardAS/condensation
-[codeclimate-image]:
-https://codeclimate.com/github/SungardAS/condensation/badges/gpa.svg
-[codeclimate-url]:
-https://codeclimate.com/github/SungardAS/condensation
-[gitter-image]: https://badges.gitter.im/Join%20Chat.svg
-[gitter-url]:
-https://gitter.im/SungardAS/condensation?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
