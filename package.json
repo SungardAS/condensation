@@ -1,6 +1,6 @@
 {
   "name": "condensation",
-  "version": "0.5.6-rc3",
+  "version": "0.5.6-rc4",
   "publishConfig": {
     "tag": "rc"
   },
