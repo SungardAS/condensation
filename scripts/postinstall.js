@@ -15,3 +15,4 @@ var rimraf = require("rimraf");
 
 rimraf.sync(path.join(condensationDir,"node_modules","s3","node_modules","graceful-fs"));
 rimraf.sync(path.join(condensationDir,"node_modules","vinyl-fs","node_modules","graceful-fs"));
+rimraf.sync(path.join(condensationDir,"node_modules","globule","node_modules","graceful-fs"));
