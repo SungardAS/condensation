@@ -1,4 +1,5 @@
 var path = require("path");
+var semver = require("semver");
 
 var condensationDir = path.join(__dirname,"..");
 var rimraf = require("rimraf");
@@ -13,6 +14,8 @@ var rimraf = require("rimraf");
  * this but I do not think that is going to happen.
  */
 
-rimraf.sync(path.join(condensationDir,"node_modules","s3","node_modules","graceful-fs"));
-rimraf.sync(path.join(condensationDir,"node_modules","vinyl-fs","node_modules","graceful-fs"));
-rimraf.sync(path.join(condensationDir,"node_modules","globule","node_modules","graceful-fs"));
+if (semver.gt(process.version,"4.0.0")) {
+  rimraf.sync(path.join(condensationDir,"node_modules","s3","node_modules","graceful-fs"));
+  rimraf.sync(path.join(condensationDir,"node_modules","vinyl-fs","node_modules","graceful-fs"));
+  rimraf.sync(path.join(condensationDir,"node_modules","globule","node_modules","graceful-fs"));
+}
