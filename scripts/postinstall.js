@@ -1,8 +1,7 @@
 var path = require("path");
-var semver = require("semver");
+var rimraf = require("rimraf");
 
 var condensationDir = path.join(__dirname,"..");
-var rimraf = require("rimraf");
 
 /*
  * This is evil. But the warning produced by
@@ -14,7 +13,7 @@ var rimraf = require("rimraf");
  * this but I do not think that is going to happen.
  */
 
-if (semver.gt(process.version,"4.0.0")) {
+if (Number(process.version.match(/^v(\d+)/)[1]) > 4 ) {
   rimraf.sync(path.join(condensationDir,"node_modules","s3","node_modules","graceful-fs"));
   rimraf.sync(path.join(condensationDir,"node_modules","vinyl-fs","node_modules","graceful-fs"));
   rimraf.sync(path.join(condensationDir,"node_modules","globule","node_modules","graceful-fs"));
