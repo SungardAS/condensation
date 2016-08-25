@@ -1,13 +1,14 @@
 {
   "name": "condensation",
-  "version": "0.5.5",
+  "version": "0.5.6-rc0",
   "publishConfig": {
-    "tag": "latest"
+    "tag": "rc0"
   },
   "description": "Package, reuse and share particles for CloudFormation projects",
   "main": "index.js",
   "scripts": {
-    "test": "mocha \"./test/**/*.test.js\" --timeout 45000"
+    "test": "mocha \"./test/**/*.test.js\" --timeout 45000",
+    "postinstall": "node scripts/postinstall.js"
   },
   "repository": {
     "type": "git",
@@ -15,27 +16,28 @@
   },
   "author": "Kevin McGrath <kevin.mcgrath@sungardas.com>",
   "dependencies": {
-    "aws-sdk": "^2.2.32",
+    "aws-sdk": "^2.5.2",
     "backlog": "0.0.3",
-    "backoff": "^2.4.1",
-    "del": "^2.2.0",
-    "event-stream": "^3.3.2",
+    "backoff": "^2.5.0",
+    "del": "^2.2.2",
+    "event-stream": "^3.3.4",
     "fs-extra": "^0.30.0",
-    "glob": "^7.0.0",
+    "glob": "^7.0.5",
+    "graceful-fs": "^4.1.6",
     "gray-matter": "^2.0.2",
-    "gulp": "^3.9.0",
+    "gulp": "^3.9.1",
     "gulp-cached": "^1.1.0",
-    "gulp-if": "^2.0.0",
+    "gulp-if": "^2.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-util": "^3.0.7",
     "handlebars": "^4.0.5",
-    "lodash": "^4.0.0",
+    "lodash": "^4.15.0",
     "merge-stream": "^1.0.0",
-    "rimraf": "^2.5.1",
+    "rimraf": "^2.5.4",
     "s3": "^4.4.0",
     "slash": "^1.0.0",
-    "through2": "^2.0.0",
-    "vinyl": "^1.1.1"
+    "through2": "^2.0.1",
+    "vinyl": "^1.2.0"
   },
   "license": "Apache-2.0",
   "keywords": [
@@ -48,13 +50,13 @@
   },
   "homepage": "https://github.com/sungardas/condensation",
   "devDependencies": {
-    "async": "^1.5.2",
+    "async": "^2.0.1",
     "clone": "^1.0.2",
-    "condensation-particle-tests": "^0.5.0",
-    "coveralls": "^2.11.6",
-    "istanbul": "^0.4.2",
-    "mocha": "^2.3.4",
-    "semver": "^5.1.0"
+    "condensation-particle-tests": "^0.5.2",
+    "coveralls": "^2.11.12",
+    "istanbul": "^0.4.4",
+    "mocha": "^3.0.2",
+    "semver": "^5.3.0"
   },
   "engines": {
     "node": ">0.12.0",

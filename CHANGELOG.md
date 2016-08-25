@@ -3,6 +3,14 @@ All notable changes to this project will be documented here in
 accordance with [Keep a CHANGELOG][keep-changelog-url].
 This project adheres to [Semantic Versioning][semver-url].
 
+## UNRELEASED
+### Fixed
+- warnings about graceful-fs on node 6
+
+### Updated
+- package.json with latest dependencies
+- documentation with docker-condensation use
+
 ## [0.5.5] - 2016-05-12
 ### Fixed
 - output when errors bubble up in `_buildHelper`
