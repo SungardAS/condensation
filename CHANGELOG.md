@@ -3,7 +3,7 @@ All notable changes to this project will be documented here in
 accordance with [Keep a CHANGELOG][keep-changelog-url].
 This project adheres to [Semantic Versioning][semver-url].
 
-## UNRELEASED
+## [0.5.6] - 2016-08-25
 ### Fixed
 - warnings about graceful-fs on node 6
 
