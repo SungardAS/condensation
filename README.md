@@ -29,7 +29,8 @@ partials, helpers and variable replacement.
 The fastest way to get started with condensation: [docker-condensation][docker-condensation-url]
 
 ```
-$ alias condensation="docker run -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN -v \"$HOME\"/.aws/credentials:/home/condensation/.aws/credentials -v \`pwd\`:/particles --rm sungardas/condensation"
+$ alias condensation="docker run -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN -v \"$HOME\"/.aws/credentials:/home/condensation/.aws/credentials -v \`pwd\`:/particles --rm -it sungardas/condensation"
+
 
 $ condensation create project particles-MYPROJECT
 $ cd particles-MYPROJECT
