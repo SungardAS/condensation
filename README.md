@@ -26,7 +26,7 @@ partials, helpers and variable replacement.
 
 ### With Docker
 
-The fastest way to get started with condensation: [docker-condensation][docker-condensation-url]
+The fastest way to get started with condensation: [condensation-docker][condensation-docker-url]
 
 ```
 $ alias condensation="docker run -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN -v \"$HOME\"/.aws/credentials:/home/condensation/.aws/credentials -v \`pwd\`:/particles --rm -it sungardas/condensation"
@@ -611,7 +611,7 @@ Blog:
 [condensation-image]: ./docs/images/condensation_logo.png?raw=true
 [coveralls-image]: https://coveralls.io/repos/SungardAS/condensation/badge.svg
 [coveralls-url]: https://coveralls.io/r/SungardAS/condensation
-[docker-condensation-url]: https://github.com/SungardAS/docker-condensation
+[condensation-docker-url]: https://github.com/SungardAS/condensation-docker
 [daviddm-image]: https://david-dm.org/SungardAS/condensation.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/SungardAS/condensation
 [gitter-image]: https://badges.gitter.im/Join%20Chat.svg
