@@ -24,3 +24,5 @@ deploy:
     tags: true
     repo: SungardAS/condensation
     node: 6
+notifications:
+  slack: sgaslabs-community:9fV0wYOO1bUrVhEcGNCwlkY6
