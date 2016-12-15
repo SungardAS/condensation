@@ -8,7 +8,7 @@ var path = require('path');
 var semver = require('semver');
 var shared = require('./project-shared');
 
-describe.only('sam', function(){
+describe('sam', function(){
   var projectName = 'sam';
 
   var config = shared.generateConfig(
