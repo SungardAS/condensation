@@ -3,6 +3,10 @@ All notable changes to this project will be documented here in
 accordance with [Keep a CHANGELOG][keep-changelog-url].
 This project adheres to [Semantic Versioning][semver-url].
 
+## [0.5.8] - 2016-12-14
+### Added
+- Support **Transform** in layout
+
 ## [0.5.7] - 2016-11-16
 ### Fixed
 - stop partials being read with an extra newline
