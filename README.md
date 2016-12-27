@@ -433,8 +433,8 @@ plus any extensions.
 
 Sets can be repeated multiple times in a template.  Sets can also be
 embedded within other sets.  To help with namespacing a set can be
-scoped with a `logicalIdPrefix` and/or a 'logicalIdSuffix`.  These
-values will be apporperiately added to and logicalIds within the set.
+scoped with a `logicalIdPrefix` and/or a `logicalIdSuffix`.  These
+values will be apporperiately added to all logicalIds within the set.
 
 To reference a logicalId within a scoped set use the `scopeId` and `ref`
 handlebars helpers provided by condensation.
