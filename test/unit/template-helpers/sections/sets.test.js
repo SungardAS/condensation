@@ -25,7 +25,7 @@ var projectConfig = {
 };
 
 
-describe.only('sets', function(){
+describe('sets', function(){
   var condensation = new Condensation(null, projectConfig);
 
   var cTests = new CPT({condensation: condensation});
