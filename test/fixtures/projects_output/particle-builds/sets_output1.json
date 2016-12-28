@@ -1,0 +1,18 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "Resource1": {
+      "Properties": {},
+      "Type": "Custom::TEST"
+    },
+    "Set2Resource2": {
+      "Properties": {},
+      "Type": "Custom::TEST"
+    },
+    "Set2Set3Resource3": {
+      "Properties": {},
+      "Type": "Custom:TEST"
+    }
+  }
+}
+
