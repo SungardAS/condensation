@@ -3,6 +3,21 @@ All notable changes to this project will be documented here in
 accordance with [Keep a CHANGELOG][keep-changelog-url].
 This project adheres to [Semantic Versioning][semver-url].
 
+## [0.5.9] - 2016-12-28
+### Fixed
+- Bug where logicalIdPrefix would not work correctly with sets that
+  extended other sets
+
+### Added
+- If a `condensation.js` file accepts 2 arguments the first will be a
+  configuration object for Condensation and the second will be a
+  callback. For `condensation.js` files that accept one argument only
+  the callback will be provided.
+
+- Helper particles will receive the global handlebars object as part of
+  hOpts so that they can access other helpers and particles.
+
+
 ## [0.5.8] - 2016-12-14
 ### Added
 - Support **Transform** in layout

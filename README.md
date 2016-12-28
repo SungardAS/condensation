@@ -580,11 +580,14 @@ process and the offending files will be dumped to `condensation_errors`
 ### condensation.js
 
 If a project contains `condensation.js` the file will be loaded as a
-module and will attement to run the `initialize` function providing a
-callback as the only parameter.
+module and will attement to run the `initialize` function.  If
+`initialize` accepts a single argument then only a callback will be
+provided.  If `initialize` accepts two arguments the project
+configuration will be passed as the first argument and the callback as
+the second.
 
 This can be used by particle project to bootstrap any necessary assets
-before any template compiling begins.
+before template compiling begins.
 
 Example:
 [particles-cloudsploit-scans](https://github.com/SungardAS/particles-cloudsploit-scans)
