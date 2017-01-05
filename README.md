@@ -18,11 +18,11 @@ Condensation provides a framework for building and sharing `particles`
 that when packaged together create [AWS CloudFormation](http://aws.amazon.com/cloudformation/)
 projects.
 
-Projects are uploaded to S3 and can include more then just templates, including static
-assets and lambda functions.
+Projects are uploaded to S3 and can include include templates along with static
+assets and/or lambda functions.
 
 Check out all of Condensation's [features](docs/features.md) and see it
-in action on [YouTube](https://youtu.be/Vj0dRI9qiMM?list=PLYGffQg665R7PtM0XdPEQuJ0ez5j2G0LW)
+in action on [YouTube](https://youtu.be/Vj0dRI9qiMM?list=PLYGffQg665R7PtM0XdPEQuJ0ez5j2G0LW).
 
 ## Quick Start
 
@@ -36,10 +36,15 @@ $ cd particles-MYPROJECT
 $ condensation run build
 ```
 
-Or get started with [nodejs](docs/getting-started/nodejs.md)
+You can also get started with [nodejs](docs/getting-started/nodejs.md)
 
+## License
 
-## [![Sungard Availability Services | Labs][labs-logo]][labs-github-url]
+Apache-2.0 ©
+
+## Maintained By
+
+[![Sungard Availability Services | Labs][labs-logo]][labs-github-url]
 
 This project is maintained by the Labs team at [Sungard Availability
 Services](http://sungardas.com)
