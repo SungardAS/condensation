@@ -1,5 +1,5 @@
 var assert = require("assert");
-var ref = require("../../../lib/condensation/template-helpers/ref");
+var ref = require("../../../../lib/condensation/template-helpers/functions/ref");
 
 describe("helpers", function() {
   describe("ref", function() {
