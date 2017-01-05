@@ -1,7 +1,6 @@
-## stringify([string]) ⇒ <code>String</code>
+## stringify ⇒ <code>String</code>
 JSON.stringify a string or block
 
-**Kind**: global function  
 **Returns**: <code>String</code> - - JSON.stringify result of block or
 string  
 
