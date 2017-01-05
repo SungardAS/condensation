@@ -13,10 +13,18 @@ describe("helpers", function() {
     });
 
     it("accepts a string with a map", function() {
-      var result = fnSub("The Region Is ${Region}", '{"Region": {"Ref": "AWS::Region"}}',{});
+      var result = fnSub("The Region Is ${Region}", {hash: {Region: '{"Ref": "AWS::Region"}'}});
       assert.deepEqual(
         JSON.parse(result),
         {"Fn::Sub": ["The Region Is ${Region}", {"Region": {"Ref": "AWS::Region"}}]}
+      )
+    });
+
+    it("processed a map with string values", function() {
+      var result = fnSub("The Region Is ${Region}", {hash: {Region: 'blah blah $"/^'}});
+      assert.deepEqual(
+        JSON.parse(result),
+        {"Fn::Sub": ["The Region Is ${Region}", {"Region": "blah blah $\"/^"}]}
       )
     });
 
