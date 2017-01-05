@@ -1,3 +1,31 @@
+## Modules
+
+<dl>
+<dt><a href="#module_concat">concat</a> ⇒ <code>String</code></dt>
+<dd><p>Concatenates two or more strings</p>
+</dd>
+<dt><a href="#module_stringify">stringify</a> ⇒ <code>String</code></dt>
+<dd><p>JSON.stringify a string or block</p>
+</dd>
+</dl>
+
+<a name="module_concat"></a>
+
+## concat ⇒ <code>String</code>
+Concatenates two or more strings
+
+**Returns**: <code>String</code> - - One concatenated string  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...string | <code>string</code> | two or more strings to concatenate |
+
+**Example**  
+```js
+{{concat "string1" "string2"}}
+```
+<a name="module_stringify"></a>
+
 ## stringify ⇒ <code>String</code>
 JSON.stringify a string or block
 
@@ -29,4 +57,3 @@ string
   my/image
 {{/stringify}}
 ```
-
