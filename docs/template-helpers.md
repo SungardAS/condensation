@@ -23,7 +23,7 @@ then it will be left alone and simply returned back.</p>
 <dt><a href="#module_partial">partial</a> ⇒ <code>string</code></dt>
 <dd><p>Include a partial particle</p>
 </dd>
-<dt><a href="#module_partial">partial</a> ⇒ <code>string</code></dt>
+<dt><a href="#module_requireAssets">requireAssets</a> ⇒ <code>string</code></dt>
 <dd><p>Include a glob of assets</p>
 <p>Only needed for assets that are not directly referenced by another particle</p>
 </dd>
@@ -33,7 +33,7 @@ then it will be left alone and simply returned back.</p>
 <dt><a href="#module_set">set</a> ⇒ <code>string</code></dt>
 <dd><p>Include a set particle</p>
 </dd>
-<dt><a href="#module_set">set</a> ⇒ <code>string</code></dt>
+<dt><a href="#module_templateUrl">templateUrl</a> ⇒ <code>string</code></dt>
 <dd><p>Generate an S3 URL for another template in the project</p>
 </dd>
 </dl>
@@ -210,9 +210,9 @@ Include a partial particle
 {{!-- to load modules with format `particles-NAME` --}}
 {{partial "m:<NAME>" "module-partial"}}
 ```
-<a name="module_partial"></a>
+<a name="module_requireAssets"></a>
 
-## partial ⇒ <code>string</code>
+## requireAssets ⇒ <code>string</code>
 Include a glob of assets
 
 Only needed for assets that are not directly referenced by another particle
@@ -286,9 +286,9 @@ Include a set particle
 {{set "m:<NAME>" "module_set" logicalIdPrefix="First"}}
 {{set "m:<NAME>" "module_set" logicalIdPrefix="Second"}}
 ```
-<a name="module_set"></a>
+<a name="module_templateUrl"></a>
 
-## set ⇒ <code>string</code>
+## templateUrl ⇒ <code>string</code>
 Generate an S3 URL for another template in the project
 
 
