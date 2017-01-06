@@ -17,8 +17,24 @@ then it will be left alone and simply returned back.</p>
 <dt><a href="#module_helper">helper</a> ⇒ <code>*</code></dt>
 <dd><p>Run a helper particle</p>
 </dd>
-<dt><a href="#module_layout">layout</a> ⇒ <code>*</code></dt>
+<dt><a href="#module_layout">layout</a> ⇒ <code>string</code></dt>
 <dd><p>Start a layout</p>
+</dd>
+<dt><a href="#module_partial">partial</a> ⇒ <code>string</code></dt>
+<dd><p>Include a partial particle</p>
+</dd>
+<dt><a href="#module_partial">partial</a> ⇒ <code>string</code></dt>
+<dd><p>Include a glob of assets</p>
+<p>Only needed for assets that are not directly referenced by another particle</p>
+</dd>
+<dt><a href="#module_scopeId">scopeId</a> ⇒ <code>string</code></dt>
+<dd><p>Used within sets to add the correct logicalIdPrefix and/or logicalIdSuffix to a logicalId</p>
+</dd>
+<dt><a href="#module_set">set</a> ⇒ <code>string</code></dt>
+<dd><p>Include a set particle</p>
+</dd>
+<dt><a href="#module_set">set</a> ⇒ <code>string</code></dt>
+<dd><p>Generate an S3 URL for another template in the project</p>
 </dd>
 </dl>
 
@@ -107,7 +123,7 @@ Run a helper particle
 | Param | Type | Description |
 | --- | --- | --- |
 | path | <code>string</code> | Path to the helper, excluding the `.js` extension |
-| ...options | <code>kv</code> | Key/Value pairs to pass to the particle helper |
+| [...options] | <code>kv</code> | Key/Value pairs to pass to the particle helper |
 
 **Example**  
 ```js
@@ -128,14 +144,14 @@ Run a helper particle
 ```
 <a name="module_layout"></a>
 
-## layout ⇒ <code>\*</code>
+## layout ⇒ <code>string</code>
 Start a layout
 
-**Returns**: <code>\*</code> - - Will returns the output from the particle helper  
+**Returns**: <code>string</code> - - CloudFormation Template  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| options | <code>Object</code> |  | options object from Handlebars |
+| [options] | <code>Object</code> |  | options object from Handlebars |
 | [options.AWSTemplateFormatVersion] | <code>string</code> | <code>&quot;2010-09-09&quot;</code> | AWS Format Version |
 | [options.TemplateDescription] | <code>string</code> |  | Description for the template |
 | [options.Transform] | <code>string</code> |  | AWS Transform type for the template |
@@ -166,4 +182,130 @@ things:
   {{/each}}
 {{/layout}} 
 ```
+<a name="module_partial"></a>
 
+## partial ⇒ <code>string</code>
+Include a partial particle
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | Path to the partial (file extensions optional) |
+| [...options] | <code>kv</code> | Key/Value pairs to pass to the particle partial |
+
+**Example**  
+```js
+{{partial "my_partial"}}
+```
+**Example**  
+```js
+{{partial "my_partial" foo="bar"}}
+```
+**Example**  
+```js
+{{partial "module:<MODULE>" 'module_partial'}}
+```
+**Example**  
+```js
+{{!-- to load modules with format `particles-NAME` --}}
+{{partial "m:<NAME>" "module-partial"}}
+```
+<a name="module_partial"></a>
+
+## partial ⇒ <code>string</code>
+Include a glob of assets
+
+Only needed for assets that are not directly referenced by another particle
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| globPath | <code>string</code> | Glob patter of assets to package with the project |
+
+**Example**  
+```js
+{{requireAssets "all_of_these/**"}}
+```
+**Example**  
+```js
+{{requireAssets "module:<MODULE>" 'all_from_module/**'}}
+```
+**Example**  
+```js
+{{!-- to load modules with format `particles-NAME` --}}
+{{requireAssets "m:<NAME>" "all_from_module/**"}}
+```
+<a name="module_scopeId"></a>
+
+## scopeId ⇒ <code>string</code>
+Used within sets to add the correct logicalIdPrefix and/or logicalIdSuffix to a logicalId
+
+**Returns**: <code>string</code> - - The logical with the correct prefix and suffix for the current scope  
+
+| Type | Description |
+| --- | --- |
+| <code>string</code> | The logicalId |
+
+**Example**  
+```js
+{{scopeId "LogicalId"}}
+```
+**Example**  
+```js
+{{ref (scopeId "LogicalId")}}
+```
+<a name="module_set"></a>
+
+## set ⇒ <code>string</code>
+Include a set particle
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | Path to the set (file extensions optional) |
+| [options] | <code>Object</code> | options for the set |
+| [options.logicalIdPrefix] | <code>string</code> | Add a prefix to the set's scope |
+| [options.logicalIdSuffix] | <code>string</code> | Add a suffix to the set's scope |
+
+**Example**  
+```js
+{{set "my_set"}}
+```
+**Example**  
+```js
+{{set "my_set" foo="bar"}}
+```
+**Example**  
+```js
+{{set "module:<MODULE>" 'module_set'}}
+```
+**Example**  
+```js
+{{!-- to load modules with format `particles-NAME` --}}
+{{set "m:<NAME>" "module_set"}}
+{{set "m:<NAME>" "module_set" logicalIdPrefix="First"}}
+{{set "m:<NAME>" "module_set" logicalIdPrefix="Second"}}
+```
+<a name="module_set"></a>
+
+## set ⇒ <code>string</code>
+Generate an S3 URL for another template in the project
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | Path to the template (file extensions optional) |
+
+**Example**  
+```js
+{{templateUrl "another.template.json"}}
+```
+**Example**  
+```js
+{{templateUrl "module:<MODULE>" 'another.template.json'}}
+```
+**Example**  
+```js
+{{!-- to load modules with format `particles-NAME` --}}
+{{set "m:<NAME>" "another.template.json"}}
+```
