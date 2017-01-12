@@ -18,48 +18,6 @@ then it will be left alone and simply returned back.</p>
 <p>If the string is not a parseable object it will be made JSON compliant and returned.</p>
 <p>If the string is empty, null, undefined or otherwise <code>falsey</code> then an empty string will be returned.</p>
 </dd>
-<dt><a href="#TemplateHelpers.Functions.module_fnAnd">fnAnd</a> ⇒ <code>string</code></dt>
-<dd><p>Fn::And definition</p>
-</dd>
-<dt><a href="#TemplateHelpers.Functions.module_fnBase64">fnBase64</a> ⇒ <code>string</code></dt>
-<dd><p>Fn::Base64 definition</p>
-</dd>
-<dt><a href="#TemplateHelpers.Functions.module_fnEquals">fnEquals</a> ⇒ <code>string</code></dt>
-<dd><p>Fn::Equals definition</p>
-</dd>
-<dt><a href="#TemplateHelpers.Functions.module_fnFindInMap">fnFindInMap</a> ⇒ <code>string</code></dt>
-<dd><p>Fn::FindInMap definition</p>
-</dd>
-<dt><a href="#TemplateHelpers.Functions.module_fnGetAtt">fnGetAtt</a> ⇒ <code>string</code></dt>
-<dd><p>Fn::GetAtt definition</p>
-</dd>
-<dt><a href="#TemplateHelpers.Functions.module_fnGetAZs">fnGetAZs</a> ⇒ <code>string</code></dt>
-<dd><p>Fn::GetAZs definition</p>
-</dd>
-<dt><a href="#TemplateHelpers.Functions.module_fnIf">fnIf</a> ⇒ <code>string</code></dt>
-<dd><p>Fn::If definition</p>
-</dd>
-<dt><a href="#TemplateHelpers.Functions.module_fnImportValue">fnImportValue</a> ⇒ <code>string</code></dt>
-<dd><p>Fn::ImportValue definition</p>
-</dd>
-<dt><a href="#TemplateHelpers.Functions.module_fnJoin">fnJoin</a> ⇒ <code>string</code></dt>
-<dd><p>Fn::Join definition</p>
-</dd>
-<dt><a href="#TemplateHelpers.Functions.module_fnNot">fnNot</a> ⇒ <code>string</code></dt>
-<dd><p>Fn::Not definition</p>
-</dd>
-<dt><a href="#TemplateHelpers.Functions.module_fnOr">fnOr</a> ⇒ <code>string</code></dt>
-<dd><p>Fn::Or definition</p>
-</dd>
-<dt><a href="#TemplateHelpers.Functions.module_fnSelect">fnSelect</a> ⇒ <code>string</code></dt>
-<dd><p>Fn::Select definition</p>
-</dd>
-<dt><a href="#TemplateHelpers.Functions.module_fnSub">fnSub</a> ⇒ <code>string</code></dt>
-<dd><p>Fn::Sub definition</p>
-</dd>
-<dt><a href="#TemplateHelpers.Functions.module_ref">ref</a> ⇒ <code>String</code></dt>
-<dd><p>Ref definition</p>
-</dd>
 <dt><a href="#module_helper">helper</a> ⇒ <code>*</code></dt>
 <dd><p>Run a helper particle</p>
 </dd>
@@ -106,9 +64,8 @@ then it will be left alone and simply returned back.</p>
 ## Objects
 
 <dl>
-<dt><a href="#TemplateHelpers.Functions">TemplateHelpers.Functions</a> : <code>object</code></dt>
-<dd><p>AWS Functions</p>
-</dd>
+<dt><a href="#IntrinsicFunctions">IntrinsicFunctions</a> : <code>object</code></dt>
+<dd></dd>
 <dt><a href="#sections">sections</a> : <code>object</code></dt>
 <dd></dd>
 </dl>
@@ -198,214 +155,6 @@ faz: "5"
 {{cValue foo}}
 {{cValue baz}}
 {{cValue faz forceNumber=true}}
-```
-<a name="TemplateHelpers.Functions.module_fnAnd"></a>
-
-## fnAnd ⇒ <code>string</code>
-Fn::And definition
-
-**Returns**: <code>string</code> - A JSON compliant Ref object for CloudFormation  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| ...condition | <code>string</code> | Any number of conditions |
-| options | <code>Object</code> | options passed by handlebars |
-
-<a name="TemplateHelpers.Functions.module_fnBase64"></a>
-
-## fnBase64 ⇒ <code>string</code>
-Fn::Base64 definition
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| str | <code>string</code> | The string to evaluate |
-| options | <code>Object</code> | Passed in by Handlebars |
-
-<a name="TemplateHelpers.Functions.module_fnEquals"></a>
-
-## fnEquals ⇒ <code>string</code>
-Fn::Equals definition
-
-**Returns**: <code>string</code> - A JSON compliant string for CloudFormation  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| v1 | <code>string</code> | first value to compare |
-| v2 | <code>string</code> | second value to compare |
-
-<a name="TemplateHelpers.Functions.module_fnFindInMap"></a>
-
-## fnFindInMap ⇒ <code>string</code>
-Fn::FindInMap definition
-
-**Returns**: <code>string</code> - A JSON compliant string for CloudFormation  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| mapName | <code>string</code> | logicalId of the map in the template |
-| topLevelKey | <code>string</code> | The top-level key name. Its value is a list of key-value pairs |
-| secondLevelKey | <code>string</code> | The second-level key name, which is set to one of the keys from the list assigned to TopLevelKey |
-| options | <code>Object</code> | options for creting the logicalId reference |
-
-<a name="TemplateHelpers.Functions.module_fnGetAtt"></a>
-
-## fnGetAtt ⇒ <code>string</code>
-Fn::GetAtt definition
-
-**Returns**: <code>string</code> - A JSON compliant string for CloudFormation  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| logicalId | <code>string</code> | resource that contains the attribute you want |
-| attributeName | <code>string</code> | name of the resource-specific attribute whose value you want |
-| options | <code>Object</code> | options for creting the logicalId reference |
-
-<a name="TemplateHelpers.Functions.module_fnGetAZs"></a>
-
-## fnGetAZs ⇒ <code>string</code>
-Fn::GetAZs definition
-
-**Returns**: <code>string</code> - A JSON compliant Ref object for CloudFormation  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| region | <code>string</code> | name of the region |
-| options | <code>Object</code> | options passed by handlebars |
-
-<a name="TemplateHelpers.Functions.module_fnIf"></a>
-
-## fnIf ⇒ <code>string</code>
-Fn::If definition
-
-**Returns**: <code>string</code> - A JSON compliant Ref object for CloudFormation  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| conditionName | <code>string</code> | Name of the condition to reference |
-| trueValue | <code>string</code> | value to use if condition is true |
-| falseValue | <code>string</code> | value to use if condition is false |
-| options | <code>Object</code> | options passed by handlebars |
-
-<a name="TemplateHelpers.Functions.module_fnImportValue"></a>
-
-## fnImportValue ⇒ <code>string</code>
-Fn::ImportValue definition
-
-**Returns**: <code>string</code> - A JSON compliant Ref object for CloudFormation  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| sharedValue | <code>string</code> | name of the shared value |
-| options | <code>Object</code> | options passed by handlebars |
-
-<a name="TemplateHelpers.Functions.module_fnJoin"></a>
-
-## fnJoin ⇒ <code>string</code>
-Fn::Join definition
-
-**Returns**: <code>string</code> - A JSON compliant Ref object for CloudFormation  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| ...str | <code>string</code> | strings to join together |
-| options | <code>Object</code> | options passed by handlebars |
-
-<a name="TemplateHelpers.Functions.module_fnNot"></a>
-
-## fnNot ⇒ <code>string</code>
-Fn::Not definition
-
-**Returns**: <code>string</code> - A JSON compliant Ref object for CloudFormation  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| condition | <code>string</code> | condition to evaluate |
-| options | <code>Object</code> | options passed by handlebars |
-
-**Example**  
-```js
-{{fnNot "Condition1"}}
-```
-**Example**  
-```js
-{{fnNot (fnEquals (ref "ParameterName") "value") }}
-```
-<a name="TemplateHelpers.Functions.module_fnOr"></a>
-
-## fnOr ⇒ <code>string</code>
-Fn::Or definition
-
-**Returns**: <code>string</code> - A JSON compliant Ref object for CloudFormation  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| ...condition | <code>string</code> | One to many conditions |
-| options | <code>Object</code> | options passed by handlebars |
-
-<a name="TemplateHelpers.Functions.module_fnSelect"></a>
-
-## fnSelect ⇒ <code>string</code>
-Fn::Select definition
-
-**Returns**: <code>string</code> - A JSON compliant Ref object for CloudFormation  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| index | <code>Number</code> | array member to pick |
-| ... | <code>string</code> |  |
-| options | <code>Object</code> | options passed by handlebars |
-
-**Example**  
-```js
-{{fnSelect 0 (ref "ParameterList")}}
-```
-**Example**  
-```js
-{{fnSelect 0 "value1" "value2"}}
-```
-<a name="TemplateHelpers.Functions.module_fnSub"></a>
-
-## fnSub ⇒ <code>string</code>
-Fn::Sub definition
-
-**Returns**: <code>string</code> - A JSON compliant Ref object for CloudFormation  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| str | <code>string</code> | String with replacement variables defined |
-| options | <code>Object</code> | options passed by handlebars |
-| options.hash | <code>Object</code> | all named parameters will be used for the variableMap |
-
-**Example**  
-```js
-{{fnSub "The current region is ${AWS::Region"}}
-```
-**Example**  
-```js
-{{fnSub "Use this URL ${Url}" Url=(partial "buildUrl") }}
-```
-<a name="TemplateHelpers.Functions.module_ref"></a>
-
-## ref ⇒ <code>String</code>
-Ref definition
-
-**Returns**: <code>String</code> - A JSON compliant Ref object for CloudFormation  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| logicalId | <code>string</code> |  | The logicalId to reference |
-| options | <code>Object</code> |  | passed by handlebars |
-| [options.hash] | <code>Object</code> |  | Named parameters used for ref options |
-| [options.hash.scope] | <code>Boolean</code> | <code>true</code> | Whether to scope the logicalId or not |
-
-**Example**  
-```js
-{{ref "Parameter1"}}
-```
-**Example**  
-```js
-{{ref "Parameter2" scope=false}}
 ```
 <a name="module_helper"></a>
 
@@ -690,12 +439,236 @@ Condense the project
 
 **Kind**: instance method of <code>[Condensation](#Condensation)</code>  
 **this**: <code>[Condensation](#Condensation)</code>  
-<a name="TemplateHelpers.Functions"></a>
+<a name="IntrinsicFunctions"></a>
 
-## TemplateHelpers.Functions : <code>object</code>
-AWS Functions
-
+## IntrinsicFunctions : <code>object</code>
 **Kind**: global namespace  
+
+* [IntrinsicFunctions](#IntrinsicFunctions) : <code>object</code>
+    * [.fnAnd(...condition, options)](#IntrinsicFunctions.fnAnd) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnBase64(str, options)](#IntrinsicFunctions.fnBase64) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnEquals(v1, v2)](#IntrinsicFunctions.fnEquals) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnFindInMap(mapName, topLevelKey, secondLevelKey, options)](#IntrinsicFunctions.fnFindInMap) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnGetAtt(logicalId, attributeName, options)](#IntrinsicFunctions.fnGetAtt) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnGetAZs(region, options)](#IntrinsicFunctions.fnGetAZs) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnIf(conditionName, trueValue, falseValue, options)](#IntrinsicFunctions.fnIf) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnImportValue(sharedValue, options)](#IntrinsicFunctions.fnImportValue) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnJoin(...str, options)](#IntrinsicFunctions.fnJoin) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnNot(condition, options)](#IntrinsicFunctions.fnNot) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnOr(...condition, options)](#IntrinsicFunctions.fnOr) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnSelect(index, options)](#IntrinsicFunctions.fnSelect) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnSub(str, options)](#IntrinsicFunctions.fnSub) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.ref(logicalId, options)](#IntrinsicFunctions.ref) ⇒ <code>function</code> &#124; <code>String</code>
+
+<a name="IntrinsicFunctions.fnAnd"></a>
+
+### IntrinsicFunctions.fnAnd(...condition, options) ⇒ <code>function</code> &#124; <code>string</code>
+Fn::And definition
+
+**Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...condition | <code>string</code> | Any number of conditions |
+| options | <code>Object</code> | options passed by handlebars |
+
+<a name="IntrinsicFunctions.fnBase64"></a>
+
+### IntrinsicFunctions.fnBase64(str, options) ⇒ <code>function</code> &#124; <code>string</code>
+Fn::Base64 definition
+
+**Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>string</code> | The string to evaluate |
+| options | <code>Object</code> | Passed in by Handlebars |
+
+<a name="IntrinsicFunctions.fnEquals"></a>
+
+### IntrinsicFunctions.fnEquals(v1, v2) ⇒ <code>function</code> &#124; <code>string</code>
+Fn::Equals definition
+
+**Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| v1 | <code>string</code> | first value to compare |
+| v2 | <code>string</code> | second value to compare |
+
+<a name="IntrinsicFunctions.fnFindInMap"></a>
+
+### IntrinsicFunctions.fnFindInMap(mapName, topLevelKey, secondLevelKey, options) ⇒ <code>function</code> &#124; <code>string</code>
+Fn::FindInMap definition
+
+**Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| mapName | <code>string</code> | logicalId of the map in the template |
+| topLevelKey | <code>string</code> | The top-level key name. Its value is a list of key-value pairs |
+| secondLevelKey | <code>string</code> | The second-level key name, which is set to one of the keys from the list assigned to TopLevelKey |
+| options | <code>Object</code> | options for creting the logicalId reference |
+
+<a name="IntrinsicFunctions.fnGetAtt"></a>
+
+### IntrinsicFunctions.fnGetAtt(logicalId, attributeName, options) ⇒ <code>function</code> &#124; <code>string</code>
+Fn::GetAtt definition
+
+**Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| logicalId | <code>string</code> | resource that contains the attribute you want |
+| attributeName | <code>string</code> | name of the resource-specific attribute whose value you want |
+| options | <code>Object</code> | options for creting the logicalId reference |
+
+<a name="IntrinsicFunctions.fnGetAZs"></a>
+
+### IntrinsicFunctions.fnGetAZs(region, options) ⇒ <code>function</code> &#124; <code>string</code>
+Fn::GetAZs definition
+
+**Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| region | <code>string</code> | name of the region |
+| options | <code>Object</code> | options passed by handlebars |
+
+<a name="IntrinsicFunctions.fnIf"></a>
+
+### IntrinsicFunctions.fnIf(conditionName, trueValue, falseValue, options) ⇒ <code>function</code> &#124; <code>string</code>
+Fn::If definition
+
+**Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| conditionName | <code>string</code> | Name of the condition to reference |
+| trueValue | <code>string</code> | value to use if condition is true |
+| falseValue | <code>string</code> | value to use if condition is false |
+| options | <code>Object</code> | options passed by handlebars |
+
+<a name="IntrinsicFunctions.fnImportValue"></a>
+
+### IntrinsicFunctions.fnImportValue(sharedValue, options) ⇒ <code>function</code> &#124; <code>string</code>
+Fn::ImportValue definition
+
+**Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| sharedValue | <code>string</code> | name of the shared value |
+| options | <code>Object</code> | options passed by handlebars |
+
+<a name="IntrinsicFunctions.fnJoin"></a>
+
+### IntrinsicFunctions.fnJoin(...str, options) ⇒ <code>function</code> &#124; <code>string</code>
+Fn::Join definition
+
+**Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...str | <code>string</code> | strings to join together |
+| options | <code>Object</code> | options passed by handlebars |
+
+<a name="IntrinsicFunctions.fnNot"></a>
+
+### IntrinsicFunctions.fnNot(condition, options) ⇒ <code>function</code> &#124; <code>string</code>
+Fn::Not definition
+
+**Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| condition | <code>string</code> | condition to evaluate |
+| options | <code>Object</code> | options passed by handlebars |
+
+**Example**  
+```js
+{{fnNot "Condition1"}}
+```
+**Example**  
+```js
+{{fnNot (fnEquals (ref "ParameterName") "value") }}
+```
+<a name="IntrinsicFunctions.fnOr"></a>
+
+### IntrinsicFunctions.fnOr(...condition, options) ⇒ <code>function</code> &#124; <code>string</code>
+Fn::Or definition
+
+**Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...condition | <code>string</code> | One to many conditions |
+| options | <code>Object</code> | options passed by handlebars |
+
+<a name="IntrinsicFunctions.fnSelect"></a>
+
+### IntrinsicFunctions.fnSelect(index, options) ⇒ <code>function</code> &#124; <code>string</code>
+Fn::Select definition
+
+**Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| index | <code>Number</code> | array member to pick |
+| ... | <code>string</code> |  |
+| options | <code>Object</code> | options passed by handlebars |
+
+**Example**  
+```js
+{{fnSelect 0 (ref "ParameterList")}}
+```
+**Example**  
+```js
+{{fnSelect 0 "value1" "value2"}}
+```
+<a name="IntrinsicFunctions.fnSub"></a>
+
+### IntrinsicFunctions.fnSub(str, options) ⇒ <code>function</code> &#124; <code>string</code>
+Fn::Sub definition
+
+**Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>string</code> | String with replacement variables defined |
+| options | <code>Object</code> | options passed by handlebars |
+| options.hash | <code>Object</code> | all named parameters will be used for the variableMap |
+
+**Example**  
+```js
+{{fnSub "The current region is ${AWS::Region"}}
+```
+**Example**  
+```js
+{{fnSub "Use this URL ${Url}" Url=(partial "buildUrl") }}
+```
+<a name="IntrinsicFunctions.ref"></a>
+
+### IntrinsicFunctions.ref(logicalId, options) ⇒ <code>function</code> &#124; <code>String</code>
+Ref definition
+
+**Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| logicalId | <code>string</code> |  | The logicalId to reference |
+| options | <code>Object</code> |  | passed by handlebars |
+| [options.hash] | <code>Object</code> |  | Named parameters used for ref options |
+| [options.hash.scope] | <code>Boolean</code> | <code>true</code> | Whether to scope the logicalId or not |
+
+**Example**  
+```js
+{{ref "Parameter1"}}
+```
+**Example**  
+```js
+{{ref "Parameter2" scope=false}}
+```
 <a name="sections"></a>
 
 ## sections : <code>object</code>
