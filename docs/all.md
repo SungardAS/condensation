@@ -106,6 +106,9 @@ then it will be left alone and simply returned back.</p>
 ## Objects
 
 <dl>
+<dt><a href="#TemplateHelpers.Functions">TemplateHelpers.Functions</a> : <code>object</code></dt>
+<dd><p>AWS Functions</p>
+</dd>
 <dt><a href="#sections">sections</a> : <code>object</code></dt>
 <dd></dd>
 </dl>
@@ -687,6 +690,12 @@ Condense the project
 
 **Kind**: instance method of <code>[Condensation](#Condensation)</code>  
 **this**: <code>[Condensation](#Condensation)</code>  
+<a name="TemplateHelpers.Functions"></a>
+
+## TemplateHelpers.Functions : <code>object</code>
+AWS Functions
+
+**Kind**: global namespace  
 <a name="sections"></a>
 
 ## sections : <code>object</code>
