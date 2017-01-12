@@ -18,46 +18,46 @@ then it will be left alone and simply returned back.</p>
 <p>If the string is not a parseable object it will be made JSON compliant and returned.</p>
 <p>If the string is empty, null, undefined or otherwise <code>falsey</code> then an empty string will be returned.</p>
 </dd>
-<dt><a href="#module_fnAnd">fnAnd</a> ⇒ <code>string</code></dt>
+<dt><a href="#TemplateHelpers.Functions.module_fnAnd">fnAnd</a> ⇒ <code>string</code></dt>
 <dd><p>Fn::And definition</p>
 </dd>
-<dt><a href="#module_fnBase64">fnBase64</a> ⇒ <code>string</code></dt>
+<dt><a href="#TemplateHelpers.Functions.module_fnBase64">fnBase64</a> ⇒ <code>string</code></dt>
 <dd><p>Fn::Base64 definition</p>
 </dd>
-<dt><a href="#module_fnEquals">fnEquals</a> ⇒ <code>string</code></dt>
+<dt><a href="#TemplateHelpers.Functions.module_fnEquals">fnEquals</a> ⇒ <code>string</code></dt>
 <dd><p>Fn::Equals definition</p>
 </dd>
-<dt><a href="#module_fnFindInMap">fnFindInMap</a> ⇒ <code>string</code></dt>
+<dt><a href="#TemplateHelpers.Functions.module_fnFindInMap">fnFindInMap</a> ⇒ <code>string</code></dt>
 <dd><p>Fn::FindInMap definition</p>
 </dd>
-<dt><a href="#module_fnGetAtt">fnGetAtt</a> ⇒ <code>string</code></dt>
+<dt><a href="#TemplateHelpers.Functions.module_fnGetAtt">fnGetAtt</a> ⇒ <code>string</code></dt>
 <dd><p>Fn::GetAtt definition</p>
 </dd>
-<dt><a href="#module_fnGetAZs">fnGetAZs</a> ⇒ <code>string</code></dt>
+<dt><a href="#TemplateHelpers.Functions.module_fnGetAZs">fnGetAZs</a> ⇒ <code>string</code></dt>
 <dd><p>Fn::GetAZs definition</p>
 </dd>
-<dt><a href="#module_fnIf">fnIf</a> ⇒ <code>string</code></dt>
+<dt><a href="#TemplateHelpers.Functions.module_fnIf">fnIf</a> ⇒ <code>string</code></dt>
 <dd><p>Fn::If definition</p>
 </dd>
-<dt><a href="#module_fnImportValue">fnImportValue</a> ⇒ <code>string</code></dt>
+<dt><a href="#TemplateHelpers.Functions.module_fnImportValue">fnImportValue</a> ⇒ <code>string</code></dt>
 <dd><p>Fn::ImportValue definition</p>
 </dd>
-<dt><a href="#module_fnJoin">fnJoin</a> ⇒ <code>string</code></dt>
+<dt><a href="#TemplateHelpers.Functions.module_fnJoin">fnJoin</a> ⇒ <code>string</code></dt>
 <dd><p>Fn::Join definition</p>
 </dd>
-<dt><a href="#module_fnNot">fnNot</a> ⇒ <code>string</code></dt>
+<dt><a href="#TemplateHelpers.Functions.module_fnNot">fnNot</a> ⇒ <code>string</code></dt>
 <dd><p>Fn::Not definition</p>
 </dd>
-<dt><a href="#module_fnOr">fnOr</a> ⇒ <code>string</code></dt>
+<dt><a href="#TemplateHelpers.Functions.module_fnOr">fnOr</a> ⇒ <code>string</code></dt>
 <dd><p>Fn::Or definition</p>
 </dd>
-<dt><a href="#module_fnSelect">fnSelect</a> ⇒ <code>string</code></dt>
+<dt><a href="#TemplateHelpers.Functions.module_fnSelect">fnSelect</a> ⇒ <code>string</code></dt>
 <dd><p>Fn::Select definition</p>
 </dd>
-<dt><a href="#module_fnSub">fnSub</a> ⇒ <code>string</code></dt>
+<dt><a href="#TemplateHelpers.Functions.module_fnSub">fnSub</a> ⇒ <code>string</code></dt>
 <dd><p>Fn::Sub definition</p>
 </dd>
-<dt><a href="#module_ref">ref</a> ⇒ <code>String</code></dt>
+<dt><a href="#TemplateHelpers.Functions.module_ref">ref</a> ⇒ <code>String</code></dt>
 <dd><p>Ref definition</p>
 </dd>
 <dt><a href="#module_helper">helper</a> ⇒ <code>*</code></dt>
@@ -196,7 +196,7 @@ faz: "5"
 {{cValue baz}}
 {{cValue faz forceNumber=true}}
 ```
-<a name="module_fnAnd"></a>
+<a name="TemplateHelpers.Functions.module_fnAnd"></a>
 
 ## fnAnd ⇒ <code>string</code>
 Fn::And definition
@@ -208,7 +208,7 @@ Fn::And definition
 | ...condition | <code>string</code> | Any number of conditions |
 | options | <code>Object</code> | options passed by handlebars |
 
-<a name="module_fnBase64"></a>
+<a name="TemplateHelpers.Functions.module_fnBase64"></a>
 
 ## fnBase64 ⇒ <code>string</code>
 Fn::Base64 definition
@@ -219,7 +219,7 @@ Fn::Base64 definition
 | str | <code>string</code> | The string to evaluate |
 | options | <code>Object</code> | Passed in by Handlebars |
 
-<a name="module_fnEquals"></a>
+<a name="TemplateHelpers.Functions.module_fnEquals"></a>
 
 ## fnEquals ⇒ <code>string</code>
 Fn::Equals definition
@@ -231,7 +231,7 @@ Fn::Equals definition
 | v1 | <code>string</code> | first value to compare |
 | v2 | <code>string</code> | second value to compare |
 
-<a name="module_fnFindInMap"></a>
+<a name="TemplateHelpers.Functions.module_fnFindInMap"></a>
 
 ## fnFindInMap ⇒ <code>string</code>
 Fn::FindInMap definition
@@ -245,7 +245,7 @@ Fn::FindInMap definition
 | secondLevelKey | <code>string</code> | The second-level key name, which is set to one of the keys from the list assigned to TopLevelKey |
 | options | <code>Object</code> | options for creting the logicalId reference |
 
-<a name="module_fnGetAtt"></a>
+<a name="TemplateHelpers.Functions.module_fnGetAtt"></a>
 
 ## fnGetAtt ⇒ <code>string</code>
 Fn::GetAtt definition
@@ -258,7 +258,7 @@ Fn::GetAtt definition
 | attributeName | <code>string</code> | name of the resource-specific attribute whose value you want |
 | options | <code>Object</code> | options for creting the logicalId reference |
 
-<a name="module_fnGetAZs"></a>
+<a name="TemplateHelpers.Functions.module_fnGetAZs"></a>
 
 ## fnGetAZs ⇒ <code>string</code>
 Fn::GetAZs definition
@@ -270,7 +270,7 @@ Fn::GetAZs definition
 | region | <code>string</code> | name of the region |
 | options | <code>Object</code> | options passed by handlebars |
 
-<a name="module_fnIf"></a>
+<a name="TemplateHelpers.Functions.module_fnIf"></a>
 
 ## fnIf ⇒ <code>string</code>
 Fn::If definition
@@ -284,7 +284,7 @@ Fn::If definition
 | falseValue | <code>string</code> | value to use if condition is false |
 | options | <code>Object</code> | options passed by handlebars |
 
-<a name="module_fnImportValue"></a>
+<a name="TemplateHelpers.Functions.module_fnImportValue"></a>
 
 ## fnImportValue ⇒ <code>string</code>
 Fn::ImportValue definition
@@ -296,7 +296,7 @@ Fn::ImportValue definition
 | sharedValue | <code>string</code> | name of the shared value |
 | options | <code>Object</code> | options passed by handlebars |
 
-<a name="module_fnJoin"></a>
+<a name="TemplateHelpers.Functions.module_fnJoin"></a>
 
 ## fnJoin ⇒ <code>string</code>
 Fn::Join definition
@@ -308,7 +308,7 @@ Fn::Join definition
 | ...str | <code>string</code> | strings to join together |
 | options | <code>Object</code> | options passed by handlebars |
 
-<a name="module_fnNot"></a>
+<a name="TemplateHelpers.Functions.module_fnNot"></a>
 
 ## fnNot ⇒ <code>string</code>
 Fn::Not definition
@@ -328,7 +328,7 @@ Fn::Not definition
 ```js
 {{fnNot (fnEquals (ref "ParameterName") "value") }}
 ```
-<a name="module_fnOr"></a>
+<a name="TemplateHelpers.Functions.module_fnOr"></a>
 
 ## fnOr ⇒ <code>string</code>
 Fn::Or definition
@@ -340,7 +340,7 @@ Fn::Or definition
 | ...condition | <code>string</code> | One to many conditions |
 | options | <code>Object</code> | options passed by handlebars |
 
-<a name="module_fnSelect"></a>
+<a name="TemplateHelpers.Functions.module_fnSelect"></a>
 
 ## fnSelect ⇒ <code>string</code>
 Fn::Select definition
@@ -361,7 +361,7 @@ Fn::Select definition
 ```js
 {{fnSelect 0 "value1" "value2"}}
 ```
-<a name="module_fnSub"></a>
+<a name="TemplateHelpers.Functions.module_fnSub"></a>
 
 ## fnSub ⇒ <code>string</code>
 Fn::Sub definition
@@ -382,7 +382,7 @@ Fn::Sub definition
 ```js
 {{fnSub "Use this URL ${Url}" Url=(partial "buildUrl") }}
 ```
-<a name="module_ref"></a>
+<a name="TemplateHelpers.Functions.module_ref"></a>
 
 ## ref ⇒ <code>String</code>
 Ref definition
