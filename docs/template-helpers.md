@@ -203,6 +203,7 @@ Particle Helpers load particles from their respective paths within the project.
 ```
 - particles
 |-- conditions
+|-- helpers
 |-- mappings
 |-- metadata
 |-- outputs

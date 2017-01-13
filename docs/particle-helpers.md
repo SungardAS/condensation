@@ -13,6 +13,7 @@ Particle Helpers load particles from their respective paths within the project.
 ```
 - particles
 |-- conditions
+|-- helpers
 |-- mappings
 |-- metadata
 |-- outputs
@@ -34,12 +35,12 @@ can also be used, where <M> is the name of the module without `particles-`
 **Kind**: global namespace  
 
 * [ParticleHelpers](#ParticleHelpers) : <code>object</code>
-    * [.condition()](#ParticleHelpers.condition)
-    * [.mapping()](#ParticleHelpers.mapping)
-    * [.metadata()](#ParticleHelpers.metadata)
-    * [.output()](#ParticleHelpers.output)
-    * [.parameter()](#ParticleHelpers.parameter)
-    * [.resource()](#ParticleHelpers.resource)
+    * [.condition(path, [...options])](#ParticleHelpers.condition) ⇒ <code>string</code>
+    * [.mapping(path, [...options])](#ParticleHelpers.mapping) ⇒ <code>string</code>
+    * [.metadata(path, [...options])](#ParticleHelpers.metadata) ⇒ <code>string</code>
+    * [.output(path, [...options])](#ParticleHelpers.output) ⇒ <code>string</code>
+    * [.parameter(path, [...options])](#ParticleHelpers.parameter) ⇒ <code>string</code>
+    * [.resource(path, [...options])](#ParticleHelpers.resource) ⇒ <code>string</code>
     * [.helper(path, [...options])](#ParticleHelpers.helper) ⇒ <code>\*</code>
     * [.partial(path, [...options])](#ParticleHelpers.partial) ⇒ <code>string</code>
     * [.set(path, [options])](#ParticleHelpers.set) ⇒ <code>string</code>
@@ -49,7 +50,7 @@ can also be used, where <M> is the name of the module without `particles-`
 
 <a name="ParticleHelpers.condition"></a>
 
-### condition()
+### condition(path, [...options])
 ```
 - particles
 |- conditions
@@ -57,6 +58,12 @@ can also be used, where <M> is the name of the module without `particles-`
 ```
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | Path to the particle (file extensions optional) |
+| [...options] | <code>kv</code> | Key/Value pairs to pass to the particle |
+
 **Example**  
 ```js
 {{condition "particle_name"}}
@@ -79,7 +86,7 @@ can also be used, where <M> is the name of the module without `particles-`
 
 <a name="ParticleHelpers.mapping"></a>
 
-### mapping()
+### mapping(path, [...options])
 ```
 - particles
 |- mappings
@@ -87,6 +94,12 @@ can also be used, where <M> is the name of the module without `particles-`
 ```
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | Path to the particle (file extensions optional) |
+| [...options] | <code>kv</code> | Key/Value pairs to pass to the particle |
+
 **Example**  
 ```js
 {{mapping "particle_name"}}
@@ -109,7 +122,7 @@ can also be used, where <M> is the name of the module without `particles-`
 
 <a name="ParticleHelpers.metadata"></a>
 
-### metadata()
+### metadata(path, [...options])
 ```
 - particles
 |- metadata
@@ -117,6 +130,12 @@ can also be used, where <M> is the name of the module without `particles-`
 ```
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | Path to the particle (file extensions optional) |
+| [...options] | <code>kv</code> | Key/Value pairs to pass to the particle |
+
 **Example**  
 ```js
 {{metadata "particle_name"}}
@@ -139,7 +158,7 @@ can also be used, where <M> is the name of the module without `particles-`
 
 <a name="ParticleHelpers.output"></a>
 
-### output()
+### output(path, [...options])
 ```
 - particles
 |- outputs
@@ -147,6 +166,12 @@ can also be used, where <M> is the name of the module without `particles-`
 ```
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | Path to the particle (file extensions optional) |
+| [...options] | <code>kv</code> | Key/Value pairs to pass to the particle |
+
 **Example**  
 ```js
 {{output "particle_name"}}
@@ -169,7 +194,7 @@ can also be used, where <M> is the name of the module without `particles-`
 
 <a name="ParticleHelpers.parameter"></a>
 
-### parameter()
+### parameter(path, [...options])
 ```
 - particles
 |- parameters
@@ -177,6 +202,12 @@ can also be used, where <M> is the name of the module without `particles-`
 ```
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | Path to the particle (file extensions optional) |
+| [...options] | <code>kv</code> | Key/Value pairs to pass to the particle |
+
 **Example**  
 ```js
 {{parameter "particle_name"}}
@@ -199,7 +230,7 @@ can also be used, where <M> is the name of the module without `particles-`
 
 <a name="ParticleHelpers.resource"></a>
 
-### resource()
+### resource(path, [...options])
 ```
 - particles
 |- resources
@@ -207,6 +238,12 @@ can also be used, where <M> is the name of the module without `particles-`
 ```
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | Path to the particle (file extensions optional) |
+| [...options] | <code>kv</code> | Key/Value pairs to pass to the particle |
+
 **Example**  
 ```js
 {{resource "particle_name"}}
