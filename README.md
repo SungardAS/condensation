@@ -18,8 +18,7 @@ Condensation provides a framework for building and sharing `particles`
 that when packaged together create [AWS CloudFormation](http://aws.amazon.com/cloudformation/)
 projects.
 
-Projects are uploaded to S3 and can include include templates along with static
-assets and/or lambda functions.
+Projects are uploaded to S3 and include templates, static assets and/or lambda functions.
 
 Check out all of Condensation's [features](docs/features.md) and see it
 in action on [YouTube](https://youtu.be/Vj0dRI9qiMM?list=PLYGffQg665R7PtM0XdPEQuJ0ez5j2G0LW).
@@ -36,7 +35,7 @@ $ cd particles-MYPROJECT
 $ condensation run build
 ```
 
-You can also get started with [nodejs](docs/getting-started/nodejs.md)
+You can also get started with [nodejs](docs/getting-started.md#nodejs)
 
 ## Use
 
