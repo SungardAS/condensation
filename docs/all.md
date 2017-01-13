@@ -4,35 +4,54 @@
 
 ## Classes
 
-<dl>
-<dt><a href="#Condensation">Condensation</a></dt>
-<dd></dd>
-</dl>
+* [Condensation](#Condensation)
+    * [new Condensation(gulp, options, [dist], [root], [taskPrefix])](#new_Condensation_new)
+    * [.condense()](#Condensation+condense)
 
 ## Objects
 
-<dl>
-<dt><a href="#IntrinsicFunctions">IntrinsicFunctions</a> : <code>object</code></dt>
-<dd><p>Handlebars helpers that will create AWS Intrinsic Functions</p>
-</dd>
-<dt><a href="#TemplateHelpers">TemplateHelpers</a> : <code>object</code></dt>
-<dd></dd>
-<dt><a href="#ParticleHelpers">ParticleHelpers</a> : <code>object</code></dt>
-<dd></dd>
-<dt><a href="#HandlebarsHelpers">HandlebarsHelpers</a> : <code>object</code></dt>
-<dd></dd>
-</dl>
+* [IntrinsicFunctions](#IntrinsicFunctions) : <code>object</code>
+    * [.fnAnd(...condition, options)](#IntrinsicFunctions.fnAnd) ⇒ <code>module</code> &#124; <code>string</code>
+    * [.fnBase64(str, options)](#IntrinsicFunctions.fnBase64) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnEquals(v1, v2)](#IntrinsicFunctions.fnEquals) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnFindInMap(mapName, topLevelKey, secondLevelKey, options)](#IntrinsicFunctions.fnFindInMap) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnGetAtt(logicalId, attributeName, options)](#IntrinsicFunctions.fnGetAtt) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnGetAZs(region, options)](#IntrinsicFunctions.fnGetAZs) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnIf(conditionName, trueValue, falseValue, options)](#IntrinsicFunctions.fnIf) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnImportValue(sharedValue, options)](#IntrinsicFunctions.fnImportValue) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnJoin(...str, options)](#IntrinsicFunctions.fnJoin) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnNot(condition, options)](#IntrinsicFunctions.fnNot) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnOr(...condition, options)](#IntrinsicFunctions.fnOr) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnSelect(index, options)](#IntrinsicFunctions.fnSelect) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnSub(str, options)](#IntrinsicFunctions.fnSub) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.ref(logicalId, options)](#IntrinsicFunctions.ref) ⇒ <code>function</code> &#124; <code>String</code>
+* [TemplateHelpers](#TemplateHelpers) : <code>object</code>
+    * [.assetPath(path)](#TemplateHelpers.assetPath) ⇒ <code>function</code> &#124; <code>String</code>
+    * [.assetS3Url(path, options)](#TemplateHelpers.assetS3Url) ⇒ <code>String</code>
+    * [.cValue(str, options)](#TemplateHelpers.cValue) ⇒ <code>String</code> &#124; <code>Number</code>
+    * [.layout([options])](#TemplateHelpers.layout) ⇒ <code>string</code>
+    * [.requireAssets(globPath)](#TemplateHelpers.requireAssets) ⇒ <code>string</code>
+    * [.scopeId()](#TemplateHelpers.scopeId) ⇒ <code>string</code>
+    * [.templateUrl(path)](#TemplateHelpers.templateUrl) ⇒ <code>string</code>
+* [ParticleHelpers](#ParticleHelpers) : <code>object</code>
+    * [.helper(path, [...options])](#ParticleHelpers.helper) ⇒ <code>\*</code>
+    * [.partial(path, [...options])](#ParticleHelpers.partial) ⇒ <code>string</code>
+    * [.condition()](#ParticleHelpers.condition)
+    * [.mapping()](#ParticleHelpers.mapping)
+    * [.metadata()](#ParticleHelpers.metadata)
+    * [.output()](#ParticleHelpers.output)
+    * [.parameter()](#ParticleHelpers.parameter)
+    * [.resource()](#ParticleHelpers.resource)
+    * [.set(path, [options])](#ParticleHelpers.set) ⇒ <code>string</code>
+* [HandlebarsHelpers](#HandlebarsHelpers) : <code>object</code>
+    * [.concat(...string)](#HandlebarsHelpers.concat) ⇒ <code>String</code>
+    * [.stringify([string])](#HandlebarsHelpers.stringify) ⇒ <code>String</code>
 
 ## Functions
 
-<dl>
-<dt><a href="#genTaskNameFunc">genTaskNameFunc(options)</a> ⇒ <code><a href="#genTaskNameFunc..taskNameFunc">taskNameFunc</a></code></dt>
-<dd><p>Generate a TaskNme based on condensation configuration</p>
-</dd>
-<dt><a href="#genDistPath">genDistPath(options)</a> ⇒ <code>String</code></dt>
-<dd><p>Generates a distribution path</p>
-</dd>
-</dl>
+* [genTaskNameFunc(options)](#genTaskNameFunc) ⇒ <code>[taskNameFunc](#genTaskNameFunc..taskNameFunc)</code>
+    * [~taskNameFunc(...str)](#genTaskNameFunc..taskNameFunc) ⇒ <code>string</code>
+* [genDistPath(options)](#genDistPath) ⇒ <code>String</code>
 
 <a name="Condensation"></a>
 
