@@ -2,9 +2,33 @@
 
 ## TemplateHelpers
 **Kind**: global namespace  
+
+-
+
 <a name="ParticleHelpers"></a>
 
 ## ParticleHelpers
+Particle Helpers load particles from their respective paths within the project.
+
+|-particles
+|-- conditions
+|-- mappings
+|-- metadata
+|-- outputs
+|-- parameters
+|-- partials
+|-- resources
+|-- sets
+
+All helpers follow the same pattern
+
+`{{<CONDENSATION-HELPER> [module:<MODULE>] '<PATH_TO_PARTICLE>' [OPTIONS...]}}`
+
+When loading a particle from a module that starts with `particles-` the short form
+can also be used, where <M> is the name of the module without `particles-`
+
+`{{<CONDENSATION-HELPER> [m:<M>] '<PATH_TO_PARTICLE>' [OPTIONS...]}}`
+
 **Kind**: global namespace  
 
 * [ParticleHelpers](#ParticleHelpers) : <code>object</code>
@@ -18,46 +42,183 @@
     * [.partial(path, [...options])](#ParticleHelpers.partial) ⇒ <code>string</code>
     * [.set(path, [options])](#ParticleHelpers.set) ⇒ <code>string</code>
 
+
+-
+
 <a name="ParticleHelpers.condition"></a>
 
 ### condition()
-Creates a condition
+- particles
+|- conditions
+ |- particle_name
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+**Example**  
+```js
+{{condition "particle_name"}}
+```
+**Example**  
+```js
+{{condition "particle_name" foo="bar"}}
+```
+**Example**  
+```js
+{{condition "module:<MODULE>" 'particle_name'}}
+```
+**Example**  
+```js
+{{!-- to load modules with format `particles-NAME` --}}
+{{condition "m:<NAME>" "particle_name"}}
+```
+
+-
+
 <a name="ParticleHelpers.mapping"></a>
 
 ### mapping()
-Mapping
+- particles
+|- mappings
+ |- particle_name
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+**Example**  
+```js
+{{mapping "particle_name"}}
+```
+**Example**  
+```js
+{{mapping "particle_name" foo="bar"}}
+```
+**Example**  
+```js
+{{mapping "module:<MODULE>" 'particle_name'}}
+```
+**Example**  
+```js
+{{!-- to load modules with format `particles-NAME` --}}
+{{mapping "m:<NAME>" "particle_name"}}
+```
+
+-
+
 <a name="ParticleHelpers.metadata"></a>
 
 ### metadata()
-Metadata
+- particles
+|- metadata
+ |- particle_name
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+**Example**  
+```js
+{{metadata "particle_name"}}
+```
+**Example**  
+```js
+{{metadata "particle_name" foo="bar"}}
+```
+**Example**  
+```js
+{{metadata "module:<MODULE>" 'particle_name'}}
+```
+**Example**  
+```js
+{{!-- to load modules with format `particles-NAME` --}}
+{{metadata "m:<NAME>" "particle_name"}}
+```
+
+-
+
 <a name="ParticleHelpers.output"></a>
 
 ### output()
-Output
+- particles
+|- outputs
+ |- particle_name
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+**Example**  
+```js
+{{output "particle_name"}}
+```
+**Example**  
+```js
+{{output "particle_name" foo="bar"}}
+```
+**Example**  
+```js
+{{output "module:<MODULE>" 'particle_name'}}
+```
+**Example**  
+```js
+{{!-- to load modules with format `particles-NAME` --}}
+{{output "m:<NAME>" "particle_name"}}
+```
+
+-
+
 <a name="ParticleHelpers.parameter"></a>
 
 ### parameter()
-Parameter
+- particles
+|- parameters
+ |- particle_name
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+**Example**  
+```js
+{{parameter "particle_name"}}
+```
+**Example**  
+```js
+{{parameter "particle_name" foo="bar"}}
+```
+**Example**  
+```js
+{{parameter "module:<MODULE>" 'particle_name'}}
+```
+**Example**  
+```js
+{{!-- to load modules with format `particles-NAME` --}}
+{{parameter "m:<NAME>" "particle_name"}}
+```
+
+-
+
 <a name="ParticleHelpers.resource"></a>
 
 ### resource()
-Resource
+- particles
+|- resources
+ |- particle_name
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+**Example**  
+```js
+{{resource "particle_name"}}
+```
+**Example**  
+```js
+{{resource "particle_name" foo="bar"}}
+```
+**Example**  
+```js
+{{resource "module:<MODULE>" 'particle_name'}}
+```
+**Example**  
+```js
+{{!-- to load modules with format `particles-NAME` --}}
+{{resource "m:<NAME>" "particle_name"}}
+```
+
+-
+
 <a name="ParticleHelpers.helper"></a>
 
 ### helper(path, [...options])
-Run a helper particle
+- particles
+|- helpers
+ |- particle_name
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
 **Returns**: <code>\*</code> - - Will returns the output from the particle helper  
@@ -69,25 +230,30 @@ Run a helper particle
 
 **Example**  
 ```js
-{{helper "my-helper"}}
+{{helper "particle_name"}}
 ```
 **Example**  
 ```js
-{{helper "my-helper" foo="bar"}}
+{{helper "particle_name" foo="bar"}}
 ```
 **Example**  
 ```js
-{{helper "module:<MODULE>" 'module-helper'}}
+{{helper "module:<MODULE>" 'particle_name'}}
 ```
 **Example**  
 ```js
 {{!-- to load modules with format `particles-NAME` --}}
-{{helper "m:<NAME>" "module-helper"}}
+{{helper "m:<NAME>" "particle_name"}}
 ```
+
+-
+
 <a name="ParticleHelpers.partial"></a>
 
 ### partial(path, [...options])
-Include a partial particle
+- particles
+|- partials
+ |- particle_name
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
 
@@ -98,25 +264,30 @@ Include a partial particle
 
 **Example**  
 ```js
-{{partial "my_partial"}}
+{{partial "particle_name"}}
 ```
 **Example**  
 ```js
-{{partial "my_partial" foo="bar"}}
+{{partial "particle_name" foo="bar"}}
 ```
 **Example**  
 ```js
-{{partial "module:<MODULE>" 'module_partial'}}
+{{partial "module:<MODULE>" 'particle_name'}}
 ```
 **Example**  
 ```js
 {{!-- to load modules with format `particles-NAME` --}}
-{{partial "m:<NAME>" "module-partial"}}
+{{partial "m:<NAME>" "particle_name"}}
 ```
+
+-
+
 <a name="ParticleHelpers.set"></a>
 
 ### set(path, [options])
-Include a set particle
+- particles
+|- sets
+ |- particle_name
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
 
@@ -129,20 +300,21 @@ Include a set particle
 
 **Example**  
 ```js
-{{set "my_set"}}
+{{set "particle_name"}}
 ```
 **Example**  
 ```js
-{{set "my_set" foo="bar"}}
+{{set "particle_name" foo="bar"}}
 ```
 **Example**  
 ```js
-{{set "module:<MODULE>" 'module_set'}}
+{{set "module:<MODULE>" 'particle_name'}}
 ```
 **Example**  
 ```js
 {{!-- to load modules with format `particles-NAME` --}}
-{{set "m:<NAME>" "module_set"}}
-{{set "m:<NAME>" "module_set" logicalIdPrefix="First"}}
-{{set "m:<NAME>" "module_set" logicalIdPrefix="Second"}}
+{{set "m:<NAME>" "particle_name"}}
 ```
+
+-
+

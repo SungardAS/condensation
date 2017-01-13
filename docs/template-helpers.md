@@ -4,8 +4,8 @@
 **Kind**: global namespace  
 
 * [TemplateHelpers](#TemplateHelpers) : <code>object</code>
-    * [.assetPath(path)](#TemplateHelpers.assetPath) ⇒ <code>function</code> &#124; <code>String</code>
-    * [.cValue(str, options)](#TemplateHelpers.cValue) ⇒ <code>String</code> &#124; <code>Number</code>
+    * [.assetPath(path)](#TemplateHelpers.assetPath) ⇒ <code>String</code>
+    * [.cValue(str, options)](#TemplateHelpers.cValue) ⇒ <code>string</code> &#124; <code>Number</code>
     * [.layout([options])](#TemplateHelpers.layout) ⇒ <code>string</code>
     * [.requireAssets(globPath)](#TemplateHelpers.requireAssets) ⇒ <code>string</code>
     * [.scopeId()](#TemplateHelpers.scopeId) ⇒ <code>string</code>
@@ -20,6 +20,7 @@
 Build the S3 path to an asset particle within the project
 
 **Kind**: static method of <code>[TemplateHelpers](#TemplateHelpers)</code>  
+**Returns**: <code>String</code> - - S3 path to the asset  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -197,6 +198,27 @@ Generate an S3 URL for another template in the project
 <a name="ParticleHelpers"></a>
 
 ## ParticleHelpers
+Particle Helpers load particles from their respective paths within the project.
+
+|-particles
+|-- conditions
+|-- mappings
+|-- metadata
+|-- outputs
+|-- parameters
+|-- partials
+|-- resources
+|-- sets
+
+All helpers follow the same pattern
+
+`{{<CONDENSATION-HELPER> [module:<MODULE>] '<PATH_TO_PARTICLE>' [OPTIONS...]}}`
+
+When loading a particle from a module that starts with `particles-` the short form
+can also be used, where <M> is the name of the module without `particles-`
+
+`{{<CONDENSATION-HELPER> [m:<M>] '<PATH_TO_PARTICLE>' [OPTIONS...]}}`
+
 **Kind**: global namespace  
 
 -

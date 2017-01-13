@@ -21,6 +21,9 @@ Handlebars helpers that will create AWS Intrinsic Functions
     * [.fnSub(str, options)](#IntrinsicFunctions.fnSub) ⇒ <code>function</code> &#124; <code>string</code>
     * [.ref(logicalId, options)](#IntrinsicFunctions.ref) ⇒ <code>function</code> &#124; <code>String</code>
 
+
+-
+
 <a name="IntrinsicFunctions.fnAnd"></a>
 
 ### fnAnd(...condition, options)
@@ -34,6 +37,9 @@ Fn::And definition
 | ...condition | <code>string</code> | Any number of conditions |
 | options | <code>Object</code> | options passed by handlebars |
 
+
+-
+
 <a name="IntrinsicFunctions.fnBase64"></a>
 
 ### fnBase64(str, options)
@@ -46,6 +52,9 @@ Fn::Base64 definition
 | str | <code>string</code> | The string to evaluate |
 | options | <code>Object</code> | Passed in by Handlebars |
 
+
+-
+
 <a name="IntrinsicFunctions.fnEquals"></a>
 
 ### fnEquals(v1, v2)
@@ -57,6 +66,9 @@ Fn::Equals definition
 | --- | --- | --- |
 | v1 | <code>string</code> | first value to compare |
 | v2 | <code>string</code> | second value to compare |
+
+
+-
 
 <a name="IntrinsicFunctions.fnFindInMap"></a>
 
@@ -72,6 +84,9 @@ Fn::FindInMap definition
 | secondLevelKey | <code>string</code> | The second-level key name, which is set to one of the keys from the list assigned to TopLevelKey |
 | options | <code>Object</code> | options for creting the logicalId reference |
 
+
+-
+
 <a name="IntrinsicFunctions.fnGetAtt"></a>
 
 ### fnGetAtt(logicalId, attributeName, options)
@@ -85,6 +100,9 @@ Fn::GetAtt definition
 | attributeName | <code>string</code> | name of the resource-specific attribute whose value you want |
 | options | <code>Object</code> | options for creting the logicalId reference |
 
+
+-
+
 <a name="IntrinsicFunctions.fnGetAZs"></a>
 
 ### fnGetAZs(region, options)
@@ -96,6 +114,9 @@ Fn::GetAZs definition
 | --- | --- | --- |
 | region | <code>string</code> | name of the region |
 | options | <code>Object</code> | options passed by handlebars |
+
+
+-
 
 <a name="IntrinsicFunctions.fnIf"></a>
 
@@ -111,6 +132,9 @@ Fn::If definition
 | falseValue | <code>string</code> | value to use if condition is false |
 | options | <code>Object</code> | options passed by handlebars |
 
+
+-
+
 <a name="IntrinsicFunctions.fnImportValue"></a>
 
 ### fnImportValue(sharedValue, options)
@@ -123,6 +147,9 @@ Fn::ImportValue definition
 | sharedValue | <code>string</code> | name of the shared value |
 | options | <code>Object</code> | options passed by handlebars |
 
+
+-
+
 <a name="IntrinsicFunctions.fnJoin"></a>
 
 ### fnJoin(...str, options)
@@ -134,6 +161,9 @@ Fn::Join definition
 | --- | --- | --- |
 | ...str | <code>string</code> | strings to join together |
 | options | <code>Object</code> | options passed by handlebars |
+
+
+-
 
 <a name="IntrinsicFunctions.fnNot"></a>
 
@@ -155,6 +185,9 @@ Fn::Not definition
 ```js
 {{fnNot (fnEquals (ref "ParameterName") "value") }}
 ```
+
+-
+
 <a name="IntrinsicFunctions.fnOr"></a>
 
 ### fnOr(...condition, options)
@@ -166,6 +199,9 @@ Fn::Or definition
 | --- | --- | --- |
 | ...condition | <code>string</code> | One to many conditions |
 | options | <code>Object</code> | options passed by handlebars |
+
+
+-
 
 <a name="IntrinsicFunctions.fnSelect"></a>
 
@@ -188,6 +224,9 @@ Fn::Select definition
 ```js
 {{fnSelect 0 "value1" "value2"}}
 ```
+
+-
+
 <a name="IntrinsicFunctions.fnSub"></a>
 
 ### fnSub(str, options)
@@ -209,6 +248,9 @@ Fn::Sub definition
 ```js
 {{fnSub "Use this URL ${Url}" Url=(partial "buildUrl") }}
 ```
+
+-
+
 <a name="IntrinsicFunctions.ref"></a>
 
 ### ref(logicalId, options)
@@ -231,3 +273,6 @@ Ref definition
 ```js
 {{ref "Parameter2" scope=false}}
 ```
+
+-
+
