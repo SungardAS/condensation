@@ -21,14 +21,8 @@ then it will be left alone and simply returned back.</p>
 <dt><a href="#IntrinsicFunctions.module_fnAnd">fnAnd</a> ⇒ <code>string</code></dt>
 <dd><p>Fn::And definition</p>
 </dd>
-<dt><a href="#module_helper">helper</a> ⇒ <code>*</code></dt>
-<dd><p>Run a helper particle</p>
-</dd>
 <dt><a href="#module_layout">layout</a> ⇒ <code>string</code></dt>
 <dd><p>Start a layout</p>
-</dd>
-<dt><a href="#module_partial">partial</a> ⇒ <code>string</code></dt>
-<dd><p>Include a partial particle</p>
 </dd>
 <dt><a href="#module_requireAssets">requireAssets</a> ⇒ <code>string</code></dt>
 <dd><p>Include a glob of assets</p>
@@ -36,9 +30,6 @@ then it will be left alone and simply returned back.</p>
 </dd>
 <dt><a href="#module_scopeId">scopeId</a> ⇒ <code>string</code></dt>
 <dd><p>Used within sets to add the correct logicalIdPrefix and/or logicalIdSuffix to a logicalId</p>
-</dd>
-<dt><a href="#TemplateHelpers.module_set">set</a> ⇒ <code>string</code></dt>
-<dd><p>Include a set particle</p>
 </dd>
 <dt><a href="#module_templateUrl">templateUrl</a> ⇒ <code>string</code></dt>
 <dd><p>Generate an S3 URL for another template in the project</p>
@@ -166,35 +157,6 @@ Fn::And definition
 | ...condition | <code>string</code> | Any number of conditions |
 | options | <code>Object</code> | options passed by handlebars |
 
-<a name="module_helper"></a>
-
-## helper ⇒ <code>\*</code>
-Run a helper particle
-
-**Returns**: <code>\*</code> - - Will returns the output from the particle helper  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| path | <code>string</code> | Path to the helper, excluding the `.js` extension |
-| [...options] | <code>kv</code> | Key/Value pairs to pass to the particle helper |
-
-**Example**  
-```js
-{{helper "my-helper"}}
-```
-**Example**  
-```js
-{{helper "my-helper" foo="bar"}}
-```
-**Example**  
-```js
-{{helper "module:<MODULE>" 'module-helper'}}
-```
-**Example**  
-```js
-{{!-- to load modules with format `particles-NAME` --}}
-{{helper "m:<NAME>" "module-helper"}}
-```
 <a name="module_layout"></a>
 
 ## layout ⇒ <code>string</code>
@@ -234,34 +196,6 @@ things:
     {{output 'repeate_me' logicalId="RepeateMeOutput" logicalIdSuffix=@index}}
   {{/each}}
 {{/layout}} 
-```
-<a name="module_partial"></a>
-
-## partial ⇒ <code>string</code>
-Include a partial particle
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| path | <code>string</code> | Path to the partial (file extensions optional) |
-| [...options] | <code>kv</code> | Key/Value pairs to pass to the particle partial |
-
-**Example**  
-```js
-{{partial "my_partial"}}
-```
-**Example**  
-```js
-{{partial "my_partial" foo="bar"}}
-```
-**Example**  
-```js
-{{partial "module:<MODULE>" 'module_partial'}}
-```
-**Example**  
-```js
-{{!-- to load modules with format `particles-NAME` --}}
-{{partial "m:<NAME>" "module-partial"}}
 ```
 <a name="module_requireAssets"></a>
 
@@ -306,38 +240,6 @@ Used within sets to add the correct logicalIdPrefix and/or logicalIdSuffix to a 
 **Example**  
 ```js
 {{ref (scopeId "LogicalId")}}
-```
-<a name="TemplateHelpers.module_set"></a>
-
-## set ⇒ <code>string</code>
-Include a set particle
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| path | <code>string</code> | Path to the set (file extensions optional) |
-| [options] | <code>Object</code> | options for the set |
-| [options.logicalIdPrefix] | <code>string</code> | Add a prefix to the set's scope |
-| [options.logicalIdSuffix] | <code>string</code> | Add a suffix to the set's scope |
-
-**Example**  
-```js
-{{set "my_set"}}
-```
-**Example**  
-```js
-{{set "my_set" foo="bar"}}
-```
-**Example**  
-```js
-{{set "module:<MODULE>" 'module_set'}}
-```
-**Example**  
-```js
-{{!-- to load modules with format `particles-NAME` --}}
-{{set "m:<NAME>" "module_set"}}
-{{set "m:<NAME>" "module_set" logicalIdPrefix="First"}}
-{{set "m:<NAME>" "module_set" logicalIdPrefix="Second"}}
 ```
 <a name="module_templateUrl"></a>
 
@@ -664,12 +566,75 @@ Ref definition
 **Kind**: global namespace  
 
 * [ParticleHelpers](#ParticleHelpers) : <code>object</code>
+    * [.helper(path, [...options])](#ParticleHelpers.helper) ⇒ <code>\*</code>
+    * [.partial(path, [...options])](#ParticleHelpers.partial) ⇒ <code>string</code>
     * [.condition()](#ParticleHelpers.condition)
-    * [.mapping()](#ParticleHelpers.mapping) ⇒ <code>function</code>
-    * [.metadata()](#ParticleHelpers.metadata) ⇒ <code>function</code>
-    * [.parameter()](#ParticleHelpers.parameter) ⇒ <code>function</code>
+    * [.mapping()](#ParticleHelpers.mapping)
+    * [.metadata()](#ParticleHelpers.metadata)
+    * [.output()](#ParticleHelpers.output)
+    * [.parameter()](#ParticleHelpers.parameter)
     * [.resource()](#ParticleHelpers.resource)
+    * [.set(path, [options])](#ParticleHelpers.set) ⇒ <code>string</code>
 
+<a name="ParticleHelpers.helper"></a>
+
+### ParticleHelpers.helper(path, [...options]) ⇒ <code>\*</code>
+Run a helper particle
+
+**Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+**Returns**: <code>\*</code> - - Will returns the output from the particle helper  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | Path to the helper, excluding the `.js` extension |
+| [...options] | <code>kv</code> | Key/Value pairs to pass to the particle helper |
+
+**Example**  
+```js
+{{helper "my-helper"}}
+```
+**Example**  
+```js
+{{helper "my-helper" foo="bar"}}
+```
+**Example**  
+```js
+{{helper "module:<MODULE>" 'module-helper'}}
+```
+**Example**  
+```js
+{{!-- to load modules with format `particles-NAME` --}}
+{{helper "m:<NAME>" "module-helper"}}
+```
+<a name="ParticleHelpers.partial"></a>
+
+### ParticleHelpers.partial(path, [...options]) ⇒ <code>string</code>
+Include a partial particle
+
+**Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | Path to the partial (file extensions optional) |
+| [...options] | <code>kv</code> | Key/Value pairs to pass to the particle partial |
+
+**Example**  
+```js
+{{partial "my_partial"}}
+```
+**Example**  
+```js
+{{partial "my_partial" foo="bar"}}
+```
+**Example**  
+```js
+{{partial "module:<MODULE>" 'module_partial'}}
+```
+**Example**  
+```js
+{{!-- to load modules with format `particles-NAME` --}}
+{{partial "m:<NAME>" "module-partial"}}
+```
 <a name="ParticleHelpers.condition"></a>
 
 ### ParticleHelpers.condition()
@@ -678,19 +643,25 @@ Creates a condition
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
 <a name="ParticleHelpers.mapping"></a>
 
-### ParticleHelpers.mapping() ⇒ <code>function</code>
+### ParticleHelpers.mapping()
 Mapping
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
 <a name="ParticleHelpers.metadata"></a>
 
-### ParticleHelpers.metadata() ⇒ <code>function</code>
+### ParticleHelpers.metadata()
 Metadata
+
+**Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+<a name="ParticleHelpers.output"></a>
+
+### ParticleHelpers.output()
+Output
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
 <a name="ParticleHelpers.parameter"></a>
 
-### ParticleHelpers.parameter() ⇒ <code>function</code>
+### ParticleHelpers.parameter()
 Parameter
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
@@ -700,6 +671,39 @@ Parameter
 Resource
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+<a name="ParticleHelpers.set"></a>
+
+### ParticleHelpers.set(path, [options]) ⇒ <code>string</code>
+Include a set particle
+
+**Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | Path to the set (file extensions optional) |
+| [options] | <code>Object</code> | options for the set |
+| [options.logicalIdPrefix] | <code>string</code> | Add a prefix to the set's scope |
+| [options.logicalIdSuffix] | <code>string</code> | Add a suffix to the set's scope |
+
+**Example**  
+```js
+{{set "my_set"}}
+```
+**Example**  
+```js
+{{set "my_set" foo="bar"}}
+```
+**Example**  
+```js
+{{set "module:<MODULE>" 'module_set'}}
+```
+**Example**  
+```js
+{{!-- to load modules with format `particles-NAME` --}}
+{{set "m:<NAME>" "module_set"}}
+{{set "m:<NAME>" "module_set" logicalIdPrefix="First"}}
+{{set "m:<NAME>" "module_set" logicalIdPrefix="Second"}}
+```
 <a name="genTaskNameFunc"></a>
 
 ## genTaskNameFunc(options) ⇒ <code>[taskNameFunc](#genTaskNameFunc..taskNameFunc)</code>
