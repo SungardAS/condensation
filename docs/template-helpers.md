@@ -200,7 +200,8 @@ Generate an S3 URL for another template in the project
 ## ParticleHelpers
 Particle Helpers load particles from their respective paths within the project.
 
-|-particles
+```
+- particles
 |-- conditions
 |-- mappings
 |-- metadata
@@ -209,6 +210,7 @@ Particle Helpers load particles from their respective paths within the project.
 |-- partials
 |-- resources
 |-- sets
+```
 
 All helpers follow the same pattern
 

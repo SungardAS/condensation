@@ -10,7 +10,8 @@
 ## ParticleHelpers
 Particle Helpers load particles from their respective paths within the project.
 
-|-particles
+```
+- particles
 |-- conditions
 |-- mappings
 |-- metadata
@@ -19,6 +20,7 @@ Particle Helpers load particles from their respective paths within the project.
 |-- partials
 |-- resources
 |-- sets
+```
 
 All helpers follow the same pattern
 
@@ -48,9 +50,11 @@ can also be used, where <M> is the name of the module without `particles-`
 <a name="ParticleHelpers.condition"></a>
 
 ### condition()
+```
 - particles
 |- conditions
  |- particle_name
+```
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
 **Example**  
@@ -76,9 +80,11 @@ can also be used, where <M> is the name of the module without `particles-`
 <a name="ParticleHelpers.mapping"></a>
 
 ### mapping()
+```
 - particles
 |- mappings
  |- particle_name
+```
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
 **Example**  
@@ -104,9 +110,11 @@ can also be used, where <M> is the name of the module without `particles-`
 <a name="ParticleHelpers.metadata"></a>
 
 ### metadata()
+```
 - particles
 |- metadata
  |- particle_name
+```
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
 **Example**  
@@ -132,9 +140,11 @@ can also be used, where <M> is the name of the module without `particles-`
 <a name="ParticleHelpers.output"></a>
 
 ### output()
+```
 - particles
 |- outputs
  |- particle_name
+```
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
 **Example**  
@@ -160,9 +170,11 @@ can also be used, where <M> is the name of the module without `particles-`
 <a name="ParticleHelpers.parameter"></a>
 
 ### parameter()
+```
 - particles
 |- parameters
  |- particle_name
+```
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
 **Example**  
@@ -188,9 +200,11 @@ can also be used, where <M> is the name of the module without `particles-`
 <a name="ParticleHelpers.resource"></a>
 
 ### resource()
+```
 - particles
 |- resources
  |- particle_name
+```
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
 **Example**  
@@ -216,9 +230,11 @@ can also be used, where <M> is the name of the module without `particles-`
 <a name="ParticleHelpers.helper"></a>
 
 ### helper(path, [...options])
+```
 - particles
 |- helpers
  |- particle_name
+```
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
 **Returns**: <code>\*</code> - - Will returns the output from the particle helper  
@@ -251,9 +267,11 @@ can also be used, where <M> is the name of the module without `particles-`
 <a name="ParticleHelpers.partial"></a>
 
 ### partial(path, [...options])
+```
 - particles
 |- partials
  |- particle_name
+```
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
 
@@ -285,9 +303,11 @@ can also be used, where <M> is the name of the module without `particles-`
 <a name="ParticleHelpers.set"></a>
 
 ### set(path, [options])
+```
 - particles
 |- sets
  |- particle_name
+```
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
 
