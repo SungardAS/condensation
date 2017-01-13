@@ -38,6 +38,12 @@ $ condensation run build
 
 You can also get started with [nodejs](docs/getting-started/nodejs.md)
 
+## Use
+
+[Particles](docs/particle-helpers.md)
+[Template Helpers](docs/template-helpers.md)
+[AWS Intrinsic Functions](docs/intrinsic-functions.md)
+
 ## License
 
 Apache-2.0 ©
