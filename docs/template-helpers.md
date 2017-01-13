@@ -11,6 +11,9 @@
     * [.scopeId()](#TemplateHelpers.scopeId) ⇒ <code>string</code>
     * [.templateUrl(path)](#TemplateHelpers.templateUrl) ⇒ <code>string</code>
 
+
+-
+
 <a name="TemplateHelpers.assetPath"></a>
 
 ### assetPath(path)
@@ -30,6 +33,9 @@ Build the S3 path to an asset particle within the project
 ```js
 {{assetPath "path/to/myasset.sh"}}
 ```
+
+-
+
 <a name="TemplateHelpers.cValue"></a>
 
 ### cValue(str, options)
@@ -62,6 +68,9 @@ faz: "5"
 {{cValue baz}}
 {{cValue faz forceNumber=true}}
 ```
+
+-
+
 <a name="TemplateHelpers.layout"></a>
 
 ### layout([options])
@@ -103,6 +112,9 @@ things:
   {{/each}}
 {{/layout}} 
 ```
+
+-
+
 <a name="TemplateHelpers.requireAssets"></a>
 
 ### requireAssets(globPath)
@@ -129,6 +141,9 @@ Only needed for assets that are not directly referenced by another particle
 {{!-- to load modules with format `particles-NAME` --}}
 {{requireAssets "m:<NAME>" "all_from_module/**"}}
 ```
+
+-
+
 <a name="TemplateHelpers.scopeId"></a>
 
 ### scopeId()
@@ -149,6 +164,9 @@ Used within sets to add the correct logicalIdPrefix and/or logicalIdSuffix to a 
 ```js
 {{ref (scopeId "LogicalId")}}
 ```
+
+-
+
 <a name="TemplateHelpers.templateUrl"></a>
 
 ### templateUrl(path)
@@ -173,3 +191,13 @@ Generate an S3 URL for another template in the project
 {{!-- to load modules with format `particles-NAME` --}}
 {{set "m:<NAME>" "another.template.json"}}
 ```
+
+-
+
+<a name="ParticleHelpers"></a>
+
+## ParticleHelpers
+**Kind**: global namespace  
+
+-
+

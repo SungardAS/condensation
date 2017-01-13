@@ -1,3 +1,7 @@
+<a name="TemplateHelpers"></a>
+
+## TemplateHelpers
+**Kind**: global namespace  
 <a name="ParticleHelpers"></a>
 
 ## ParticleHelpers
