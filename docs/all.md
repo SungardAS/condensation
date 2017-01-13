@@ -2,46 +2,6 @@
 > condensation@0.6.0-rc0 build-docs /Users/kevin.mcgrath/work/condensation
 > node ./bin/buildDocs.js
 
-## Modules
-
-<dl>
-<dt><a href="#TemplateHelpers.module_assetPath">assetPath</a> ⇒ <code>String</code></dt>
-<dd><p>Build the S3 path to an asset particle within the project</p>
-</dd>
-<dt><a href="#module_assetS3Url">assetS3Url</a> ⇒ <code>String</code></dt>
-<dd><p>Build full S3 URL an asset particle within the project</p>
-</dd>
-<dt><a href="#module_cValue">cValue</a> ⇒ <code>String</code> | <code>Number</code></dt>
-<dd><p>Coerce Value</p>
-<p>Will check to see if a string is a parsable object. If it is,
-then it will be left alone and simply returned back.</p>
-<p>If the string is not a parseable object it will be made JSON compliant and returned.</p>
-<p>If the string is empty, null, undefined or otherwise <code>falsey</code> then an empty string will be returned.</p>
-</dd>
-<dt><a href="#IntrinsicFunctions.module_fnAnd">fnAnd</a> ⇒ <code>string</code></dt>
-<dd><p>Fn::And definition</p>
-</dd>
-<dt><a href="#module_layout">layout</a> ⇒ <code>string</code></dt>
-<dd><p>Start a layout</p>
-</dd>
-<dt><a href="#module_requireAssets">requireAssets</a> ⇒ <code>string</code></dt>
-<dd><p>Include a glob of assets</p>
-<p>Only needed for assets that are not directly referenced by another particle</p>
-</dd>
-<dt><a href="#module_scopeId">scopeId</a> ⇒ <code>string</code></dt>
-<dd><p>Used within sets to add the correct logicalIdPrefix and/or logicalIdSuffix to a logicalId</p>
-</dd>
-<dt><a href="#module_templateUrl">templateUrl</a> ⇒ <code>string</code></dt>
-<dd><p>Generate an S3 URL for another template in the project</p>
-</dd>
-<dt><a href="#module_concat">concat</a> ⇒ <code>String</code></dt>
-<dd><p>Concatenates two or more strings</p>
-</dd>
-<dt><a href="#module_stringify">stringify</a> ⇒ <code>String</code></dt>
-<dd><p>JSON.stringify a string or block</p>
-</dd>
-</dl>
-
 ## Classes
 
 <dl>
@@ -55,7 +15,11 @@ then it will be left alone and simply returned back.</p>
 <dt><a href="#IntrinsicFunctions">IntrinsicFunctions</a> : <code>object</code></dt>
 <dd><p>Handlebars helpers that will create AWS Intrinsic Functions</p>
 </dd>
+<dt><a href="#TemplateHelpers">TemplateHelpers</a> : <code>object</code></dt>
+<dd></dd>
 <dt><a href="#ParticleHelpers">ParticleHelpers</a> : <code>object</code></dt>
+<dd></dd>
+<dt><a href="#HandlebarsHelpers">HandlebarsHelpers</a> : <code>object</code></dt>
 <dd></dd>
 </dl>
 
@@ -70,246 +34,6 @@ then it will be left alone and simply returned back.</p>
 </dd>
 </dl>
 
-<a name="TemplateHelpers.module_assetPath"></a>
-
-## assetPath ⇒ <code>String</code>
-Build the S3 path to an asset particle within the project
-
-**Returns**: <code>String</code> - - S3 path to the asset  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| path | <code>string</code> | the path to the particle relative to the `assets` directory |
-
-**Example**  
-```js
-{{assetPath "myasset.zip"}}
-```
-**Example**  
-```js
-{{assetPath "path/to/myasset.sh"}}
-```
-<a name="module_assetS3Url"></a>
-
-## assetS3Url ⇒ <code>String</code>
-Build full S3 URL an asset particle within the project
-
-**Returns**: <code>String</code> - - Full S3 URL to the asset  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| path | <code>string</code> | the path to the particle relative to the `assets` directory |
-| options | <code>Object</code> | options used to generate the URL |
-| options.protocol | <code>Object</code> | [s3|https] s3:// or https:// |
-
-**Example**  
-```js
-{{assetS3Url "myasset.zip"}}
-```
-**Example**  
-```js
-{{assetS3Url "myasset.zip" protocol="s3"}}
-```
-**Example**  
-```js
-{{assetS3Url "path/to/myasset.sh"}}
-```
-<a name="module_cValue"></a>
-
-## cValue ⇒ <code>String</code> &#124; <code>Number</code>
-Coerce Value
-
-Will check to see if a string is a parsable object. If it is,
-then it will be left alone and simply returned back.
-
-If the string is not a parseable object it will be made JSON compliant and returned.
-
-If the string is empty, null, undefined or otherwise `falsey` then an empty string will be returned.
-
-**Summary**: Coerce value  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| str | <code>string</code> | The string to evaluate |
-| options | <code>Object</code> | options object from Handlebars |
-| options.forceNumber | <code>boolean</code> | return a number at all costs |
-
-**Example**  
-```js
----
-foo: bar
-baz: {"Ref": "LogicalId"}
-faz: "5"
----
-{{cValue foo}}
-{{cValue baz}}
-{{cValue faz forceNumber=true}}
-```
-<a name="IntrinsicFunctions.module_fnAnd"></a>
-
-## fnAnd ⇒ <code>string</code>
-Fn::And definition
-
-**Returns**: <code>string</code> - A JSON compliant Ref object for CloudFormation  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| ...condition | <code>string</code> | Any number of conditions |
-| options | <code>Object</code> | options passed by handlebars |
-
-<a name="module_layout"></a>
-
-## layout ⇒ <code>string</code>
-Start a layout
-
-**Returns**: <code>string</code> - - CloudFormation Template  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [options] | <code>Object</code> |  | options object from Handlebars |
-| [options.AWSTemplateFormatVersion] | <code>string</code> | <code>&quot;2010-09-09&quot;</code> | AWS Format Version |
-| [options.TemplateDescription] | <code>string</code> |  | Description for the template |
-| [options.Transform] | <code>string</code> |  | AWS Transform type for the template |
-
-**Example**  
-```js
----
-things:
--
-  name: subnet1
-  cidr: "10.0.0.0/24"
--
-  name subnet2
-  cidr: "10.0.1.0/24"
----
-
-{{#layout templateDescription="condensation rocks!"}}
-  {{parameter 'my_parameter' logicalId="MyParameter"}}
-  {{condition 'my_condition' logicalId="MyCondition"}}
-
-  {{! helpers can occur in any order, allowing you to group related section parts together }}
-
-  {{#each things}}
-    {{parameter 'repeate_me' logicalId="RepeateMe" logicalIdSuffix=@index}}
-    {{condition 'repeate_me' logicalId="RepeateMeCond" logicalIdSuffix=@index}}
-    {{resource 'repeate_me' logicalId="RepeateMeResource" logicalIdSuffix=@index}}
-    {{output 'repeate_me' logicalId="RepeateMeOutput" logicalIdSuffix=@index}}
-  {{/each}}
-{{/layout}} 
-```
-<a name="module_requireAssets"></a>
-
-## requireAssets ⇒ <code>string</code>
-Include a glob of assets
-
-Only needed for assets that are not directly referenced by another particle
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| globPath | <code>string</code> | Glob patter of assets to package with the project |
-
-**Example**  
-```js
-{{requireAssets "all_of_these/**"}}
-```
-**Example**  
-```js
-{{requireAssets "module:<MODULE>" 'all_from_module/**'}}
-```
-**Example**  
-```js
-{{!-- to load modules with format `particles-NAME` --}}
-{{requireAssets "m:<NAME>" "all_from_module/**"}}
-```
-<a name="module_scopeId"></a>
-
-## scopeId ⇒ <code>string</code>
-Used within sets to add the correct logicalIdPrefix and/or logicalIdSuffix to a logicalId
-
-**Returns**: <code>string</code> - - The logical with the correct prefix and suffix for the current scope  
-
-| Type | Description |
-| --- | --- |
-| <code>string</code> | The logicalId |
-
-**Example**  
-```js
-{{scopeId "LogicalId"}}
-```
-**Example**  
-```js
-{{ref (scopeId "LogicalId")}}
-```
-<a name="module_templateUrl"></a>
-
-## templateUrl ⇒ <code>string</code>
-Generate an S3 URL for another template in the project
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| path | <code>string</code> | Path to the template (file extensions optional) |
-
-**Example**  
-```js
-{{templateUrl "another.template.json"}}
-```
-**Example**  
-```js
-{{templateUrl "module:<MODULE>" 'another.template.json'}}
-```
-**Example**  
-```js
-{{!-- to load modules with format `particles-NAME` --}}
-{{set "m:<NAME>" "another.template.json"}}
-```
-<a name="module_concat"></a>
-
-## concat ⇒ <code>String</code>
-Concatenates two or more strings
-
-**Returns**: <code>String</code> - - One concatenated string  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| ...string | <code>string</code> | two or more strings to concatenate |
-
-**Example**  
-```js
-{{concat "string1" "string2"}}
-```
-<a name="module_stringify"></a>
-
-## stringify ⇒ <code>String</code>
-JSON.stringify a string or block
-
-**Returns**: <code>String</code> - - JSON.stringify result of block or string  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [string] | <code>string</code> | String to use if block is not present |
-
-**Example**  
-```js
-{{stringify "a !string for {json} /end"}}
-```
-**Example**  
-```js
-{{#stringify}}
-  mybash.sh -o option1
-  continue.sh
-{{/stringify}}
-```
-**Example**  
-```js
-{{#stringify noLineBreaks}}
-  docker run
-  -e VAR1=VAL1
-  -e VAR2=VAL2
-  my/image
-{{/stringify}}
-```
 <a name="Condensation"></a>
 
 ## Condensation
@@ -349,6 +73,7 @@ Handlebars helpers that will create AWS Intrinsic Functions
 **Kind**: global namespace  
 
 * [IntrinsicFunctions](#IntrinsicFunctions) : <code>object</code>
+    * [.fnAnd(...condition, options)](#IntrinsicFunctions.fnAnd) ⇒ <code>module</code> &#124; <code>string</code>
     * [.fnBase64(str, options)](#IntrinsicFunctions.fnBase64) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnEquals(v1, v2)](#IntrinsicFunctions.fnEquals) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnFindInMap(mapName, topLevelKey, secondLevelKey, options)](#IntrinsicFunctions.fnFindInMap) ⇒ <code>function</code> &#124; <code>string</code>
@@ -362,6 +87,18 @@ Handlebars helpers that will create AWS Intrinsic Functions
     * [.fnSelect(index, options)](#IntrinsicFunctions.fnSelect) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnSub(str, options)](#IntrinsicFunctions.fnSub) ⇒ <code>function</code> &#124; <code>string</code>
     * [.ref(logicalId, options)](#IntrinsicFunctions.ref) ⇒ <code>function</code> &#124; <code>String</code>
+
+<a name="IntrinsicFunctions.fnAnd"></a>
+
+### IntrinsicFunctions.fnAnd(...condition, options) ⇒ <code>module</code> &#124; <code>string</code>
+Fn::And definition
+
+**Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...condition | <code>string</code> | Any number of conditions |
+| options | <code>Object</code> | options passed by handlebars |
 
 <a name="IntrinsicFunctions.fnBase64"></a>
 
@@ -560,6 +297,208 @@ Ref definition
 ```js
 {{ref "Parameter2" scope=false}}
 ```
+<a name="TemplateHelpers"></a>
+
+## TemplateHelpers : <code>object</code>
+**Kind**: global namespace  
+
+* [TemplateHelpers](#TemplateHelpers) : <code>object</code>
+    * [.assetPath(path)](#TemplateHelpers.assetPath) ⇒ <code>function</code> &#124; <code>String</code>
+    * [.assetS3Url(path, options)](#TemplateHelpers.assetS3Url) ⇒ <code>String</code>
+    * [.cValue(str, options)](#TemplateHelpers.cValue) ⇒ <code>String</code> &#124; <code>Number</code>
+    * [.layout([options])](#TemplateHelpers.layout) ⇒ <code>string</code>
+    * [.requireAssets(globPath)](#TemplateHelpers.requireAssets) ⇒ <code>string</code>
+    * [.scopeId()](#TemplateHelpers.scopeId) ⇒ <code>string</code>
+    * [.templateUrl(path)](#TemplateHelpers.templateUrl) ⇒ <code>string</code>
+
+<a name="TemplateHelpers.assetPath"></a>
+
+### TemplateHelpers.assetPath(path) ⇒ <code>function</code> &#124; <code>String</code>
+Build the S3 path to an asset particle within the project
+
+**Kind**: static method of <code>[TemplateHelpers](#TemplateHelpers)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | the path to the particle relative to the `assets` directory |
+
+**Example**  
+```js
+{{assetPath "myasset.zip"}}
+```
+**Example**  
+```js
+{{assetPath "path/to/myasset.sh"}}
+```
+<a name="TemplateHelpers.assetS3Url"></a>
+
+### TemplateHelpers.assetS3Url(path, options) ⇒ <code>String</code>
+Build full S3 URL an asset particle within the project
+
+**Kind**: static method of <code>[TemplateHelpers](#TemplateHelpers)</code>  
+**Returns**: <code>String</code> - - Full S3 URL to the asset  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | the path to the particle relative to the `assets` directory |
+| options | <code>Object</code> | options used to generate the URL |
+| options.protocol | <code>Object</code> | [s3|https] s3:// or https:// |
+
+**Example**  
+```js
+{{assetS3Url "myasset.zip"}}
+```
+**Example**  
+```js
+{{assetS3Url "myasset.zip" protocol="s3"}}
+```
+**Example**  
+```js
+{{assetS3Url "path/to/myasset.sh"}}
+```
+<a name="TemplateHelpers.cValue"></a>
+
+### TemplateHelpers.cValue(str, options) ⇒ <code>String</code> &#124; <code>Number</code>
+Coerce Value
+
+Will check to see if a string is a parsable object. If it is,
+then it will be left alone and simply returned back.
+
+If the string is not a parseable object it will be made JSON compliant and returned.
+
+If the string is empty, null, undefined or otherwise `falsey` then an empty string will be returned.
+
+**Kind**: static method of <code>[TemplateHelpers](#TemplateHelpers)</code>  
+**Summary**: Coerce value  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>string</code> | The string to evaluate |
+| options | <code>Object</code> | options object from Handlebars |
+| options.forceNumber | <code>boolean</code> | return a number at all costs |
+
+**Example**  
+```js
+---
+foo: bar
+baz: {"Ref": "LogicalId"}
+faz: "5"
+---
+{{cValue foo}}
+{{cValue baz}}
+{{cValue faz forceNumber=true}}
+```
+<a name="TemplateHelpers.layout"></a>
+
+### TemplateHelpers.layout([options]) ⇒ <code>string</code>
+Start a layout
+
+**Kind**: static method of <code>[TemplateHelpers](#TemplateHelpers)</code>  
+**Returns**: <code>string</code> - - CloudFormation Template  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [options] | <code>Object</code> |  | options object from Handlebars |
+| [options.AWSTemplateFormatVersion] | <code>string</code> | <code>&quot;2010-09-09&quot;</code> | AWS Format Version |
+| [options.TemplateDescription] | <code>string</code> |  | Description for the template |
+| [options.Transform] | <code>string</code> |  | AWS Transform type for the template |
+
+**Example**  
+```js
+---
+things:
+-
+  name: subnet1
+  cidr: "10.0.0.0/24"
+-
+  name subnet2
+  cidr: "10.0.1.0/24"
+---
+
+{{#layout templateDescription="condensation rocks!"}}
+  {{parameter 'my_parameter' logicalId="MyParameter"}}
+  {{condition 'my_condition' logicalId="MyCondition"}}
+
+  {{! helpers can occur in any order, allowing you to group related section parts together }}
+
+  {{#each things}}
+    {{parameter 'repeate_me' logicalId="RepeateMe" logicalIdSuffix=@index}}
+    {{condition 'repeate_me' logicalId="RepeateMeCond" logicalIdSuffix=@index}}
+    {{resource 'repeate_me' logicalId="RepeateMeResource" logicalIdSuffix=@index}}
+    {{output 'repeate_me' logicalId="RepeateMeOutput" logicalIdSuffix=@index}}
+  {{/each}}
+{{/layout}} 
+```
+<a name="TemplateHelpers.requireAssets"></a>
+
+### TemplateHelpers.requireAssets(globPath) ⇒ <code>string</code>
+Include a glob of assets
+
+Only needed for assets that are not directly referenced by another particle
+
+**Kind**: static method of <code>[TemplateHelpers](#TemplateHelpers)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| globPath | <code>string</code> | Glob patter of assets to package with the project |
+
+**Example**  
+```js
+{{requireAssets "all_of_these/**"}}
+```
+**Example**  
+```js
+{{requireAssets "module:<MODULE>" 'all_from_module/**'}}
+```
+**Example**  
+```js
+{{!-- to load modules with format `particles-NAME` --}}
+{{requireAssets "m:<NAME>" "all_from_module/**"}}
+```
+<a name="TemplateHelpers.scopeId"></a>
+
+### TemplateHelpers.scopeId() ⇒ <code>string</code>
+Used within sets to add the correct logicalIdPrefix and/or logicalIdSuffix to a logicalId
+
+**Kind**: static method of <code>[TemplateHelpers](#TemplateHelpers)</code>  
+**Returns**: <code>string</code> - - The logical with the correct prefix and suffix for the current scope  
+
+| Type | Description |
+| --- | --- |
+| <code>string</code> | The logicalId |
+
+**Example**  
+```js
+{{scopeId "LogicalId"}}
+```
+**Example**  
+```js
+{{ref (scopeId "LogicalId")}}
+```
+<a name="TemplateHelpers.templateUrl"></a>
+
+### TemplateHelpers.templateUrl(path) ⇒ <code>string</code>
+Generate an S3 URL for another template in the project
+
+**Kind**: static method of <code>[TemplateHelpers](#TemplateHelpers)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | Path to the template (file extensions optional) |
+
+**Example**  
+```js
+{{templateUrl "another.template.json"}}
+```
+**Example**  
+```js
+{{templateUrl "module:<MODULE>" 'another.template.json'}}
+```
+**Example**  
+```js
+{{!-- to load modules with format `particles-NAME` --}}
+{{set "m:<NAME>" "another.template.json"}}
+```
 <a name="ParticleHelpers"></a>
 
 ## ParticleHelpers : <code>object</code>
@@ -703,6 +642,63 @@ Include a set particle
 {{set "m:<NAME>" "module_set"}}
 {{set "m:<NAME>" "module_set" logicalIdPrefix="First"}}
 {{set "m:<NAME>" "module_set" logicalIdPrefix="Second"}}
+```
+<a name="HandlebarsHelpers"></a>
+
+## HandlebarsHelpers : <code>object</code>
+**Kind**: global namespace  
+
+* [HandlebarsHelpers](#HandlebarsHelpers) : <code>object</code>
+    * [.concat(...string)](#HandlebarsHelpers.concat) ⇒ <code>String</code>
+    * [.stringify([string])](#HandlebarsHelpers.stringify) ⇒ <code>String</code>
+
+<a name="HandlebarsHelpers.concat"></a>
+
+### HandlebarsHelpers.concat(...string) ⇒ <code>String</code>
+Concatenates two or more strings
+
+**Kind**: static method of <code>[HandlebarsHelpers](#HandlebarsHelpers)</code>  
+**Returns**: <code>String</code> - - One concatenated string  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...string | <code>string</code> | two or more strings to concatenate |
+
+**Example**  
+```js
+{{concat "string1" "string2"}}
+```
+<a name="HandlebarsHelpers.stringify"></a>
+
+### HandlebarsHelpers.stringify([string]) ⇒ <code>String</code>
+JSON.stringify a string or block
+
+**Kind**: static method of <code>[HandlebarsHelpers](#HandlebarsHelpers)</code>  
+**Returns**: <code>String</code> - - JSON.stringify result of block or string  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [string] | <code>string</code> | String to use if block is not present |
+
+**Example**  
+```js
+{{stringify "a !string for {json} /end"}}
+```
+**Example**  
+```js
+{{#stringify}}
+  mybash.sh -o option1
+  continue.sh
+{{/stringify}}
+```
+**Example**  
+```js
+{{#stringify noLineBreaks}}
+  docker run
+  -e VAR1=VAL1
+  -e VAR2=VAL2
+  my/image
+{{/stringify}}
 ```
 <a name="genTaskNameFunc"></a>
 
