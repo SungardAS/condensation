@@ -18,6 +18,9 @@ then it will be left alone and simply returned back.</p>
 <p>If the string is not a parseable object it will be made JSON compliant and returned.</p>
 <p>If the string is empty, null, undefined or otherwise <code>falsey</code> then an empty string will be returned.</p>
 </dd>
+<dt><a href="#IntrinsicFunctions.module_fnAnd">fnAnd</a> ⇒ <code>string</code></dt>
+<dd><p>Fn::And definition</p>
+</dd>
 <dt><a href="#module_helper">helper</a> ⇒ <code>*</code></dt>
 <dd><p>Run a helper particle</p>
 </dd>
@@ -33,12 +36,6 @@ then it will be left alone and simply returned back.</p>
 </dd>
 <dt><a href="#module_scopeId">scopeId</a> ⇒ <code>string</code></dt>
 <dd><p>Used within sets to add the correct logicalIdPrefix and/or logicalIdSuffix to a logicalId</p>
-</dd>
-<dt><a href="#module_condition">condition</a></dt>
-<dd><p>Creates a condition</p>
-</dd>
-<dt><a href="#Condensation.Sections.module_mapping">mapping</a> : <code>function</code></dt>
-<dd><p>Mapping</p>
 </dd>
 <dt><a href="#TemplateHelpers.module_set">set</a> ⇒ <code>string</code></dt>
 <dd><p>Include a set particle</p>
@@ -65,8 +62,9 @@ then it will be left alone and simply returned back.</p>
 
 <dl>
 <dt><a href="#IntrinsicFunctions">IntrinsicFunctions</a> : <code>object</code></dt>
-<dd></dd>
-<dt><a href="#sections">sections</a> : <code>object</code></dt>
+<dd><p>Handlebars helpers that will create AWS Intrinsic Functions</p>
+</dd>
+<dt><a href="#ParticleHelpers">ParticleHelpers</a> : <code>object</code></dt>
 <dd></dd>
 </dl>
 
@@ -156,6 +154,18 @@ faz: "5"
 {{cValue baz}}
 {{cValue faz forceNumber=true}}
 ```
+<a name="IntrinsicFunctions.module_fnAnd"></a>
+
+## fnAnd ⇒ <code>string</code>
+Fn::And definition
+
+**Returns**: <code>string</code> - A JSON compliant Ref object for CloudFormation  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...condition | <code>string</code> | Any number of conditions |
+| options | <code>Object</code> | options passed by handlebars |
+
 <a name="module_helper"></a>
 
 ## helper ⇒ <code>\*</code>
@@ -297,16 +307,6 @@ Used within sets to add the correct logicalIdPrefix and/or logicalIdSuffix to a 
 ```js
 {{ref (scopeId "LogicalId")}}
 ```
-<a name="module_condition"></a>
-
-## condition
-Creates a condition
-
-<a name="Condensation.Sections.module_mapping"></a>
-
-## mapping : <code>function</code>
-Mapping
-
 <a name="TemplateHelpers.module_set"></a>
 
 ## set ⇒ <code>string</code>
@@ -442,10 +442,11 @@ Condense the project
 <a name="IntrinsicFunctions"></a>
 
 ## IntrinsicFunctions : <code>object</code>
+Handlebars helpers that will create AWS Intrinsic Functions
+
 **Kind**: global namespace  
 
 * [IntrinsicFunctions](#IntrinsicFunctions) : <code>object</code>
-    * [.fnAnd(...condition, options)](#IntrinsicFunctions.fnAnd) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnBase64(str, options)](#IntrinsicFunctions.fnBase64) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnEquals(v1, v2)](#IntrinsicFunctions.fnEquals) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnFindInMap(mapName, topLevelKey, secondLevelKey, options)](#IntrinsicFunctions.fnFindInMap) ⇒ <code>function</code> &#124; <code>string</code>
@@ -459,18 +460,6 @@ Condense the project
     * [.fnSelect(index, options)](#IntrinsicFunctions.fnSelect) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnSub(str, options)](#IntrinsicFunctions.fnSub) ⇒ <code>function</code> &#124; <code>string</code>
     * [.ref(logicalId, options)](#IntrinsicFunctions.ref) ⇒ <code>function</code> &#124; <code>String</code>
-
-<a name="IntrinsicFunctions.fnAnd"></a>
-
-### IntrinsicFunctions.fnAnd(...condition, options) ⇒ <code>function</code> &#124; <code>string</code>
-Fn::And definition
-
-**Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| ...condition | <code>string</code> | Any number of conditions |
-| options | <code>Object</code> | options passed by handlebars |
 
 <a name="IntrinsicFunctions.fnBase64"></a>
 
@@ -669,10 +658,48 @@ Ref definition
 ```js
 {{ref "Parameter2" scope=false}}
 ```
-<a name="sections"></a>
+<a name="ParticleHelpers"></a>
 
-## sections : <code>object</code>
+## ParticleHelpers : <code>object</code>
 **Kind**: global namespace  
+
+* [ParticleHelpers](#ParticleHelpers) : <code>object</code>
+    * [.condition()](#ParticleHelpers.condition)
+    * [.mapping()](#ParticleHelpers.mapping) ⇒ <code>function</code>
+    * [.metadata()](#ParticleHelpers.metadata) ⇒ <code>function</code>
+    * [.parameter()](#ParticleHelpers.parameter) ⇒ <code>function</code>
+    * [.resource()](#ParticleHelpers.resource)
+
+<a name="ParticleHelpers.condition"></a>
+
+### ParticleHelpers.condition()
+Creates a condition
+
+**Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+<a name="ParticleHelpers.mapping"></a>
+
+### ParticleHelpers.mapping() ⇒ <code>function</code>
+Mapping
+
+**Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+<a name="ParticleHelpers.metadata"></a>
+
+### ParticleHelpers.metadata() ⇒ <code>function</code>
+Metadata
+
+**Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+<a name="ParticleHelpers.parameter"></a>
+
+### ParticleHelpers.parameter() ⇒ <code>function</code>
+Parameter
+
+**Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+<a name="ParticleHelpers.resource"></a>
+
+### ParticleHelpers.resource()
+Resource
+
+**Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
 <a name="genTaskNameFunc"></a>
 
 ## genTaskNameFunc(options) ⇒ <code>[taskNameFunc](#genTaskNameFunc..taskNameFunc)</code>

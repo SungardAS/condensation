@@ -7,7 +7,8 @@
   "description": "Package, reuse and share particles for CloudFormation projects",
   "main": "index.js",
   "scripts": {
-    "test": "mocha \"./test/**/*.test.js\" --timeout 45000"
+    "test": "mocha \"./test/**/*.test.js\" --timeout 45000",
+    "build-docs": "node ./bin/buildDocs.js"
   },
   "repository": {
     "type": "git",
