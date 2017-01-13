@@ -1,7 +1,7 @@
 <a name="IntrinsicFunctions"></a>
 
 ## IntrinsicFunctions
-Handlebars helpers that will create AWS Intrinsic Functions
+Helpers that will create AWS Intrinsic Functions
 
 **Kind**: global namespace  
 

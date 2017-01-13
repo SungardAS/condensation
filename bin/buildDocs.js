@@ -19,7 +19,6 @@ jsdoc2md.render({
 
 jsdoc2md.render({
   files: [
-    'lib/condensation/template-helpers/index.js',
     'lib/condensation/template-helpers/sections/*.js',
     'lib/condensation/template-helpers/helper.js',
     'lib/condensation/template-helpers/partial.js',
