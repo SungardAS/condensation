@@ -95,21 +95,18 @@ Condensation will process any template that ends with `.hbs`
 
 This allows static templates to be deployed alongside compiled templates
 
-To take full advantage of condensation use a
-[layout](template-helpers.md#layout)
+### layout support
 
+Instead of including particles within a traditional CloudFormation
+template use a [layout](docs/template-helpers.md#TemplateHelpers.layout)
+to include particles in any order you wish.  They will be added to correct
+template section during the condensation build process.
 
 #### Lazy Loading
 
 Particles will only be included in the final distribution if they are
 referenced in a `hbs` file.
 
-### layout support
-
-Instead of including particles within a traditional CloudFormation
-template the use of a [layout](docs/template-helpers.md#TemplateHelpers.layout)
-supports capturing helper output and adding it to the correct section.
-Particles within a layout do not have to to be in any specific order.
 
 ## Config Options
 
