@@ -3,6 +3,21 @@ All notable changes to this project will be documented here in
 accordance with [Keep a CHANGELOG][keep-changelog-url].
 This project adheres to [Semantic Versioning][semver-url].
 
+## [0.6.0] - 2017-01-16
+### Added
+- Helpers for all CloudFormation Functions fnAnd, fnBase64, fnEquals,
+  fnFindInMap, fnGetAtt, FnGetAZs, fnIf, fnImportValue, fnJoin, fnOr,
+  fnSelect, fnSub, ref
+
+- New template helpers arrayify and cValue
+
+- New handlebars helper stringify
+
+### Changed
+- Error handling now uses VError
+
+- Documention is now converted from jsdoc to markdown with jsdoc2md
+
 ## [0.5.9] - 2016-12-28
 ### Fixed
 - Bug where logicalIdPrefix would not work correctly with sets that
