@@ -1,13 +1,14 @@
 {
   "name": "condensation",
-  "version": "0.6.0-rc0",
+  "version": "0.6.0-rc1",
   "publishConfig": {
     "tag": "rc"
   },
   "description": "Package, reuse and share particles for CloudFormation projects",
   "main": "index.js",
   "scripts": {
-    "test": "mocha \"./test/**/*.test.js\" --timeout 45000"
+    "test": "mocha \"./test/**/*.test.js\" --timeout 45000",
+    "build-docs": "node ./bin/buildDocs.js"
   },
   "repository": {
     "type": "git",
@@ -55,6 +56,7 @@
     "condensation-particle-tests": "^0.5.2",
     "coveralls": "^2.11.15",
     "istanbul": "^0.4.5",
+    "jsdoc-to-markdown": "^2.0.1",
     "mocha": "^3.1.2",
     "semver": "^5.3.0"
   },
