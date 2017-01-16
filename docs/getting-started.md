@@ -36,3 +36,5 @@ $ npm run build
 
 Check out the growing list of particles on
 [npm](https://www.npmjs.com/browse/keyword/condensation-particles)!
+
+[condensation-docker-url]: https://github.com/SungardAS/condensation-docker
