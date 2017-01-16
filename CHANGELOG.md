@@ -129,3 +129,4 @@ This project adheres to [Semantic Versioning][semver-url].
 
 [keep-changelog-url]: http://keepachangelog.com/
 [cpt-url]: https://github.com/SungardAS/condensation-particle-tests
+[semver-url]: http://semver.org
