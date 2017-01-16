@@ -11,6 +11,8 @@ Get a full list of tasks by running:
 By default all tasks are prefixed with `condensation:`. This can be
 changed with the `taskPrefix` config option.
 
+-
+
 ## Default
 
 The `default` task is an alias for `build`. It will prepare all files
@@ -21,7 +23,10 @@ for deployment to s3. Templates and assets are written to the configured
 
 **nodejs** - `npm run gulp`
 
+-
+
 ## s3:list
+
 Will list all the configured s3 buckets and module corresponding ID.
 
 The IDs can be used to deploy to a single bucket instead of all buckets.
@@ -42,6 +47,7 @@ The IDs can be used to deploy to a single bucket instead of all buckets.
 -
 
 ## build
+
 For the `build` task to run AWS credentials must be set as environment
 variables: `AWS_SECRET_ACCESS_KEY` and `AWS_ACCESS_KEY_ID`
 
@@ -59,6 +65,7 @@ This will build and verify all templates
 -
 
 ## deploy
+
 For the `deploy` task to run AWS credentials must be set as environment
 variables: `AWS_SECRET_ACCESS_KEY` and `AWS_ACCESS_KEY_ID`
 
@@ -76,6 +83,7 @@ This will upload templates to all cofigured S3 buckets.
 -
 
 ## deploy:ID
+
 Deploy templates to a specific S3 bucket.
 
 **condensation-docker** - `condensation run-task deploy:0`
@@ -85,6 +93,7 @@ Deploy templates to a specific S3 bucket.
 -
 
 ## deploy:LABEL
+
 Deploy templates to all S3 buckets that contain the label, LABEL.
 
 **condensation-docker** - `condensation run-task deploy:dev`
