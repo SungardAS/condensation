@@ -11,6 +11,9 @@ $ alias condensation="docker run -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -
 $ condensation create project particles-MYPROJECT
 $ cd particles-MYPROJECT
 $ condensation run build
+
+# Upload to S3
+$ condensation run deploy
 ```
 
 <a name="nodejs"></a>
@@ -25,6 +28,9 @@ $ npm install -g generator-condensation
 $ yo condensation:project particles-MYPROJECT
 $ cd particles-MYPROJECT
 $ npm run build
+
+# Upload to S3
+$ npm run deploy
 ```
 
 ### Example Projects

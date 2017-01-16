@@ -33,9 +33,15 @@ $ alias condensation="docker run -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -
 $ condensation create project particles-MYPROJECT
 $ cd particles-MYPROJECT
 $ condensation run build
+
+# Upload to S3
+$ condensation run deploy
 ```
 
 You can also get started with [nodejs](docs/getting-started.md#nodejs)
+
+Next become familiar with all of Condensation's [tasks](docs/tasks.md)
+
 
 ## Use
 
