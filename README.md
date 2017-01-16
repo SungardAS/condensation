@@ -84,6 +84,21 @@ are able to load [particles](docs/particle-helpers.md) from the local project
 or from any condensation compatible module added as a npm
 dependency.
 
+#### Processing Templates
+
+Condensation will process any template that ends with `.hbs`
+```
+- particles
+|- cftemplates
+ |- network.template.json.hbs
+```
+
+This allows static templates to be deployed alongside compiled templates
+
+To take full advantage of condensation use a
+[layout](template-helpers.md#layout)
+
+
 #### Lazy Loading
 
 Particles will only be included in the final distribution if they are
