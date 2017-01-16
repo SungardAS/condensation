@@ -13,7 +13,7 @@ $ cd particles-MYPROJECT
 $ condensation run build
 ```
 
-<a name="#nodejs"></a>
+<a name="nodejs"></a>
 ### With a nodejs environment
 
 Use the Yeoman
