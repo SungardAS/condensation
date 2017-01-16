@@ -84,7 +84,7 @@ are able to load [particles](docs/particle-helpers.md) from the local project
 or from any condensation compatible module added as a npm
 dependency.
 
-#### Processing Templates
+### Processing Templates
 
 Condensation will process any template that ends with `.hbs`
 ```
@@ -102,7 +102,7 @@ template use a [layout](docs/template-helpers.md#TemplateHelpers.layout)
 to include particles in any order you wish.  They will be added to correct
 template section during the condensation build process.
 
-#### Lazy Loading
+### Lazy Loading
 
 Particles will only be included in the final distribution if they are
 referenced in a `hbs` file.
