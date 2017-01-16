@@ -40,6 +40,7 @@ jsdoc2md.render({
 jsdoc2md.render({
   files: [
     'lib/condensation/template-helpers/index.js',
+    'lib/condensation/template-helpers/arrayify.js',
     'lib/condensation/template-helpers/assetPath.js',
     'lib/condensation/template-helpers/cValue.js',
     'lib/condensation/template-helpers/layout.js',
@@ -56,6 +57,23 @@ jsdoc2md.render({
   "module-index-format": "none"
 }).then(function(doc) {
   fs.writeFile(path.join(__dirname,"..","docs","template-helpers.md"),doc,function(err) {
+    //done
+  });
+});
+
+jsdoc2md.render({
+  files: [
+    'lib/handlebars-helpers/*'
+  ],
+  partial: [
+    path.join(__dirname,"..","jsdoc2md","templates","sig-name.hbs")
+  ],
+  separators: true,
+  "name-format": false,
+  "global-index-format": "none",
+  "module-index-format": "none"
+}).then(function(doc) {
+  fs.writeFile(path.join(__dirname,"..","docs","handlebars-helpers.md"),doc,function(err) {
     //done
   });
 });

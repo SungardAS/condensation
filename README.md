@@ -33,9 +33,15 @@ $ alias condensation="docker run -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -
 $ condensation create project particles-MYPROJECT
 $ cd particles-MYPROJECT
 $ condensation run build
+
+# Upload to S3
+$ condensation run deploy
 ```
 
 You can also get started with [nodejs](docs/getting-started.md#nodejs)
+
+Next become familiar with all of Condensation's [tasks](docs/tasks.md)
+
 
 ## Use
 
@@ -84,17 +90,29 @@ are able to load [particles](docs/particle-helpers.md) from the local project
 or from any condensation compatible module added as a npm
 dependency.
 
-#### Lazy Loading
+### Processing Templates
 
-Particles will only be included in the final distribution if they are
-referenced in a `hbs` file.
+Condensation will process any template that ends with `.hbs`
+```
+- particles
+|- cftemplates
+ |- network.template.json.hbs
+```
+
+This allows static templates to be deployed alongside compiled templates
 
 ### layout support
 
 Instead of including particles within a traditional CloudFormation
-template the use of a [layout](docs/template-helpers.md#TemplateHelpers.layout)
-supports capturing helper output and adding it to the correct section.
-Particles within a layout do not have to to be in any specific order.
+template use a [layout](docs/template-helpers.md#TemplateHelpers.layout)
+to include particles in any order you wish.  They will be added to correct
+template section during the condensation build process.
+
+### Lazy Loading
+
+Particles will only be included in the final distribution if they are
+referenced in a `hbs` file.
+
 
 ## Config Options
 

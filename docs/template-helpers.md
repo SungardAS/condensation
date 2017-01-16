@@ -6,6 +6,7 @@ Condensation specific helpers for common tasks
 **Kind**: global namespace  
 
 * [TemplateHelpers](#TemplateHelpers) : <code>object</code>
+    * [.arrayify(...str)](#TemplateHelpers.arrayify) ⇒ <code>String</code>
     * [.assetPath(path)](#TemplateHelpers.assetPath) ⇒ <code>String</code>
     * [.cValue(str, options)](#TemplateHelpers.cValue) ⇒ <code>string</code> &#124; <code>Number</code>
     * [.layout([options])](#TemplateHelpers.layout) ⇒ <code>string</code>
@@ -13,6 +14,30 @@ Condensation specific helpers for common tasks
     * [.scopeId()](#TemplateHelpers.scopeId) ⇒ <code>string</code>
     * [.templateUrl(path)](#TemplateHelpers.templateUrl) ⇒ <code>string</code>
 
+
+-
+
+<a name="TemplateHelpers.arrayify"></a>
+
+### arrayify(...str)
+Turn a string into a JSON parseable array.
+Each value is processed with `cValue`
+
+**Kind**: static method of <code>[TemplateHelpers](#TemplateHelpers)</code>  
+**Returns**: <code>String</code> - - When parsed will be an array  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...str | <code>string</code> | String to use if block is not present |
+
+**Example**  
+```js
+{{arrayify "string" (ref "Parameter1") }}
+```
+**Example**  
+```js
+{{arrayify (ref "Parameter1")}}
+```
 
 -
 
