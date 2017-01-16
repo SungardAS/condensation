@@ -11,7 +11,6 @@ Get a full list of tasks by running:
 By default all tasks are prefixed with `condensation:`. This can be
 changed with the `taskPrefix` config option.
 
--
 
 ## Default
 
@@ -23,7 +22,6 @@ for deployment to s3. Templates and assets are written to the configured
 
 **nodejs** - `npm run gulp`
 
--
 
 ## s3:list
 
@@ -44,7 +42,6 @@ The IDs can be used to deploy to a single bucket instead of all buckets.
     1: a.bucket.in.us-west-2
     [10:21:47] Finished 'condensation:s3:list' after 153 μs
 
--
 
 ## build
 
@@ -62,7 +59,6 @@ This will build and verify all templates
 
     > AWS_SECRET_ACCESS_KEY=XXXX AWS_ACCESS_KEY_ID=XXXX condensation run build
 
--
 
 ## deploy
 
@@ -80,7 +76,6 @@ This will upload templates to all cofigured S3 buckets.
 
     > AWS_SECRET_ACCESS_KEY=XXXX AWS_ACCESS_KEY_ID=XXXX condensation run deploy
 
--
 
 ## deploy:ID
 
@@ -90,7 +85,6 @@ Deploy templates to a specific S3 bucket.
 
 **nodejs** - `npm run gulp condensation:deploy:0`
 
--
 
 ## deploy:LABEL
 
