@@ -29,7 +29,7 @@ Will list all the configured s3 buckets and module corresponding ID.
 
 The IDs can be used to deploy to a single bucket instead of all buckets.
 
-**condensation-docker** - `condensation s3:list`
+**condensation-docker** - `condensation run-task s3:list`
 
 **nodejs** - `npm run gulp condensation:s3:list`
 
