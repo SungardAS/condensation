@@ -7,6 +7,11 @@ describe('concat', function() {
     assert.equal(string,'onetwo');
   });
 
+  it('should concatenate strings with a separator', function() {
+    var string = concat('one','two',{hash: {separator: "-"}});
+    assert.equal(string,'one-two');
+  });
+
   it('should return with a single string', function() {
     var string = concat('one',{});
     assert.equal(string,'one');
@@ -16,4 +21,5 @@ describe('concat', function() {
     var string = concat({});
     assert.equal(string,'');
   });
+
 });

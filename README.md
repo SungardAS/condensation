@@ -134,7 +134,6 @@ Particles within a layout do not have to to be in any specific order.
     };
 
 
-
 ##Front Matter
 
 All particles are first processed with
