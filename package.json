@@ -21,7 +21,7 @@
     "backoff": "^2.5.0",
     "del": "^2.2.2",
     "event-stream": "^3.3.4",
-    "fs-extra": "^1.0.0",
+    "fs-extra": "^2.0.0",
     "glob": "^7.1.1",
     "graceful-fs": "^4.1.10",
     "gray-matter": "^2.1.0",
