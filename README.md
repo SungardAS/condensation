@@ -49,6 +49,8 @@ Next become familiar with all of Condensation's [tasks](docs/tasks.md)
 
 [Template Helpers](docs/template-helpers.md)
 
+[Handlebars Helpers](docs/handlebars-helpers.md)
+
 [AWS Intrinsic Functions](docs/intrinsic-functions.md)
 
 ### Project Structure
