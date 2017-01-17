@@ -17,7 +17,8 @@ Helpers that will create AWS Intrinsic Functions
     * [.fnJoin(...str, options)](#IntrinsicFunctions.fnJoin) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnNot(condition, options)](#IntrinsicFunctions.fnNot) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnOr(...condition, options)](#IntrinsicFunctions.fnOr) ⇒ <code>function</code> &#124; <code>string</code>
-    * [.fnSelect(index, options)](#IntrinsicFunctions.fnSelect) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnSelect(index, ...str, options)](#IntrinsicFunctions.fnSelect) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnSplit(delimiter, str, options)](#IntrinsicFunctions.fnSplit) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnSub(str, options)](#IntrinsicFunctions.fnSub) ⇒ <code>function</code> &#124; <code>string</code>
     * [.ref(logicalId, options)](#IntrinsicFunctions.ref) ⇒ <code>function</code> &#124; <code>String</code>
 
@@ -30,7 +31,6 @@ Helpers that will create AWS Intrinsic Functions
 Fn::And definition
 
 **Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
-**Returns**: <code>string</code> - A JSON compliant Ref object for CloudFormation  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -205,7 +205,7 @@ Fn::Or definition
 
 <a name="IntrinsicFunctions.fnSelect"></a>
 
-### fnSelect(index, options)
+### fnSelect(index, ...str, options)
 Fn::Select definition
 
 **Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
@@ -213,7 +213,7 @@ Fn::Select definition
 | Param | Type | Description |
 | --- | --- | --- |
 | index | <code>Number</code> | array member to pick |
-| ... | <code>string</code> |  |
+| ...str | <code>string</code> | strings to select from |
 | options | <code>Object</code> | options passed by handlebars |
 
 **Example**  
@@ -223,6 +223,26 @@ Fn::Select definition
 **Example**  
 ```js
 {{fnSelect 0 "value1" "value2"}}
+```
+
+-
+
+<a name="IntrinsicFunctions.fnSplit"></a>
+
+### fnSplit(delimiter, str, options)
+Fn::Split definition
+
+**Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| delimiter | <code>string</code> | A string value that determines where the source string is divided |
+| str | <code>string</code> | A string |
+| options | <code>Object</code> | options passed by handlebars |
+
+**Example**  
+```js
+{{fnSplit ":" "split:me"}}
 ```
 
 -

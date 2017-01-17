@@ -3,6 +3,10 @@ All notable changes to this project will be documented here in
 accordance with [Keep a CHANGELOG][keep-changelog-url].
 This project adheres to [Semantic Versioning][semver-url].
 
+## [0.6.1] - 2017-01-17
+### Added
+- fnSplit helper
+
 ## [0.6.0] - 2017-01-16
 ### Added
 - Helpers for all CloudFormation Functions fnAnd, fnBase64, fnEquals,
