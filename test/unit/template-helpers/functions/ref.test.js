@@ -29,6 +29,11 @@ describe("helpers", function() {
       assert.deepEqual(result,'{"Ref": "LogicalId"}');
     });
 
+    it("should not scope psuedo parameters that start with AWS::", function() {
+      var result = ref.apply({logicalIdPrefix: "My", logicalIdSuffix: "2"}, ["AWS::NoValue",{hash: {scope:true}}]);
+      assert.deepEqual(result,'{"Ref": "AWS::NoValue"}');
+    });
+
   })
 });
 

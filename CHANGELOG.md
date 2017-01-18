@@ -3,6 +3,17 @@ All notable changes to this project will be documented here in
 accordance with [Keep a CHANGELOG][keep-changelog-url].
 This project adheres to [Semantic Versioning][semver-url].
 
+## [0.6.3] - [2017-01-18]
+### Changed
+- Impoved particle path load error
+
+### Fixed
+- ref helper should not scope psuedo variables that start with AWS::
+
+## [0.6.2] - 2017-01-17
+### Changed
+- Only clean the S3 bucket if the build passes
+
 ## [0.6.1] - 2017-01-17
 ### Added
 - fnSplit helper
