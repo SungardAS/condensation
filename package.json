@@ -16,6 +16,7 @@
   },
   "author": "Kevin McGrath <kevin.mcgrath@sungardas.com>",
   "dependencies": {
+    "async": "^2.1.4",
     "aws-sdk": "^2.7.3",
     "backlog": "0.0.3",
     "backoff": "^2.5.0",
@@ -35,6 +36,7 @@
     "merge-stream": "^1.0.0",
     "rimraf": "^2.5.4",
     "s3": "^4.4.0",
+    "shortid": "^2.2.6",
     "slash": "^1.0.0",
     "through2": "^2.0.1",
     "verror": "^1.9.0",
