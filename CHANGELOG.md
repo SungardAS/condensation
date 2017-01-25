@@ -10,6 +10,8 @@ This project adheres to [Semantic Versioning][semver-url].
 ### Fixed
 - Layout compile error messages now report which template the error is
   in
+- partials always return a string and not a safestring object
+- fnSub will check for string before checking for first character
 
 ## [0.6.3] - [2017-01-18]
 ### Changed
