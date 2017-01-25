@@ -3,6 +3,14 @@ All notable changes to this project will be documented here in
 accordance with [Keep a CHANGELOG][keep-changelog-url].
 This project adheres to [Semantic Versioning][semver-url].
 
+## [UNRELEASED]
+### Added
+- front loaders - scripts that can run before a template is processed
+
+### Fixed
+- Layout compile error messages now report which template the error is
+  in
+
 ## [0.6.3] - [2017-01-18]
 ### Changed
 - Impoved particle path load error
