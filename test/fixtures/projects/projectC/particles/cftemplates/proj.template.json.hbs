@@ -1,5 +1,14 @@
+---
+frontload:
+  someString:
+    loader: testLoader
+    args: "hello"
+---
 {
   "Description": "{{helper 'module:projectB' 'hello-b'}}",
+  "Metadata": {
+    "SayHello": {{cValue someString}}
+  },
   "Mappings": {
     "myAMImap": {{partial 'module:projectB' 'ami_map.partial'}}
   },
