@@ -54,7 +54,7 @@
   "homepage": "https://github.com/sungardas/condensation",
   "devDependencies": {
     "clone": "^2.0.0",
-    "condensation-particle-tests": "^0.5.2",
+    "condensation-particle-tests": "^0.5.4",
     "coveralls": "^2.11.15",
     "istanbul": "^0.4.5",
     "jsdoc-to-markdown": "^2.0.1",

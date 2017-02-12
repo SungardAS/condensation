@@ -6,7 +6,7 @@ Helpers that will create AWS Intrinsic Functions
 **Kind**: global namespace  
 
 * [IntrinsicFunctions](#IntrinsicFunctions) : <code>object</code>
-    * [.fnAnd(...condition, options)](#IntrinsicFunctions.fnAnd) ⇒ <code>string</code>
+    * [.fnAnd(...condition)](#IntrinsicFunctions.fnAnd) ⇒ <code>string</code>
     * [.fnBase64(str, options)](#IntrinsicFunctions.fnBase64) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnEquals(v1, v2)](#IntrinsicFunctions.fnEquals) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnFindInMap(mapName, topLevelKey, secondLevelKey, options)](#IntrinsicFunctions.fnFindInMap) ⇒ <code>function</code> &#124; <code>string</code>
@@ -16,7 +16,7 @@ Helpers that will create AWS Intrinsic Functions
     * [.fnImportValue(sharedValue, options)](#IntrinsicFunctions.fnImportValue) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnJoin(...str, options)](#IntrinsicFunctions.fnJoin) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnNot(condition, options)](#IntrinsicFunctions.fnNot) ⇒ <code>function</code> &#124; <code>string</code>
-    * [.fnOr(...condition, options)](#IntrinsicFunctions.fnOr) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnOr(...condition)](#IntrinsicFunctions.fnOr) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnSelect(index, ...str, options)](#IntrinsicFunctions.fnSelect) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnSplit(delimiter, str, options)](#IntrinsicFunctions.fnSplit) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnSub(str, options)](#IntrinsicFunctions.fnSub) ⇒ <code>function</code> &#124; <code>string</code>
@@ -27,7 +27,7 @@ Helpers that will create AWS Intrinsic Functions
 
 <a name="IntrinsicFunctions.fnAnd"></a>
 
-### fnAnd(...condition, options)
+### fnAnd(...condition)
 Fn::And definition
 
 **Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
@@ -35,7 +35,6 @@ Fn::And definition
 | Param | Type | Description |
 | --- | --- | --- |
 | ...condition | <code>string</code> | Any number of conditions |
-| options | <code>Object</code> | options passed by handlebars |
 
 
 -
@@ -190,7 +189,7 @@ Fn::Not definition
 
 <a name="IntrinsicFunctions.fnOr"></a>
 
-### fnOr(...condition, options)
+### fnOr(...condition)
 Fn::Or definition
 
 **Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
@@ -198,7 +197,6 @@ Fn::Or definition
 | Param | Type | Description |
 | --- | --- | --- |
 | ...condition | <code>string</code> | One to many conditions |
-| options | <code>Object</code> | options passed by handlebars |
 
 
 -

@@ -273,7 +273,7 @@ can also be used, where <M> is the name of the module without `particles-`
 ```
 
 **Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
-**Returns**: <code>\*</code> - - Will returns the output from the particle helper  
+**Returns**: <code>\*</code> - - The output from the particle helper  
 
 | Param | Type | Description |
 | --- | --- | --- |
