@@ -3,9 +3,10 @@ All notable changes to this project will be documented here in
 accordance with [Keep a CHANGELOG][keep-changelog-url].
 This project adheres to [Semantic Versioning][semver-url].
 
-## [UNRELEASED]
+## [0.6.5] - [2017-02-12]
 ### Added
 - front loaders - scripts that can run before a template is processed
+- more descriptive errors for failed particles
 
 ### Fixed
 - Layout compile error messages now report which template the error is

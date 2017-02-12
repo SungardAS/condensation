@@ -13,6 +13,7 @@ jsdoc2md.render({
   "module-index-format": "none"
 }).then(function(doc) {
   fs.writeFile(path.join(__dirname,"..","docs","intrinsic-functions.md"),doc,function(err) {
+    if (err) console.warn(err);
     //done
   });
 });
@@ -57,6 +58,7 @@ jsdoc2md.render({
   "module-index-format": "none"
 }).then(function(doc) {
   fs.writeFile(path.join(__dirname,"..","docs","template-helpers.md"),doc,function(err) {
+    if (err) console.warn(err);
     //done
   });
 });
@@ -74,6 +76,7 @@ jsdoc2md.render({
   "module-index-format": "none"
 }).then(function(doc) {
   fs.writeFile(path.join(__dirname,"..","docs","handlebars-helpers.md"),doc,function(err) {
+    if (err) console.warn(err);
     //done
   });
 });
