@@ -14,7 +14,7 @@ Helpers that will create AWS Intrinsic Functions
     * [.fnGetAZs(region, options)](#IntrinsicFunctions.fnGetAZs) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnIf(conditionName, trueValue, falseValue, options)](#IntrinsicFunctions.fnIf) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnImportValue(sharedValue, options)](#IntrinsicFunctions.fnImportValue) ⇒ <code>function</code> &#124; <code>string</code>
-    * [.fnJoin(...str, options)](#IntrinsicFunctions.fnJoin) ⇒ <code>function</code> &#124; <code>string</code>
+    * [.fnJoin(arr, options)](#IntrinsicFunctions.fnJoin) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnNot(condition, options)](#IntrinsicFunctions.fnNot) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnOr(...condition)](#IntrinsicFunctions.fnOr) ⇒ <code>function</code> &#124; <code>string</code>
     * [.fnSelect(index, ...str, options)](#IntrinsicFunctions.fnSelect) ⇒ <code>function</code> &#124; <code>string</code>
@@ -151,16 +151,28 @@ Fn::ImportValue definition
 
 <a name="IntrinsicFunctions.fnJoin"></a>
 
-### fnJoin(...str, options)
+### fnJoin(arr, options)
 Fn::Join definition
 
 **Kind**: static method of <code>[IntrinsicFunctions](#IntrinsicFunctions)</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| ...str | <code>string</code> | strings to join together |
+| arr | <code>array</code> &#124; <code>string</code> &#124; <code>string</code> | if one parameter, it will be used as the array.  If multiple, they will be joined to form the array. |
 | options | <code>Object</code> | options passed by handlebars |
 
+**Example**  
+```js
+{{fnJoin "," (ref "Parameter1") }}
+```
+**Example**  
+```js
+{{fnJoin "," (fnGetAZs (ref "AWS::Region")) }}
+```
+**Example**  
+```js
+{{fnJoin "," "one" (ref "Parameter") "three"}}
+```
 
 -
 
