@@ -1,5 +1,7 @@
 # condensation
 
+[![Join the chat at https://gitter.im/SungardAS/condensation](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SungardAS/condensation?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Package, reuse and share particles for CloudFormation projects
 
 ![condensation][condensation-image]
