@@ -5,7 +5,6 @@ node_js:
 - 6
 - 5
 - 4
-- '0.12'
 matrix:
 after_success: NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha
   --report lcovonly -- -R spec --timeout 15000 "./test/**/*.test.js" && cat ./coverage/lcov.info

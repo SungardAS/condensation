@@ -1,6 +1,6 @@
 {
   "name": "condensation",
-  "version": "0.6.7",
+  "version": "0.6.8",
   "publishConfig": {
     "tag": "latest"
   },
@@ -62,7 +62,7 @@
     "semver": "^5.3.0"
   },
   "engines": {
-    "node": ">0.12.0",
+    "node": ">4",
     "iojs": "*"
   },
   "engineStrict": true,
