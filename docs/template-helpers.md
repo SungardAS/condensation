@@ -8,14 +8,14 @@ Condensation specific helpers for common tasks
 * [TemplateHelpers](#TemplateHelpers) : <code>object</code>
     * [.arrayify(...str)](#TemplateHelpers.arrayify) ⇒ <code>String</code>
     * [.assetPath(path)](#TemplateHelpers.assetPath) ⇒ <code>String</code>
-    * [.cValue(str, options)](#TemplateHelpers.cValue) ⇒ <code>string</code> &#124; <code>Number</code>
+    * [.cValue(str, options)](#TemplateHelpers.cValue) ⇒ <code>string</code> \| <code>Number</code>
     * [.layout([options])](#TemplateHelpers.layout) ⇒ <code>string</code>
     * [.requireAssets(globPath)](#TemplateHelpers.requireAssets) ⇒ <code>string</code>
     * [.scopeId()](#TemplateHelpers.scopeId) ⇒ <code>string</code>
     * [.templateUrl(path)](#TemplateHelpers.templateUrl) ⇒ <code>string</code>
 
 
--
+* * *
 
 <a name="TemplateHelpers.arrayify"></a>
 
@@ -23,7 +23,7 @@ Condensation specific helpers for common tasks
 Turn a string into a JSON parseable array.
 Each value is processed with `cValue`
 
-**Kind**: static method of <code>[TemplateHelpers](#TemplateHelpers)</code>  
+**Kind**: static method of [<code>TemplateHelpers</code>](#TemplateHelpers)  
 **Returns**: <code>String</code> - - When parsed will be an array  
 
 | Param | Type | Description |
@@ -39,14 +39,14 @@ Each value is processed with `cValue`
 {{arrayify (ref "Parameter1")}}
 ```
 
--
+* * *
 
 <a name="TemplateHelpers.assetPath"></a>
 
 ### assetPath(path)
 Build the S3 path to an asset particle within the project
 
-**Kind**: static method of <code>[TemplateHelpers](#TemplateHelpers)</code>  
+**Kind**: static method of [<code>TemplateHelpers</code>](#TemplateHelpers)  
 **Returns**: <code>String</code> - - S3 path to the asset  
 
 | Param | Type | Description |
@@ -62,7 +62,7 @@ Build the S3 path to an asset particle within the project
 {{assetPath "path/to/myasset.sh"}}
 ```
 
--
+* * *
 
 <a name="TemplateHelpers.cValue"></a>
 
@@ -76,7 +76,7 @@ If the string is not a parseable object it will be made JSON compliant and retur
 
 If the string is empty, null, undefined or otherwise `falsey` then an empty string will be returned.
 
-**Kind**: static method of <code>[TemplateHelpers](#TemplateHelpers)</code>  
+**Kind**: static method of [<code>TemplateHelpers</code>](#TemplateHelpers)  
 **Summary**: Coerce value  
 
 | Param | Type | Description |
@@ -97,14 +97,14 @@ faz: "5"
 {{cValue faz forceNumber=true}}
 ```
 
--
+* * *
 
 <a name="TemplateHelpers.layout"></a>
 
 ### layout([options])
 Start a layout
 
-**Kind**: static method of <code>[TemplateHelpers](#TemplateHelpers)</code>  
+**Kind**: static method of [<code>TemplateHelpers</code>](#TemplateHelpers)  
 **Returns**: <code>string</code> - - CloudFormation Template  
 
 | Param | Type | Default | Description |
@@ -141,7 +141,7 @@ things:
 {{/layout}} 
 ```
 
--
+* * *
 
 <a name="TemplateHelpers.requireAssets"></a>
 
@@ -150,7 +150,7 @@ Include a glob of assets
 
 Only needed for assets that are not directly referenced by another particle
 
-**Kind**: static method of <code>[TemplateHelpers](#TemplateHelpers)</code>  
+**Kind**: static method of [<code>TemplateHelpers</code>](#TemplateHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -170,14 +170,14 @@ Only needed for assets that are not directly referenced by another particle
 {{requireAssets "m:<NAME>" "all_from_module/**"}}
 ```
 
--
+* * *
 
 <a name="TemplateHelpers.scopeId"></a>
 
 ### scopeId()
 Used within sets to add the correct logicalIdPrefix and/or logicalIdSuffix to a logicalId
 
-**Kind**: static method of <code>[TemplateHelpers](#TemplateHelpers)</code>  
+**Kind**: static method of [<code>TemplateHelpers</code>](#TemplateHelpers)  
 **Returns**: <code>string</code> - - The logical with the correct prefix and suffix for the current scope  
 
 | Type | Description |
@@ -193,14 +193,14 @@ Used within sets to add the correct logicalIdPrefix and/or logicalIdSuffix to a 
 {{ref (scopeId "LogicalId")}}
 ```
 
--
+* * *
 
 <a name="TemplateHelpers.templateUrl"></a>
 
 ### templateUrl(path)
 Generate an S3 URL for another template in the project
 
-**Kind**: static method of <code>[TemplateHelpers](#TemplateHelpers)</code>  
+**Kind**: static method of [<code>TemplateHelpers</code>](#TemplateHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -220,5 +220,5 @@ Generate an S3 URL for another template in the project
 {{set "m:<NAME>" "another.template.json"}}
 ```
 
--
+* * *
 

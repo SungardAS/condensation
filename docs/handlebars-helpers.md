@@ -10,14 +10,14 @@ Generic helpers that work with any handlebars project
     * [.stringify([string])](#HandlebarsHelpers.stringify) ⇒ <code>String</code>
 
 
--
+* * *
 
 <a name="HandlebarsHelpers.concat"></a>
 
 ### concat(...string, options)
 Concatenates two or more strings
 
-**Kind**: static method of <code>[HandlebarsHelpers](#HandlebarsHelpers)</code>  
+**Kind**: static method of [<code>HandlebarsHelpers</code>](#HandlebarsHelpers)  
 **Returns**: <code>String</code> - - One concatenated string  
 
 | Param | Type | Description |
@@ -36,14 +36,14 @@ Concatenates two or more strings
 {{concat "string1" "string2" separator="-"}}
 ```
 
--
+* * *
 
 <a name="HandlebarsHelpers.stringify"></a>
 
 ### stringify([string])
 JSON.stringify a string or block
 
-**Kind**: static method of <code>[HandlebarsHelpers](#HandlebarsHelpers)</code>  
+**Kind**: static method of [<code>HandlebarsHelpers</code>](#HandlebarsHelpers)  
 **Returns**: <code>String</code> - - JSON.stringify result of block or string  
 
 | Param | Type | Description |
@@ -71,5 +71,5 @@ JSON.stringify a string or block
 {{/stringify}}
 ```
 
--
+* * *
 

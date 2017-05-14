@@ -3,6 +3,13 @@ All notable changes to this project will be documented here in
 accordance with [Keep a CHANGELOG][keep-changelog-url].
 This project adheres to [Semantic Versioning][semver-url].
 
+## [0.6.7] - [2017-05-14]
+### Added
+- fnGetParam - for CodePipeline projects
+- fnArtifactAtt - for CodePipeline projects
+- objectify - to compliment arrayify
+
+
 ## [0.6.6] - [2017-02-13]
 ### Fixed
 - fnJoin - if single parameter use that as the array

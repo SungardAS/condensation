@@ -39,7 +39,7 @@ can also be used, where <M> is the name of the module without `particles-`
     * [.set([module], path, [options])](#ParticleHelpers.set) ⇒ <code>string</code>
 
 
--
+* * *
 
 <a name="ParticleHelpers.condition"></a>
 
@@ -50,7 +50,7 @@ can also be used, where <M> is the name of the module without `particles-`
  |- particle_name
 ```
 
-**Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+**Kind**: static method of [<code>ParticleHelpers</code>](#ParticleHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -76,7 +76,7 @@ can also be used, where <M> is the name of the module without `particles-`
 {{condition "m:<NAME>" "particle_name"}}
 ```
 
--
+* * *
 
 <a name="ParticleHelpers.mapping"></a>
 
@@ -87,7 +87,7 @@ can also be used, where <M> is the name of the module without `particles-`
  |- particle_name
 ```
 
-**Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+**Kind**: static method of [<code>ParticleHelpers</code>](#ParticleHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -113,7 +113,7 @@ can also be used, where <M> is the name of the module without `particles-`
 {{mapping "m:<NAME>" "particle_name"}}
 ```
 
--
+* * *
 
 <a name="ParticleHelpers.metadata"></a>
 
@@ -124,7 +124,7 @@ can also be used, where <M> is the name of the module without `particles-`
  |- particle_name
 ```
 
-**Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+**Kind**: static method of [<code>ParticleHelpers</code>](#ParticleHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -150,7 +150,7 @@ can also be used, where <M> is the name of the module without `particles-`
 {{metadata "m:<NAME>" "particle_name"}}
 ```
 
--
+* * *
 
 <a name="ParticleHelpers.output"></a>
 
@@ -161,7 +161,7 @@ can also be used, where <M> is the name of the module without `particles-`
  |- particle_name
 ```
 
-**Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+**Kind**: static method of [<code>ParticleHelpers</code>](#ParticleHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -187,7 +187,7 @@ can also be used, where <M> is the name of the module without `particles-`
 {{output "m:<NAME>" "particle_name"}}
 ```
 
--
+* * *
 
 <a name="ParticleHelpers.parameter"></a>
 
@@ -198,7 +198,7 @@ can also be used, where <M> is the name of the module without `particles-`
  |- particle_name
 ```
 
-**Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+**Kind**: static method of [<code>ParticleHelpers</code>](#ParticleHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -224,7 +224,7 @@ can also be used, where <M> is the name of the module without `particles-`
 {{parameter "m:<NAME>" "particle_name"}}
 ```
 
--
+* * *
 
 <a name="ParticleHelpers.resource"></a>
 
@@ -235,7 +235,7 @@ can also be used, where <M> is the name of the module without `particles-`
  |- particle_name
 ```
 
-**Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+**Kind**: static method of [<code>ParticleHelpers</code>](#ParticleHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -261,7 +261,7 @@ can also be used, where <M> is the name of the module without `particles-`
 {{resource "m:<NAME>" "particle_name"}}
 ```
 
--
+* * *
 
 <a name="ParticleHelpers.helper"></a>
 
@@ -272,7 +272,7 @@ can also be used, where <M> is the name of the module without `particles-`
  |- particle_name
 ```
 
-**Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+**Kind**: static method of [<code>ParticleHelpers</code>](#ParticleHelpers)  
 **Returns**: <code>\*</code> - - The output from the particle helper  
 
 | Param | Type | Description |
@@ -299,7 +299,7 @@ can also be used, where <M> is the name of the module without `particles-`
 {{helper "m:<NAME>" "particle_name"}}
 ```
 
--
+* * *
 
 <a name="ParticleHelpers.partial"></a>
 
@@ -310,7 +310,7 @@ can also be used, where <M> is the name of the module without `particles-`
  |- particle_name
 ```
 
-**Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+**Kind**: static method of [<code>ParticleHelpers</code>](#ParticleHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -336,7 +336,7 @@ can also be used, where <M> is the name of the module without `particles-`
 {{partial "m:<NAME>" "particle_name"}}
 ```
 
--
+* * *
 
 <a name="ParticleHelpers.set"></a>
 
@@ -347,7 +347,7 @@ can also be used, where <M> is the name of the module without `particles-`
  |- particle_name
 ```
 
-**Kind**: static method of <code>[ParticleHelpers](#ParticleHelpers)</code>  
+**Kind**: static method of [<code>ParticleHelpers</code>](#ParticleHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -375,5 +375,5 @@ can also be used, where <M> is the name of the module without `particles-`
 {{set "m:<NAME>" "particle_name"}}
 ```
 
--
+* * *
 
