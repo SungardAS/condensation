@@ -3,6 +3,13 @@ All notable changes to this project will be documented here in
 accordance with [Keep a CHANGELOG][keep-changelog-url].
 This project adheres to [Semantic Versioning][semver-url].
 
+## [0.6.8] - [2017-05-14]
+### Fixed
+- objectify - enabled and added docs
+
+### Changed
+- dropped node 0.12 support
+
 ## [0.6.7] - [2017-05-14]
 ### Added
 - fnGetParam - for CodePipeline projects

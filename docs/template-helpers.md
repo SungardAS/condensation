@@ -10,6 +10,7 @@ Condensation specific helpers for common tasks
     * [.assetPath(path)](#TemplateHelpers.assetPath) ⇒ <code>String</code>
     * [.cValue(str, options)](#TemplateHelpers.cValue) ⇒ <code>string</code> \| <code>Number</code>
     * [.layout([options])](#TemplateHelpers.layout) ⇒ <code>string</code>
+    * [.objectify([...options])](#TemplateHelpers.objectify) ⇒ <code>String</code>
     * [.requireAssets(globPath)](#TemplateHelpers.requireAssets) ⇒ <code>string</code>
     * [.scopeId()](#TemplateHelpers.scopeId) ⇒ <code>string</code>
     * [.templateUrl(path)](#TemplateHelpers.templateUrl) ⇒ <code>string</code>
@@ -139,6 +140,25 @@ things:
     {{output 'repeate_me' logicalId="RepeateMeOutput" logicalIdSuffix=@index}}
   {{/each}}
 {{/layout}} 
+```
+
+* * *
+
+<a name="TemplateHelpers.objectify"></a>
+
+### objectify([...options])
+Return options as a stringified object
+
+**Kind**: static method of [<code>TemplateHelpers</code>](#TemplateHelpers)  
+**Returns**: <code>String</code> - - When parsed will be an object  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [...options] | <code>kv</code> | Key/Value pairs to pass to the particle helper |
+
+**Example**  
+```js
+{{objectify Param1="Value1" Param2=(ref "AWS::Region")}}
 ```
 
 * * *

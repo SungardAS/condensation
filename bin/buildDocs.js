@@ -45,6 +45,7 @@ jsdoc2md.render({
     'lib/condensation/template-helpers/assetPath.js',
     'lib/condensation/template-helpers/cValue.js',
     'lib/condensation/template-helpers/layout.js',
+    'lib/condensation/template-helpers/objectify.js',
     'lib/condensation/template-helpers/requireAssets.js',
     'lib/condensation/template-helpers/scopeId.js',
     'lib/condensation/template-helpers/templateS3Url.js'
