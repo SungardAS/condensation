@@ -3,6 +3,10 @@ All notable changes to this project will be documented here in
 accordance with [Keep a CHANGELOG][keep-changelog-url].
 This project adheres to [Semantic Versioning][semver-url].
 
+## [0.6.8] - [2017-05-18]
+### Fixed
+- enable fnGetArtifactAtt and fnGetParam
+
 ## [0.6.8] - [2017-05-14]
 ### Fixed
 - objectify - enabled and added docs
