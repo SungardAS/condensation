@@ -30,12 +30,13 @@ describe('projectC', function(){
   }
 
   before(function(done) {
-    var pB = exec("npm install",{cwd: config.projectConfig.root},done);
+    console.log(config.projectConfig.root);
+    exec("npm install",{cwd: config.projectConfig.root},done);
   });
 
-  after(function(done) {
-    exec("rm -rf node_modules/*",{cwd: config.projectConfig.root},done);
-  });
+  //after(function(done) {
+    //exec("rm -rf node_modules/*",{cwd: config.projectConfig.root},done);
+  //});
 
   shared.shouldBehaveLikeAProject(config);
 
