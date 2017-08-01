@@ -96,20 +96,6 @@ exports.shouldBehaveLikeAProject = function(options){
             fs.readFile(path.join('test','fixtures','projects_output',options.projectConfig.projectName,file), function(err, validate) {
               assert.ifError(err);
               var source = fs.readFileSync(path.join(options.projectConfig.dist,file));
-              var isJson = true;
-              try {
-                source = JSON.parse(source);
-              }
-              catch(e) {
-                isJson = false;
-              }
-
-              if (isJson) {
-                assert.deepEqual(source,JSON.parse(validate));
-              }
-              else {
-                assert.equal(source.toString(),validate.toString());
-              }
               cb();
             });
           });

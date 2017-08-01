@@ -1,0 +1,10 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: A sample template
+
+Parameters:
+  BucketName:
+    {{parameter "bucket_name"}}
+Resources:
+  S3Bucket:
+    Type: "AWS::S3::Bucket"

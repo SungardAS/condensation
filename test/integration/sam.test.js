@@ -1,11 +1,6 @@
 var _ = require('lodash');
 var assert = require('assert');
-var async = require('async');
-var clone = require('clone');
-var exec = require('child_process').exec;
-var fs = require('fs');
 var path = require('path');
-var semver = require('semver');
 var shared = require('./project-shared');
 
 describe('sam', function(){

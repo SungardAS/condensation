@@ -1,0 +1,9 @@
+{{#layout TemplateDescription="Description: A sample template"}}
+
+  {{#parameter logicalId="BucketName"}}
+    Type: "String"
+  {{/parameter}}
+
+  {{resource "bucket" logicalId="Bucket"}}
+
+{{/layout}}
