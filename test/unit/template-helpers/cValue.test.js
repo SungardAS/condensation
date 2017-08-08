@@ -6,7 +6,7 @@ describe("helpers", function() {
 
     it("should return a string that is json withough quotes", function() {
       var result = cValue('{"Ref": "LogicalId"}');
-      assert.deepEqual(result,'{"Ref": "LogicalId"}');
+      assert.deepEqual(result,'{"Ref":"LogicalId"}');
     });
 
     it("should return a string that is not json with quotes", function() {

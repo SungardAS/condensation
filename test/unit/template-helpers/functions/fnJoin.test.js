@@ -13,10 +13,10 @@ describe("helpers", function() {
     });
 
     it("accepts one value as the full array that is a ref", function() {
-      var result = fnJoin(",", {"Ref": "SomeParam"}, {});
+      var result = fnJoin(",", {"Ref":"SomeParam"}, {});
       assert.deepEqual(
         JSON.parse(result),
-        {"Fn::Join": [",", {"Ref": "SomeParam"}]}
+        {"Fn::Join": [",", {"Ref":"SomeParam"}]}
       )
     });
 
@@ -37,10 +37,10 @@ describe("helpers", function() {
     });
 
     it("accepts a value that is a ref", function() {
-      var result = fnJoin(",", "Value1", {"Ref": "Value2"}, "Value3", {});
+      var result = fnJoin(",", "Value1", {"Ref":"Value2"}, "Value3", {});
       assert.deepEqual(
         JSON.parse(result),
-        {"Fn::Join": [",", ["Value1", {"Ref": "Value2"}, "Value3"]]}
+        {"Fn::Join": [",", ["Value1", {"Ref":"Value2"}, "Value3"]]}
       )
     });
 

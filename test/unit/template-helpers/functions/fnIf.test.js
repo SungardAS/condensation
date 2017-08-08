@@ -13,18 +13,18 @@ describe("helpers", function() {
     });
 
     it("accepts a ref for the trueValue", function() {
-      var result = fnIf("ConditionName", {"Ref": "TrueValue"}, "FalseValue");
+      var result = fnIf("ConditionName", {"Ref":"TrueValue"}, "FalseValue");
       assert.deepEqual(
         JSON.parse(result),
-        {"Fn::If": ["ConditionName", {"Ref": "TrueValue"}, "FalseValue"]}
+        {"Fn::If": ["ConditionName", {"Ref":"TrueValue"}, "FalseValue"]}
       )
     });
 
     it("accepts a ref for the falseValue", function() {
-      var result = fnIf("ConditionName", {"Ref": "TrueValue"}, {"Ref": "AWS::NoValue"});
+      var result = fnIf("ConditionName", {"Ref":"TrueValue"}, {"Ref":"AWS::NoValue"});
       assert.deepEqual(
         JSON.parse(result),
-        {"Fn::If": ["ConditionName", {"Ref": "TrueValue"}, {"Ref": "AWS::NoValue"}]}
+        {"Fn::If": ["ConditionName", {"Ref":"TrueValue"}, {"Ref":"AWS::NoValue"}]}
       )
     });
 

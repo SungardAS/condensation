@@ -13,10 +13,10 @@ describe("helpers", function() {
     });
 
     it("should accept a ref", function() {
-      var result = fnEquals("a string",'{"Ref": "SomethingElse"}',{});
+      var result = fnEquals("a string",'{"Ref":"SomethingElse"}',{});
       assert.deepEqual(
         JSON.parse(result),
-        {"Fn::Equals": ["a string", {"Ref": "SomethingElse"}]}
+        {"Fn::Equals": ["a string", {"Ref":"SomethingElse"}]}
       )
     });
 

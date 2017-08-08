@@ -8,8 +8,8 @@ describe('arrayify', function() {
   });
 
   it('should recgonize objects', function() {
-    var string = arrayify('one','two','{"Ref": "Parameter1"}', {});
-    assert.equal(string,'["one","two",{"Ref": "Parameter1"}]');
+    var string = arrayify('one','two','{"Ref":"Parameter1"}', {});
+    assert.equal(string,'["one","two",{"Ref":"Parameter1"}]');
   });
 
   it('should return with a single string', function() {

@@ -30,7 +30,6 @@ describe('projectC', function(){
   }
 
   before(function(done) {
-    console.log(config.projectConfig.root);
     exec("npm install",{cwd: config.projectConfig.root},done);
   });
 
